@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-  <meta charset="utf-8">
-  
-  <title>图片缓存框架Fresco使用详解(二) | ARESXIONG</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言这篇文章主要讲述Fresco在AS中的详细使用流程。 引入Fresco类库发布到了Maven中央库，Android Studio 或者 Gradle：123dependencies &amp;#123;    compile &apos;com.facebook.fresco:fresco:0.8.1&apos;  //最近的版本&amp;#125; 关于在Android Studio中编译Fresco 是一个典型的Androi">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="ARESXIONG" />
+
+
+
+<meta name="description" content="前言这篇文章主要讲述Fresco在AS中的详细使用流程。 引入Fresco类库发布到了Maven中央库，Android Studio 或者 Gradle：123dependencies &amp;#123;    compile &apos;com.facebook.fresco:fresco:0.8.1&apos;  //最近的版本&amp;#125; 关于在Android Studio中编译Fresco 是一个典型的Androi">
 <meta name="keywords" content="imageloader">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图片缓存框架Fresco使用详解(二)">
@@ -16,66 +26,250 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图片缓存框架Fresco使用详解(二)">
 <meta name="twitter:description" content="前言这篇文章主要讲述Fresco在AS中的详细使用流程。 引入Fresco类库发布到了Maven中央库，Android Studio 或者 Gradle：123dependencies &amp;#123;    compile &apos;com.facebook.fresco:fresco:0.8.1&apos;  //最近的版本&amp;#125; 关于在Android Studio中编译Fresco 是一个典型的Androi">
-  
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
     <link rel="alternate" href="/atom.xml" title="ARESXIONG" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>图片缓存框架Fresco使用详解(二) | ARESXIONG</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
 
 </head>
-
 <body>
   <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">ARESXIONG</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-android_fresco2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/17/android_fresco2/" class="article-date">
-  <time datetime="2015-11-17T09:42:29.000Z" itemprop="datePublished">2015-11-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/android/">android</a>
-  </div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">ARESXIONG</a></h1>
+        </hgroup>
 
-  </div>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">ARESXIONG</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">ARESXIONG</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-android_fresco2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/17/android_fresco2/" class="article-date">
+      <time datetime="2015-11-17T09:42:29.000Z" itemprop="datePublished">2015-11-17</time>
+</a>
+
+
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
       <header class="article-header">
@@ -87,9 +281,26 @@
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/imageloader/">imageloader</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
+          
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇文章主要讲述Fresco在AS中的详细使用流程。</p>
 <h2 id="引入Fresco"><a href="#引入Fresco" class="headerlink" title="引入Fresco"></a>引入Fresco</h2><p>类库发布到了Maven中央库，Android Studio 或者 Gradle：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile <span class="string">'com.facebook.fresco:fresco:0.8.1'</span>  //最近的版本</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="关于在Android-Studio中编译"><a href="#关于在Android-Studio中编译" class="headerlink" title="关于在Android Studio中编译"></a>关于在Android Studio中编译</h2><p>Fresco 是一个典型的Android Studio 项目。如果想编译源码, 看demo项目，可以通过gradle或者Android Studio。一直以来，在国内更新Android SDK以及使用Android Studio导入项目时，都是一件麻烦的事情。使用gradle 或者 Android Studio会遇到一些网络障碍。这些障碍，需要FQ才能顺利完成编译。<br>另外对于NDK，因为Android Studio还支持不够。所以需要在命令行下预编译。<br>具体可以参考：</p>
@@ -143,143 +354,214 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/17/android_fresco2/" data-id="cj4zxufbg001t4snhgulpuvky" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/imageloader/">imageloader</a></li></ul>
-
-    </footer>
+    
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2015/11/18/vc_svn_guidance/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2015/11/17/android_fresco2/">图片缓存框架Fresco使用详解(二)</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">ARESXIONG</a></p>
+        <p><span>Created:</span>2015-11-17, 17:42:29</p>
+        <p><span>Updated:</span>2017-07-12, 01:45:09</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2015/11/17/android_fresco2/" title="图片缓存框架Fresco使用详解(二)">http://yoursite.com/2015/11/17/android_fresco2/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2015/11/17/android_fresco2/　　By ARESXIONG" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
         
-          svn常用命令行及常见问题
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2015/11/18/vc_svn_guidance/">
+                    svn常用命令行及常见问题
+                </a>
+            </div>
         
-      </div>
-    </a>
-  
-  
-    <a href="/2015/11/13/android_studio_study/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Android Studio学习笔记1</div>
-    </a>
-  
-</nav>
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2015/11/13/android_studio_study/">
+                    Android Studio学习笔记1
+                </a>
+            </div>
+        
+    </nav>
 
   
 </article>
 
-</section>
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引入Fresco"><span class="toc-number">2.</span> <span class="toc-text">引入Fresco</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于在Android-Studio中编译"><span class="toc-number">3.</span> <span class="toc-text">关于在Android Studio中编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始使用-Fresco"><span class="toc-number">4.</span> <span class="toc-text">开始使用 Fresco</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关键概念"><span class="toc-number">5.</span> <span class="toc-text">关键概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持的URIs"><span class="toc-number">6.</span> <span class="toc-text">支持的URIs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+        
     </div>
-  </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
 
 
-  
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
-    </div>
-  </div>
-
-
-  
+<div class="share">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
-    </div>
-  </div>
-
-  
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"图片缓存框架Fresco使用详解(二)　| ARESXIONG　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
-    </div>
-  </div>
 
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
-          </li>
-        
-          <li>
-            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
-          </li>
-        
-          <li>
-            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+</div>
 
-  
-</aside>
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-      </div>
+            <a href="/2015/11/18/vc_svn_guidance/" title="Pre: svn常用命令行及常见问题">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2015/11/13/android_studio_study/" title="Next: Android Studio学习笔记1">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/11/study_my_website_collection/">常用网站收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/17/android_frame_animation/">Android逐帧动画FrameAnimation</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/08/android_volley/">Volley详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/android_ndk_development1/">Android之NDK开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/02/article_my_faith/">爱因斯坦：我的信仰</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/25/android_string_replace/">Android占位符</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/23/note_work_xp02/">工作笔记整理02</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/23/note_work_xp01/">工作笔记整理01</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/algorithm_sort_heapsort/">排序算法之堆排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/algorithm_sort_heap/">排序算法之堆排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/27/reading_book_list1/">201601书单整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/android_project_build/">从零开始搭建架构实施Android项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/android_webview/">android之WebView使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/23/android_bug_fix_solution2/">Custom Class Loading in Dalvik</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/22/android_intent/">关于Intent的七大属性</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/21/android_material_design_snack/">Snackbar使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/16/android_event_bus_otto/">Android事件总线之Otto</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/15/reading_note_myMarketingTips_shiyuzhu/">读书笔记：我的营销心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/15/android_application_security/">开发安全的android应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/14/android_activity_start_way/">Activity中的四种启动模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/14/android_book_SmashingAndroidUI/">Smashing Android UI</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/14/android_context/">Android Context解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/14/android_code_collection/">ANDROID开发必备的常用代码片段整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/11/android_opensource_in_github2/">P2:Open Source Projects In GitHub</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/10/android_opensource_in_github/">P1:Open Source Projects In GitHub</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/10/android_screen_record/">Android手机如何录制屏幕及转GIF</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/10/android_app_obfuscation/">android应用代码混淆</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/10/android_app_decomplilcation/">android应用反编译</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/10/tools_iphone_download_app/">iPhone切换AppStore</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/09/android_textview_attributes/">TextView属性详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/08/android_design_model_observer/">Android设计模式之Observer</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/07/study_full_stack_developer/">假如你想成为全栈工程师…</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/07/android_bug_fix_solution/">安卓应用的热补丁动态修复技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/05/tools_hexo_article_contents/">为Hexo博客文章添加目录</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/05/tools_ubuntu_svn_server/">Ubuntu Server端部署SVN</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/03/android_activity_stack/">Intent Flag之FLAG_ACTIVITY_CLEAR_TOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/03/article_we_have_no_choice_but_to_work_hard/">除了努力，我们别无选择</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/02/android_design_model_mvp/">Android设计模式之MVP</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/01/android_application/">Application使用详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/30/android_viewpager_pageradapter/">PagerAdapter的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/30/protocol_ssl_socket/">用SSL构建安全的Socket</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/30/protocol_http_and_https/">HTTP协议和HTTPS协议详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/android_animation_translate/">Android动画之translate(位移动画)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/23/tools_tomcat_conect_to_mysql/">Tomcat8配置MySQL数据库连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/23/tools_tomcat_install/">Tomcat安装详细教程[windows+linux]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/23/database_mysql_cmd/">MySQL常用命令汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/19/android_animation_svg2/">Android之SVG图像详解(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/19/android_animation_svg/">Android之SVG图像详解(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/19/study_speech_dabing/">大兵在一席的演讲</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/18/android_sqlite/">Android之SQLite详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/18/vc_svn_guidance/">svn常用命令行及常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/17/android_fresco2/">图片缓存框架Fresco使用详解(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/13/android_studio_study/">Android Studio学习笔记1</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/12/android_studio_gradle_guide/">AndroidStudio之Gradle Guide官方文档翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/11/android_studio_problems_solution/">AndroidStudio常见问题解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/11/android_studio_gradle/">AndroidStudio之Gradle详解(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/11/tools_google_website_collect/">Google 镜像站搜集</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/10/tools_hexo_architecture/">Hexo博客的云端备份与迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/10/android_spannable/">Android中的spannable的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/10/android_eventbus/">Android事件总线之EventBus</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_fresco1/">图片缓存框架Fresco使用详解(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_imgloader2/">Universal-Image-Loader使用详解(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_imgloader1/">Universal-Image-Loader使用详解(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_pulltorefresh_listview3/">PullToRefresh使用详解（三）—— 自定义下拉刷新动画</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_pay_alipay/">Android移动支付之支付宝支付</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_pay_weixinpay/">Android移动支付之微信支付</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_image_process/">Android通过相册和拍照获取图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/android_pulltorefresh_listview2/">PullToRefresh使用详解（二）—— ListView的下拉刷新与上拉加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/music_saxophone_playlist/">我喜欢的萨克斯歌曲</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/android_broadcast/">android Broadcast学习 (一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/android_viewpager1/">ViewPager的基本使用一</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/tools_hexo_build_guidance/">Hexo博客搭建图文教程[Windows]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/android_as_shortkey/">倍数提高工作效率的Android Studio奇技</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/article_humanism_chinese_wemen/">曾金燕：中国女性终其一生承受的暴力</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/05/tools_sublime_text3_shortkey/">sublime实用功能和常用快捷键[Windows]</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/05/music_folk_playlist/">我喜欢的民谣歌曲</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/05/android_handler2/">Android Handler机制 (二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/05/android_handler/">android中handler用法总结 (一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/05/movie_shanheguren/">贾樟柯说，我的电影无暇顾及中国牛不牛逼</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/04/database_ORMLite_and_GreenDao/">SQLite数据库框架ORMLite与GreenDao的简单比较</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/04/tools_java_code_templates/">java编程代码样式的xml模板</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/04/android_pulltorefresh_listview/">PullToRefresh使用详解（一）--构建下拉刷新的listView</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
       <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 ARESXIONG<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 ARESXIONG
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
     </div>
-  </div>
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js"></script>
 
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
   </div>
 </body>
 </html>
