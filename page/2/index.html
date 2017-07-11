@@ -136,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/23/note_work_xp02/" data-id="cj4zxafby005b60nh4sb3mr93" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/23/note_work_xp02/" data-id="cj4zxoppq005fq4nhvel0sise" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xpnet/">xpnet</a></li></ul>
@@ -230,67 +230,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/23/note_work_xp01/" data-id="cj4zxafby005f60nhrrcrjo1g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/23/note_work_xp01/" data-id="cj4zxoppq005bq4nh54245hp5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xpnet/">xpnet</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-algorithm_sort_heap" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/02/19/algorithm_sort_heap/" class="article-date">
-  <time datetime="2016-02-19T06:34:29.000Z" itemprop="datePublished">2016-02-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/19/algorithm_sort_heap/">排序算法之堆排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>堆排序(Heapsort)是指利用堆积树（堆）这种数据结构所设计的一种排序算法，它是选择排序的一种。可以利用数组的特点快速定位指定索引的元素。堆分为大根堆和小根堆，是完全二叉树。大根堆的要求是每个节点的值都不大于其父节点的值，即A[PARENT[i]] &gt;= A[i]。在数组的非降序排序中，需要使用的就是大根堆，因为根据大根堆的要求可知，最大的值一定在堆顶。</p>
-<p>1991年的计算机先驱奖获得者、斯坦福大学计算机科学系教授罗伯特·弗洛伊德(Robert W．Floyd）和威廉姆斯(J．Williams）在1964年共同发明了著名的堆排序算法（ Heap Sort )。</p>
-<h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><p>二叉堆是完全二叉树或者是近似完全二叉树。<br>二叉堆满足二个特性：<br>1．父结点的键值总是大于或等于（小于或等于）任何一个子节点的键值。<br>2．每个结点的左子树和右子树都是一个二叉堆（都是最大堆或最小堆）。<br>当父结点的键值总是大于或等于任何一个子节点的键值时为最大堆。当父结点的键值总是小于或等于任何一个子节点的键值时为最小堆。下图展示一个最小堆：<br><img src="http://hi.csdn.net/attachment/201108/22/0_1314014666d5oe.gif" alt=""></p>
-<p>大根堆和小根堆：<br>根结点（亦称为堆顶）的关键字是堆里所有结点关键字中最小者的堆称为小根堆，又称最小堆。<br>根结点（亦称为堆顶）的关键字是堆里所有结点关键字中最大者，称为大根堆，又称最大堆。<br><img src="http://hi.csdn.net/attachment/201109/22/0_1316660169VUBb.gif" alt=""><br>注意：<br>①堆中任一子树亦是堆。②以上讨论的堆实际上是二叉堆（Binary Heap），类似地可定义k叉堆。</p>
-<p>高度<br>堆可以被看成是一棵树，结点在堆中的高度可以被定义为从本结点到叶子结点的最长简单下降路径上边的数目；定义堆的高度为树根的高度。我们将看到，堆结构上的一些基本操作的运行时间至多是与树的高度成正比，为O（lgn）。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>堆排序利用了大根堆（或小根堆）堆顶记录的关键字最大（或最小）这一特征，使得在当前无序区中选取最大（或最小）关键字的记录变得简单。<br>（1）用大根堆排序的基本思想<br>① 先将初始文件R[1..n]建成一个大根堆，此堆为初始的无序区<br>② 再将关键字最大的记录R[1]（即堆顶）和无序区的最后一个记录R[n]交换，由此得到新的无序区R[1..n-1]和有序区R[n]，且满足R[1..n-1].keys≤R[n].key<br>③由于交换后新的根R[1]可能违反堆性质，故应将当前无序区R[1..n-1]调整为堆。然后再次将R[1..n-1]中关键字最大的记录R[1]和该区间的最后一个记录R[n-1]交换，由此得到新的无序区R[1..n-2]和有序区R[n-1..n]，且仍满足关系R[1..n-2].keys≤R[n-1..n].keys，同样要将R[1..n-2]调整为堆。<br>……<br>直到无序区只有一个元素为止。<br>（2）大根堆排序算法的基本操作：<br>①建堆，建堆是不断调整堆的过程，从len/2处开始调整，一直到第一个节点，此处len是堆中元素的个数。建堆的过程是线性的过程，从len/2到0处一直调用调整堆的过程，相当于o(h1)+o(h2)…+o(hlen/2) 其中h表示节点的深度，len/2表示节点的个数，这是一个求和的过程，结果是线性的O(n)。<br>②调整堆：调整堆在构建堆的过程中会用到，而且在堆排序过程中也会用到。利用的思想是比较节点i和它的孩子节点left(i),right(i)，选出三者最大(或者最小)者，如果最大（小）值不是节点i而是它的一个孩子节点，那边交互节点i和该节点，然后再调用调整堆过程，这是一个递归的过程。调整堆的过程时间复杂度与堆的深度有关系，是lgn的操作，因为是沿着深度方向进行调整的。<br>③堆排序：堆排序是利用上面的两个过程来进行的。首先是根据元素构建堆。然后将堆的根节点取出(一般是与最后一个节点进行交换)，将前面len-1个节点继续进行堆调整的过程，然后再将根节点取出，这样一直到所有节点都取出。堆排序过程的时间复杂度是O(nlgn)。因为建堆的时间复杂度是O(n)（调用一次）；调整堆的时间复杂度是lgn，调用了n-1次，所以堆排序的时间复杂度是O(nlgn)[2]<br>注意<br>①只需做n-1趟排序，选出较大的n-1个关键字即可以使得文件递增有序。<br>②用小根堆排序与利用大根堆类似，只不过其排序结果是递减有序的。堆排序和直接选择排序相反：在任何时刻堆排序中无序区总是在有序区之前，且有序区是在原向量的尾部由后往前逐步扩大至整个向量为止<br>特点<br>堆排序（HeapSort）是一树形选择排序。堆排序的特点是：在排序过程中，将R[l..n]看成是一棵完全二叉树的顺序存储结构，利用完全二叉树中双亲结点和孩子结点之间的内在关系（参见二叉树的顺序存储结构），在当前无序区中选择关键字最大（或最小）的记录。</p>
-<h2 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h2><p>堆排序的时间，主要由建立初始堆和反复重建堆这两部分的时间开销构成，它们均是通过调用Heapify实现的。<br>平均性能<br>O(N*logN)。</p>
-<p><strong> 其他性能</strong><br>由于建初始堆所需的比较次数较多，所以堆排序不适宜于记录数较少的文件。<br>堆排序是就地排序，辅助空间为O(1）.<br>它是不稳定的排序方法。（排序的稳定性是指如果在排序的序列中，存在前后相同的两个元素的话，排序前 和排序后他们的相对位置不发生变化）</p>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line">public class HeapSort&#123;</div><div class="line">    private static int[] sort=new int[]&#123;1,0,10,20,3,5,6,4,9,8,12,</div><div class="line">            17,34,11&#125;;</div><div class="line"></div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        buildMaxHeapify(sort);</div><div class="line">        heapSort(sort);</div><div class="line">        print(sort);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static void buildMaxHeapify(int[] data)&#123;</div><div class="line">//没有子节点的才需要创建最大堆，从最后一个的父节点开始</div><div class="line">        int startIndex=getParentIndex(data.length-1);</div><div class="line">//从尾端开始创建最大堆，每次都是正确的堆</div><div class="line">        for(int i=startIndex;i&gt;=0;i--)&#123;</div><div class="line">            maxHeapify(data,data.length,i);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *创建最大堆</div><div class="line">     *</div><div class="line">     *@paramdata</div><div class="line">     *@paramheapSize需要创建最大堆的大小，一般在sort的时候用到，因为最多值放在末尾，末尾就不再归入最大堆了</div><div class="line">     *@paramindex当前需要创建最大堆的位置</div><div class="line">     */</div><div class="line">    private static void maxHeapify(int[] data,int heapSize,int index)&#123;</div><div class="line">//当前点与左右子节点比较</div><div class="line">        int left=getChildLeftIndex(index);</div><div class="line">        int right=getChildRightIndex(index);</div><div class="line"></div><div class="line">        int largest=index;</div><div class="line">        if(left&lt;heapSize&amp;&amp;data[index]&lt;data[left])&#123;</div><div class="line">            largest=left;</div><div class="line">        &#125;</div><div class="line">        if(right&lt;heapSize&amp;&amp;data[largest]&lt;data[right])&#123;</div><div class="line">            largest=right;</div><div class="line">        &#125;</div><div class="line">//得到最大值后可能需要交换，如果交换了，其子节点可能就不是最大堆了，需要重新调整</div><div class="line">        if(largest!=index)&#123;</div><div class="line">            int temp=data[index];</div><div class="line">            data[index]=data[largest];</div><div class="line">            data[largest]=temp;</div><div class="line">            maxHeapify(data,heapSize,largest);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *排序，最大值放在末尾，data虽然是最大堆，在排序后就成了递增的</div><div class="line">     *</div><div class="line">     *@paramdata</div><div class="line">     */</div><div class="line">    private static void heapSort(int[] data)&#123;</div><div class="line">//末尾与头交换，交换后调整最大堆</div><div class="line">        for(int i=data.length-1;i&gt;0;i--)&#123;</div><div class="line">            int temp=data[0];</div><div class="line">            data[0]=data[i];</div><div class="line">            data[i]=temp;</div><div class="line">            maxHeapify(data,i,0);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *父节点位置</div><div class="line">     *</div><div class="line">     *@paramcurrent</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static int getParentIndex(int current)&#123;</div><div class="line">        return(current-1)&gt;&gt;1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *左子节点position注意括号，加法优先级更高</div><div class="line">     *</div><div class="line">     *@paramcurrent</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static int getChildLeftIndex(int current)&#123;</div><div class="line">        return(current&lt;&lt;1)+1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *右子节点position</div><div class="line">     *</div><div class="line">     *@paramcurrent</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static int getChildRightIndex(int current)&#123;</div><div class="line">        return(current&lt;&lt;1)+2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static void print(int[] data)&#123;</div><div class="line">        int pre=-2;</div><div class="line">        for(int i=0;i&lt;data.length;i++)&#123;</div><div class="line">            if(pre&lt;(int)getLog(i+1))&#123;</div><div class="line">                pre=(int)getLog(i+1);</div><div class="line">                System.out.println();</div><div class="line">            &#125;</div><div class="line">            System.out.print(data[i]+&quot;|&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *以2为底的对数</div><div class="line">     *</div><div class="line">     *@paramparam</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static double getLog(double param)&#123;</div><div class="line">        return Math.log(param)/Math.log(2);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>演示：<br><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Sorting_heapsort_anim.gif" alt=""><br>首先，将元素进行重排，以符合堆的条件。图中排序过程之前简单的绘出了堆树的结构。</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="http://baike.baidu.com/link?url=TAmDWj4EUeqkrvql8wCotntQNZ7UPlqsQx7X8mcz9F_LftIVHuZdQbNgLh5ajmZUwJRex1iSB1I-aggvYgKjrK" target="_blank" rel="external">百度百科:堆排序</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E5%A0%86%E6%8E%92%E5%BA%8F" target="_blank" rel="external">维基百科:堆排序</a></li>
-<li><a href="http://blog.csdn.net/morewindows/article/details/6709644" target="_blank" rel="external">白话经典算法系列之七:堆与堆排序</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/19/algorithm_sort_heap/" data-id="cj4zxaf6u000160nhssgmlhi6" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li></ul>
 
     </footer>
   </div>
@@ -344,7 +287,64 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/19/algorithm_sort_heapsort/" data-id="cj4zxaf6u000060nhqhyzkn9k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/19/algorithm_sort_heapsort/" data-id="cj4zxopkl0001q4nhb3snsk60" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-algorithm_sort_heap" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/19/algorithm_sort_heap/" class="article-date">
+  <time datetime="2016-02-19T06:34:29.000Z" itemprop="datePublished">2016-02-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/19/algorithm_sort_heap/">排序算法之堆排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>堆排序(Heapsort)是指利用堆积树（堆）这种数据结构所设计的一种排序算法，它是选择排序的一种。可以利用数组的特点快速定位指定索引的元素。堆分为大根堆和小根堆，是完全二叉树。大根堆的要求是每个节点的值都不大于其父节点的值，即A[PARENT[i]] &gt;= A[i]。在数组的非降序排序中，需要使用的就是大根堆，因为根据大根堆的要求可知，最大的值一定在堆顶。</p>
+<p>1991年的计算机先驱奖获得者、斯坦福大学计算机科学系教授罗伯特·弗洛伊德(Robert W．Floyd）和威廉姆斯(J．Williams）在1964年共同发明了著名的堆排序算法（ Heap Sort )。</p>
+<h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><p>二叉堆是完全二叉树或者是近似完全二叉树。<br>二叉堆满足二个特性：<br>1．父结点的键值总是大于或等于（小于或等于）任何一个子节点的键值。<br>2．每个结点的左子树和右子树都是一个二叉堆（都是最大堆或最小堆）。<br>当父结点的键值总是大于或等于任何一个子节点的键值时为最大堆。当父结点的键值总是小于或等于任何一个子节点的键值时为最小堆。下图展示一个最小堆：<br><img src="http://hi.csdn.net/attachment/201108/22/0_1314014666d5oe.gif" alt=""></p>
+<p>大根堆和小根堆：<br>根结点（亦称为堆顶）的关键字是堆里所有结点关键字中最小者的堆称为小根堆，又称最小堆。<br>根结点（亦称为堆顶）的关键字是堆里所有结点关键字中最大者，称为大根堆，又称最大堆。<br><img src="http://hi.csdn.net/attachment/201109/22/0_1316660169VUBb.gif" alt=""><br>注意：<br>①堆中任一子树亦是堆。②以上讨论的堆实际上是二叉堆（Binary Heap），类似地可定义k叉堆。</p>
+<p>高度<br>堆可以被看成是一棵树，结点在堆中的高度可以被定义为从本结点到叶子结点的最长简单下降路径上边的数目；定义堆的高度为树根的高度。我们将看到，堆结构上的一些基本操作的运行时间至多是与树的高度成正比，为O（lgn）。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>堆排序利用了大根堆（或小根堆）堆顶记录的关键字最大（或最小）这一特征，使得在当前无序区中选取最大（或最小）关键字的记录变得简单。<br>（1）用大根堆排序的基本思想<br>① 先将初始文件R[1..n]建成一个大根堆，此堆为初始的无序区<br>② 再将关键字最大的记录R[1]（即堆顶）和无序区的最后一个记录R[n]交换，由此得到新的无序区R[1..n-1]和有序区R[n]，且满足R[1..n-1].keys≤R[n].key<br>③由于交换后新的根R[1]可能违反堆性质，故应将当前无序区R[1..n-1]调整为堆。然后再次将R[1..n-1]中关键字最大的记录R[1]和该区间的最后一个记录R[n-1]交换，由此得到新的无序区R[1..n-2]和有序区R[n-1..n]，且仍满足关系R[1..n-2].keys≤R[n-1..n].keys，同样要将R[1..n-2]调整为堆。<br>……<br>直到无序区只有一个元素为止。<br>（2）大根堆排序算法的基本操作：<br>①建堆，建堆是不断调整堆的过程，从len/2处开始调整，一直到第一个节点，此处len是堆中元素的个数。建堆的过程是线性的过程，从len/2到0处一直调用调整堆的过程，相当于o(h1)+o(h2)…+o(hlen/2) 其中h表示节点的深度，len/2表示节点的个数，这是一个求和的过程，结果是线性的O(n)。<br>②调整堆：调整堆在构建堆的过程中会用到，而且在堆排序过程中也会用到。利用的思想是比较节点i和它的孩子节点left(i),right(i)，选出三者最大(或者最小)者，如果最大（小）值不是节点i而是它的一个孩子节点，那边交互节点i和该节点，然后再调用调整堆过程，这是一个递归的过程。调整堆的过程时间复杂度与堆的深度有关系，是lgn的操作，因为是沿着深度方向进行调整的。<br>③堆排序：堆排序是利用上面的两个过程来进行的。首先是根据元素构建堆。然后将堆的根节点取出(一般是与最后一个节点进行交换)，将前面len-1个节点继续进行堆调整的过程，然后再将根节点取出，这样一直到所有节点都取出。堆排序过程的时间复杂度是O(nlgn)。因为建堆的时间复杂度是O(n)（调用一次）；调整堆的时间复杂度是lgn，调用了n-1次，所以堆排序的时间复杂度是O(nlgn)[2]<br>注意<br>①只需做n-1趟排序，选出较大的n-1个关键字即可以使得文件递增有序。<br>②用小根堆排序与利用大根堆类似，只不过其排序结果是递减有序的。堆排序和直接选择排序相反：在任何时刻堆排序中无序区总是在有序区之前，且有序区是在原向量的尾部由后往前逐步扩大至整个向量为止<br>特点<br>堆排序（HeapSort）是一树形选择排序。堆排序的特点是：在排序过程中，将R[l..n]看成是一棵完全二叉树的顺序存储结构，利用完全二叉树中双亲结点和孩子结点之间的内在关系（参见二叉树的顺序存储结构），在当前无序区中选择关键字最大（或最小）的记录。</p>
+<h2 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h2><p>堆排序的时间，主要由建立初始堆和反复重建堆这两部分的时间开销构成，它们均是通过调用Heapify实现的。<br>平均性能<br>O(N*logN)。</p>
+<p><strong> 其他性能</strong><br>由于建初始堆所需的比较次数较多，所以堆排序不适宜于记录数较少的文件。<br>堆排序是就地排序，辅助空间为O(1）.<br>它是不稳定的排序方法。（排序的稳定性是指如果在排序的序列中，存在前后相同的两个元素的话，排序前 和排序后他们的相对位置不发生变化）</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line">public class HeapSort&#123;</div><div class="line">    private static int[] sort=new int[]&#123;1,0,10,20,3,5,6,4,9,8,12,</div><div class="line">            17,34,11&#125;;</div><div class="line"></div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        buildMaxHeapify(sort);</div><div class="line">        heapSort(sort);</div><div class="line">        print(sort);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static void buildMaxHeapify(int[] data)&#123;</div><div class="line">//没有子节点的才需要创建最大堆，从最后一个的父节点开始</div><div class="line">        int startIndex=getParentIndex(data.length-1);</div><div class="line">//从尾端开始创建最大堆，每次都是正确的堆</div><div class="line">        for(int i=startIndex;i&gt;=0;i--)&#123;</div><div class="line">            maxHeapify(data,data.length,i);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *创建最大堆</div><div class="line">     *</div><div class="line">     *@paramdata</div><div class="line">     *@paramheapSize需要创建最大堆的大小，一般在sort的时候用到，因为最多值放在末尾，末尾就不再归入最大堆了</div><div class="line">     *@paramindex当前需要创建最大堆的位置</div><div class="line">     */</div><div class="line">    private static void maxHeapify(int[] data,int heapSize,int index)&#123;</div><div class="line">//当前点与左右子节点比较</div><div class="line">        int left=getChildLeftIndex(index);</div><div class="line">        int right=getChildRightIndex(index);</div><div class="line"></div><div class="line">        int largest=index;</div><div class="line">        if(left&lt;heapSize&amp;&amp;data[index]&lt;data[left])&#123;</div><div class="line">            largest=left;</div><div class="line">        &#125;</div><div class="line">        if(right&lt;heapSize&amp;&amp;data[largest]&lt;data[right])&#123;</div><div class="line">            largest=right;</div><div class="line">        &#125;</div><div class="line">//得到最大值后可能需要交换，如果交换了，其子节点可能就不是最大堆了，需要重新调整</div><div class="line">        if(largest!=index)&#123;</div><div class="line">            int temp=data[index];</div><div class="line">            data[index]=data[largest];</div><div class="line">            data[largest]=temp;</div><div class="line">            maxHeapify(data,heapSize,largest);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *排序，最大值放在末尾，data虽然是最大堆，在排序后就成了递增的</div><div class="line">     *</div><div class="line">     *@paramdata</div><div class="line">     */</div><div class="line">    private static void heapSort(int[] data)&#123;</div><div class="line">//末尾与头交换，交换后调整最大堆</div><div class="line">        for(int i=data.length-1;i&gt;0;i--)&#123;</div><div class="line">            int temp=data[0];</div><div class="line">            data[0]=data[i];</div><div class="line">            data[i]=temp;</div><div class="line">            maxHeapify(data,i,0);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *父节点位置</div><div class="line">     *</div><div class="line">     *@paramcurrent</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static int getParentIndex(int current)&#123;</div><div class="line">        return(current-1)&gt;&gt;1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *左子节点position注意括号，加法优先级更高</div><div class="line">     *</div><div class="line">     *@paramcurrent</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static int getChildLeftIndex(int current)&#123;</div><div class="line">        return(current&lt;&lt;1)+1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *右子节点position</div><div class="line">     *</div><div class="line">     *@paramcurrent</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static int getChildRightIndex(int current)&#123;</div><div class="line">        return(current&lt;&lt;1)+2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static void print(int[] data)&#123;</div><div class="line">        int pre=-2;</div><div class="line">        for(int i=0;i&lt;data.length;i++)&#123;</div><div class="line">            if(pre&lt;(int)getLog(i+1))&#123;</div><div class="line">                pre=(int)getLog(i+1);</div><div class="line">                System.out.println();</div><div class="line">            &#125;</div><div class="line">            System.out.print(data[i]+&quot;|&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     *以2为底的对数</div><div class="line">     *</div><div class="line">     *@paramparam</div><div class="line">     *@return</div><div class="line">     */</div><div class="line">    private static double getLog(double param)&#123;</div><div class="line">        return Math.log(param)/Math.log(2);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>演示：<br><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Sorting_heapsort_anim.gif" alt=""><br>首先，将元素进行重排，以符合堆的条件。图中排序过程之前简单的绘出了堆树的结构。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://baike.baidu.com/link?url=TAmDWj4EUeqkrvql8wCotntQNZ7UPlqsQx7X8mcz9F_LftIVHuZdQbNgLh5ajmZUwJRex1iSB1I-aggvYgKjrK" target="_blank" rel="external">百度百科:堆排序</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%A0%86%E6%8E%92%E5%BA%8F" target="_blank" rel="external">维基百科:堆排序</a></li>
+<li><a href="http://blog.csdn.net/morewindows/article/details/6709644" target="_blank" rel="external">白话经典算法系列之七:堆与堆排序</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/19/algorithm_sort_heap/" data-id="cj4zxopkl0000q4nh5dfcbnwn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li></ul>
@@ -394,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/27/reading_book_list1/" data-id="cj4zxafby005n60nhocymsu2g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/27/reading_book_list1/" data-id="cj4zxoppq005nq4nhcz1o964y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/书单/">书单</a></li></ul>
@@ -549,7 +549,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/13/android_project_build/" data-id="cj4zxafak003760nhxaqbqmb6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/13/android_project_build/" data-id="cj4zxopob0038q4nhtzv7kltb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/project-build/">project_build</a></li></ul>
@@ -712,7 +712,7 @@ public class MyWebView extends WebView {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/13/android_webview/" data-id="cj4zxafbj004k60nh8bpwxwyr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/13/android_webview/" data-id="cj4zxopou004gq4nhbad6they" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
@@ -790,7 +790,7 @@ public class MyWebView extends WebView {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/23/android_bug_fix_solution2/" data-id="cj4zxaf8b001560nhgdo42rtk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/23/android_bug_fix_solution2/" data-id="cj4zxopmi0015q4nhywe1gevd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bugfix/">bugfix</a></li></ul>
@@ -868,7 +868,7 @@ public class MyWebView extends WebView {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/22/android_intent/" data-id="cj4zxaf9m002f60nhnmdctr16" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/22/android_intent/" data-id="cj4zxopnt002jq4nh7fixy6ir" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/intent/">intent</a></li></ul>
@@ -950,7 +950,7 @@ public class MyWebView extends WebView {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/21/android_material_design_snack/" data-id="cj4zxafa2002j60nhw1x6sc1j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/21/android_material_design_snack/" data-id="cj4zxopnd002fq4nh66ne5abf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/material-design/">material_design</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/snack/">snack</a></li></ul>
