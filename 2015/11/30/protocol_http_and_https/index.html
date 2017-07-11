@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HTTP协议和HTTPS协议详解 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。HTTP协议的主要特点可概括如下：1.支持客户/服务器模式。2.简单">
+<meta name="keywords" content="http,https">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP协议和HTTPS协议详解">
+<meta property="og:url" content="http://yoursite.com/2015/11/30/protocol_http_and_https/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。HTTP协议的主要特点可概括如下：1.支持客户/服务器模式。2.简单">
+<meta property="og:updated_time" content="2017-07-11T17:45:09.552Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP协议和HTTPS协议详解">
+<meta name="twitter:description" content="HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。HTTP协议的主要特点可概括如下：1.支持客户/服务器模式。2.简单">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-protocol_http_and_https" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/30/protocol_http_and_https/" class="article-date">
+  <time datetime="2015-11-30T07:48:29.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/protocol/">protocol</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP协议和HTTPS协议详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。<br>HTTP协议的主要特点可概括如下：<br>1.支持客户/服务器模式。<br>2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。<br>3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。<br>4.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。<br>5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p><strong> 1.1 HTTP协议详解之URL篇</strong><br>http（超文本传输协议）是一个基于请求与响应模式的、无状态的、应用层的协议，常基于TCP的连接方式，HTTP1.1版本中给出一种持续连接的机制，绝大多数的Web开发，都是构建在HTTP协议之上的Web应用。</p>
+<p>HTTP URL (URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息)的格式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://host[<span class="string">":"</span>port][abs_path]</div></pre></td></tr></table></figure></p>
+<p>http表示要通过HTTP协议来定位网络资源；host表示合法的Internet主机域名或者IP地址；port指定一个端口号，为空则使用缺省端口80；abs_path指定请求资源的URI；如果URL中没有给出abs_path，那么当它作为请求URI时，必须以“/”的形式给出，通常这个工作浏览器自动帮我们完成。<br>eg:<br>1、输入：<br>2、http:192.168.0.116:8080/index.jsp</p>
+<p><strong> 1.2 HTTP协议详解之请求篇</strong><br>http请求由三部分组成，分别是：请求行、消息报头、请求正文</p>
+<p>1、请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本，格式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Method Request-URI HTTP-Version CRLF</div></pre></td></tr></table></figure></p>
+<p>其中 Method表示请求方法；Request-URI是一个统一资源标识符；HTTP-Version表示请求的HTTP协议版本；CRLF表示回车和换行（除了作为结尾的CRLF外，不允许出现单独的CR或LF字符）。</p>
+<p>请求方法（所有方法全为大写）有多种，各个方法的解释如下：</p>
+<ul>
+<li>GET　　　 请求获取Request-URI所标识的资源</li>
+<li>POST　　　在Request-URI所标识的资源后附加新的数据</li>
+<li>HEAD　　　请求获取由Request-URI所标识的资源的响应消息报头</li>
+<li>PUT　　　 请求服务器存储一个资源，并用Request-URI作为其标识</li>
+<li>DELETE　　请求服务器删除Request-URI所标识的资源</li>
+<li>TRACE　　 请求服务器回送收到的请求信息，主要用于测试或诊断</li>
+<li>CONNECT　 保留将来使用</li>
+<li>OPTIONS　 请求查询服务器的性能，或者查询与资源相关的选项和需求</li>
+</ul>
+<p>应用举例：<br>GET方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)</p>
+<p>POST方法要求被请求服务器接受附在请求后面的数据，常用于提交表单。<br>eg：POST /reg.jsp HTTP/ (CRLF)<br>Accept:image/gif,image/x-xbit,… (CRLF)<br>…<br>HOST:www.guet.edu.cn (CRLF)<br>Content-Length:22 (CRLF)<br>Connection:Keep-Alive (CRLF)<br>Cache-Control:no-cache (CRLF)<br>(CRLF) //该CRLF表示消息报头已经结束，在此之前为消息报头<br>user=jeffrey&amp;pwd=1234 //此行以下为提交的数据</p>
+<p>HEAD方法与GET方法几乎是一样的，对于HEAD请求的回应部分来说，它的HTTP头部中包含的信息与通过GET请求所得到的信息是相同的。利用这个方法，不必传输整个资源内容，就可以得到Request-URI所标识的资源的信息。该方法常用于测试超链接的有效性，是否可以访问，以及最近是否更新。<br>2、请求报头后述<br>3、请求正文(略)</p>
+<p><strong> 1.3 HTTP协议详解之响应篇</strong><br>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
+<p>HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文<br>1、状态行格式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div></pre></td></tr></table></figure></p>
+<p>其中，HTTP-Version表示服务器HTTP协议的版本；Status-Code表示服务器发回的响应状态代码；Reason-Phrase表示状态代码的文本描述。<br>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
+<ul>
+<li>1xx：指示信息     –表示请求已接收，继续处理</li>
+<li>2xx：成功         –表示请求已被成功接收、理解、接受</li>
+<li>3xx：重定向       –要完成请求必须进行更进一步的操作</li>
+<li>4xx：客户端错误   –请求有语法错误或请求无法实现</li>
+<li>5xx：服务器端错误 –服务器未能实现合法的请求</li>
+</ul>
+<p>常见状态代码、状态描述、说明：</p>
+<ul>
+<li>200 OK //客户端请求成功</li>
+<li>400 Bad Request //客户端请求有语法错误，不能被服务器所理解</li>
+<li>401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用</li>
+<li>403 Forbidden //服务器收到请求，但是拒绝提供服务</li>
+<li>404 Not Found //请求资源不存在，eg：输入了错误的URL</li>
+<li>500 Internal Server Error //服务器发生不可预期的错误</li>
+<li>503 Server Unavailable //服务器当前不能处理客户端的请求，一段时间后可能恢复正常<br>eg：HTTP/1.1 200 OK （CRLF）</li>
+</ul>
+<p>2、响应报头后述</p>
+<p>3、响应正文就是服务器返回的资源的内容</p>
+<p><strong> 1.4 HTTP协议详解之消息报头篇</strong><br>HTTP消息由客户端到服务器的请求和服务器到客户端的响应组成。请求消息和响应消息都是由开始行（对于请求消息，开始行就是请求行，对于响应消息，开始行就是状态行），消息报头（可选），空行（只有CRLF的行），消息正文（可选）组成。</p>
+<p>HTTP消息报头包括普通报头、请求报头、响应报头、实体报头。<br>每一个报头域都是由名字+“：”+空格+值 组成，消息报头域的名字是大小写无关的。</p>
+<p>1、普通报头<br>在普通报头中，有少数报头域用于所有的请求和响应消息，但并不用于被传输的实体，只用于传输的消息。<br>eg：Cache-Control 用于指定缓存指令，缓存指令是单向的（响应中出现的缓存指令在请求中未必会出现），且是独立的（一个消息的缓存指令不会影响另一个消息处理的缓存机制），HTTP1.0使用的类似的报头域为Pragma。</p>
+<ul>
+<li>请求时的缓存指令包括：no-cache（用于指示请求或响应消息不能缓存）、no-store、max-age、max-stale、min-fresh、only-if-cached;</li>
+<li>响应时的缓存指令包括：public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age、s-maxage.</li>
+</ul>
+<p>eg：为了指示IE浏览器（客户端）不要缓存页面，服务器端的JSP程序可以编写如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">response.sehHeader(<span class="string">"Cache-Control"</span>,<span class="string">"no-cache"</span>);</div><div class="line"><span class="comment">//response.setHeader("Pragma","no-cache");作用相当于上述代码，通常两者//合用</span></div></pre></td></tr></table></figure></p>
+<p>这句代码将在发送的响应消息中设置普通报头域：Cache-Control:no-cache</p>
+<p>Date普通报头域表示消息产生的日期和时间</p>
+<p>Connection普通报头域允许发送指定连接的选项。例如指定连接是连续，或者指定“close”选项，通知服务器，在响应完成后，关闭连接</p>
+<p>2、请求报头<br>请求报头允许客户端向服务器端传递请求的附加信息以及客户端自身的信息。<br>常用的请求报头</p>
+<ul>
+<li>Accept请求报头域用于指定客户端接受哪些类型的信息。<br>eg：Accept：image/gif，表明客户端希望接受GIF图象格式的资源；Accept：text/html，表明客户端希望接受html文本。</li>
+<li>Accept-Charset请求报头域用于指定客户端接受的字符集。<br>eg：Accept-Charset:iso-8859-1,gb2312.如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。、</li>
+<li>Accept-Encoding请求报头域类似于Accept，但是它是用于指定可接受的内容编码。<br>eg：Accept-Encoding:gzip.deflate.如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。</li>
+<li>Accept-Language请求报头域类似于Accept，但是它是用于指定一种自然语言。<br>eg：Accept-Language:zh-cn.如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。</li>
+<li>Authorization 请求报头域主要用于证明客户端有权查看某个资源。当浏览器访问一个页面时，如果收到服务器的响应代码为401（未授权），可以发送一个包含Authorization请求报头域的请求，要求服务器对其进行验证。<br>Host请求报头域主要用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的，发送请求时，该报头域是必需的。<br>eg：我们在浏览器中输入：<a href="http://www.guet.edu.cn/index.html" target="_blank" rel="external">http://www.guet.edu.cn/index.html</a></li>
+</ul>
+<p>浏览器发送的请求消息中，就会包含Host请求报头域，如下：Host：www.guet.edu.cn<br>此处使用缺省端口号80，若指定了端口号，则变成：Host：www.guet.edu.cn:指定端口号</p>
+<p>User-Agent我们上网登陆论坛的时候，往往会看到一些欢迎信息，其中列出了你的操作系统的名称和版本，你所使用的浏览器的名称和版本，这往往让很多人感到很神奇，实际上，服务器应用程序就是从User-Agent这个请求报头域中获取到这些信息。User-Agent请求报头域允许客户端将它的操作系统、浏览器和其它属性告诉服务器。不过，这个报头域不是必需的，如果我们自己编写一个浏览器，不使用User-Agent请求报头域，那么服务器端就无法得知我们的信息了。<br>请求报头举例：</p>
+<ul>
+<li>GET /form.html HTTP/1.1 (CRLF)</li>
+<li>Accept:image/gif,image/x-xbitmap,image/jpeg,application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword,<em>/</em> (CRLF)</li>
+<li>Accept-Language:zh-cn (CRLF)</li>
+<li>Accept-Encoding:gzip,deflate (CRLF)</li>
+<li>If-Modified-Since:Wed,05 Jan 2007 11:21:25 GMT (CRLF)</li>
+<li>If-None-Match:W/“80b1a4c018f3c41:8317” (CRLF)</li>
+<li>User-Agent:Mozilla/4.0(compatible;MSIE6.0;Windows NT 5.0) (CRLF)</li>
+<li>Host:www.guet.edu.cn (CRLF)</li>
+<li>Connection:Keep-Alive (CRLF)</li>
+</ul>
+<p>3、响应报头<br>响应报头允许服务器传递不能放在状态行中的附加响应信息，以及关于服务器的信息和对Request-URI所标识的资源进行下一步访问的信息。<br>常用的响应报头<br>Location响应报头域用于重定向接受者到一个新的位置。Location响应报头域常用在更换域名的时候。<br>Server响应报头域包含了服务器用来处理请求的软件信息。与User-Agent请求报头域是相对应的。下面是Server响应报头域的一个例子：Server：Apache-Coyote/1.1<br>WWW-Authenticate响应报头域必须被包含在401（未授权的）响应消息中，客户端收到401响应消息时候，并发送Authorization报头域请求服务器对其进行验证时，服务端响应报头就包含该报头域。<br>eg：WWW-Authenticate:Basic realm=”Basic Auth Test!” //可以看出服务器对请求资源采用的是基本验证机制。</p>
+<p>4、实体报头<br>请求和响应消息都可以传送一个实体。一个实体由实体报头域和实体正文组成，但并不是说实体报头域和实体正文要在一起发送，可以只发送实体报头域。实体报头定义了关于实体正文（eg：有无实体正文）和请求所标识的资源的元信息。<br>常用的实体报头</p>
+<ul>
+<li>Content-Encoding实体报头域被用作媒体类型的修饰符，它的值指示了已经被应用到实体正文的附加内容的编码，因而要获得Content-Type报头域中所引用的媒体类型，必须采用相应的解码机制。ContentEncoding这样用于记录文档的压缩方法，eg：Content-Encoding：gzip</li>
+<li>Content-Language实体报头域描述了资源所用的自然语言。没有设置该域则认为实体内容将提供给所有的语言阅读<br>者。eg：Content-Language:da</li>
+<li>Content-Length实体报头域用于指明实体正文的长度，以字节方式存储的十进制数字来表示。</li>
+<li>Content-Type实体报头域用语指明发送给接收者的实体正文的媒体类型。eg：Content-Type:text/html;charset=ISO-8859-1 Content-Type:text/html;charset=GB2312</li>
+<li>Last-Modified实体报头域用于指示资源的最后修改日期和时间。</li>
+<li>Expires实体报头域给出响应过期的日期和时间。为了让代理服务器或浏览器在一段时间以后更新缓存中(再次访问曾访问过的页面时，直接从缓存中加载，缩短响应时间和降低服务器负载)的页面，我们可以使用Expires实体报头域指定页面过期的时间。eg：Expires：Thu，15 Sep 2006 16:23:12 GMT<br>HTTP1.1的客户端和缓存必须将其他非法的日期格式（包括0）看作已经过期。eg：为了让浏览器不要缓存页面，我们也可以利用Expires实体报头域，设置为0，jsp中程序如下：response.setDateHeader(“Expires”,”0”);</li>
+</ul>
+<p>工具类为HttpUtil.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.http.HttpEntity;</div><div class="line"><span class="keyword">import</span> org.apache.http.HttpResponse;</div><div class="line"><span class="keyword">import</span> org.apache.http.client.ClientProtocolException;</div><div class="line"><span class="keyword">import</span> org.apache.http.client.methods.HttpGet;</div><div class="line"><span class="keyword">import</span> org.apache.http.client.methods.HttpPost;</div><div class="line"><span class="keyword">import</span> org.apache.http.entity.StringEntity;</div><div class="line"><span class="keyword">import</span> org.apache.http.impl.client.DefaultHttpClient;</div><div class="line"><span class="keyword">import</span> org.apache.http.params.HttpConnectionParams;</div><div class="line"><span class="keyword">import</span> org.apache.http.params.HttpParams;</div><div class="line"><span class="keyword">import</span> org.apache.http.util.EntityUtils;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpUtil</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">httpGet</span><span class="params">(String httpUrl)</span> </span>&#123;</div><div class="line">        String result = <span class="string">""</span>;</div><div class="line">        DefaultHttpClient httpclient = <span class="keyword">new</span> DefaultHttpClient();<span class="comment">// 创建http客户端</span></div><div class="line">        HttpGet httpget = <span class="keyword">new</span> HttpGet(httpUrl);</div><div class="line">        HttpResponse response = <span class="keyword">null</span>;</div><div class="line">        HttpParams params = httpclient.getParams(); <span class="comment">// 计算网络超时用</span></div><div class="line">        HttpConnectionParams.setConnectionTimeout(params, <span class="number">15</span> * <span class="number">1000</span>);</div><div class="line">        HttpConnectionParams.setSoTimeout(params, <span class="number">20</span> * <span class="number">1000</span>);</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            response = httpclient.execute(httpget);</div><div class="line">            HttpEntity entity = response.getEntity();<span class="comment">// 得到http的内容</span></div><div class="line">            response.getStatusLine().getStatusCode();<span class="comment">// 得到http的状态返回值</span></div><div class="line">            result = EntityUtils.toString(response.getEntity());<span class="comment">// 得到具体的返回值，一般是xml文件</span></div><div class="line">            entity.consumeContent();<span class="comment">// 如果entity不为空，则释放内存空间</span></div><div class="line">            httpclient.getCookieStore();<span class="comment">// 得到cookis</span></div><div class="line">            httpclient.getConnectionManager().shutdown();<span class="comment">// 关闭http客户端</span></div><div class="line">        &#125; <span class="keyword">catch</span> (ClientProtocolException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">httpPost</span><span class="params">(String httpUrl, String data)</span> </span>&#123;</div><div class="line">        String result = <span class="string">""</span>;</div><div class="line">        DefaultHttpClient httpclient = <span class="keyword">new</span> DefaultHttpClient();</div><div class="line">        HttpPost httpPost = <span class="keyword">new</span> HttpPost(httpUrl);</div><div class="line">        <span class="comment">// httpclient.setCookieStore(DataDefine.mCookieStore);</span></div><div class="line">        HttpParams params = httpclient.getParams(); <span class="comment">// 计算网络超时用</span></div><div class="line">        HttpConnectionParams.setConnectionTimeout(params, <span class="number">15</span> * <span class="number">1000</span>);</div><div class="line">        HttpConnectionParams.setSoTimeout(params, <span class="number">20</span> * <span class="number">1000</span>);</div><div class="line">        httpPost.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/xml"</span>);</div><div class="line">        StringEntity httpPostEntity;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            httpPostEntity = <span class="keyword">new</span> StringEntity(data, <span class="string">"UTF-8"</span>);</div><div class="line">            httpPost.setEntity(httpPostEntity);</div><div class="line">            HttpResponse response = httpclient.execute(httpPost);</div><div class="line">            HttpEntity entity = response.getEntity();<span class="comment">// 得到http的内容</span></div><div class="line">            response.getStatusLine().getStatusCode();<span class="comment">// 得到http的状态返回值</span></div><div class="line">            result = EntityUtils.toString(response.getEntity());<span class="comment">// 得到具体的返回值，一般是xml文件</span></div><div class="line">            entity.consumeContent();<span class="comment">// 如果entity不为空，则释放内存空间</span></div><div class="line">            httpclient.getCookieStore();<span class="comment">// 得到cookis</span></div><div class="line">            httpclient.getConnectionManager().shutdown();<span class="comment">// 关闭http客户端</span></div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="comment">// base64是经过编码的字符串，可以理解为字符串 // StringEntity</span></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            httpPostEntity = <span class="keyword">new</span> StringEntity(<span class="string">"UTF-8"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</div><div class="line">            <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="HTTPS协议"><a href="#HTTPS协议" class="headerlink" title="HTTPS协议"></a>HTTPS协议</h2><p>HTTPS（Hypertext Transfer Protocol over Secure Socket Layer，基于SSL的HTTP协议）使用了HTTP协议，但HTTPS使用不同于HTTP协议的默认端口及一个加密、身份验证层（HTTP与TCP之间）。这个协议的最初研发由网景公司进行，提供了身份验证与加密通信方法，现在它被广泛用于互联网上安全敏感的通信。HTTPS是一个安全通信通道，用于在客户计算机和服务器之间交换信息。它使用安全套接字层(SSL)进行信息交换，简单来说它是HTTP的安全版。它是由Netscape开发并内置于其浏览器中，用于对数据进行压缩和解压操作，并返回网络上传送回的结果。</p>
+<p>HTTPS实际上应用了Netscape的安全全套接字层(SSL)作为HTTP应用层的子层。(HTTPS使用端口443，而不是象HTTP那样使用端口80来和TCP/IP进行通信。)SSL使用40 位关键字作为RC4流加密算法，这对于商业信息的加密是合适的。HTTPS和SSL支持使用X。509数字认证，如果需要的话用户可以确认发送者是谁。</p>
+<p>客户端在使用HTTPS方式与Web服务器通信时有以下几个步骤。<br>（1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。<br>（2）Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。<br>（3）客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。<br>（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。<br>（5）Web服务器利用自己的私钥解密出会话密钥。<br>（6）Web服务器利用会话密钥加密与客户端之间的通信。</p>
+<p>工具类为HttpsUtil.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedReader;</div><div class="line"><span class="keyword">import</span> java.io.DataOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.InputStreamReader;</div><div class="line"><span class="keyword">import</span> java.net.HttpURLConnection;</div><div class="line"><span class="keyword">import</span> java.net.URL;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.net.ssl.HostnameVerifier;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.HttpsURLConnection;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLContext;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.TrustManager;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpsUtil</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> TrustManager[] xtmArray = <span class="keyword">new</span> MytmArray[] &#123; <span class="keyword">new</span> MytmArray() &#125;;<span class="comment">// 创建信任规则列表</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CONNENT_TIMEOUT = <span class="number">15000</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> READ_TIMEOUT = <span class="number">15000</span>;</div><div class="line">    <span class="keyword">static</span> HostnameVerifier DO_NOT_VERIFY = <span class="keyword">new</span> HostnameVerifier() &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * * 信任所有主机-对于任何证书都不做检查 Create a trust manager that does not validate *</div><div class="line">     * certificate chains， Android 采用X509的证书信息机制，Install the all-trusting trust</div><div class="line">     * * manager</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">trustAllHosts</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            SSLContext sc = SSLContext.getInstance(<span class="string">"TLS"</span>);</div><div class="line">            sc.init(<span class="keyword">null</span>, xtmArray, <span class="keyword">new</span> java.security.SecureRandom());</div><div class="line">            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory()); <span class="comment">// 不进行主机名确认,对所有主机</span></div><div class="line">            HttpsURLConnection.setDefaultHostnameVerifier(DO_NOT_VERIFY);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    </div><div class="line">    <span class="comment">// https get方法，返回值是https请求，服务端返回的数据string类型，数据进行xml解析 </span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">HttpsGet</span><span class="params">(String httpsurl)</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> HttpsPost(httpsurl, <span class="keyword">null</span>); </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * https post方法，返回值是https请求，服务端返回的数据string类型，数据进行xml解析</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">HttpsPost</span><span class="params">(String httpsurl, String data)</span> </span>&#123;</div><div class="line">        String result = <span class="keyword">null</span>;</div><div class="line">        HttpURLConnection http = <span class="keyword">null</span>;</div><div class="line">        URL url;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            url = <span class="keyword">new</span> URL(httpsurl); <span class="comment">// 判断是http请求还是https请求</span></div><div class="line">            <span class="keyword">if</span> (url.getProtocol().toLowerCase().equals(<span class="string">"https"</span>)) &#123;</div><div class="line">                trustAllHosts();</div><div class="line">                http = (HttpsURLConnection) url.openConnection();</div><div class="line">                ((HttpsURLConnection) http).setHostnameVerifier(DO_NOT_VERIFY);<span class="comment">// 不进行主机名确认</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                http = (HttpURLConnection) url.openConnection();</div><div class="line">            &#125;</div><div class="line">            http.setConnectTimeout(CONNENT_TIMEOUT);<span class="comment">// 设置超时时间</span></div><div class="line">            http.setReadTimeout(READ_TIMEOUT);</div><div class="line">            <span class="keyword">if</span> (data == <span class="keyword">null</span>) &#123;</div><div class="line">                http.setRequestMethod(<span class="string">"GET"</span>);<span class="comment">// 设置请求类型</span></div><div class="line">                http.setDoInput(<span class="keyword">true</span>);</div><div class="line">                <span class="comment">// http.setRequestProperty("Content-Type", "text/xml");</span></div><div class="line">                <span class="keyword">if</span> (AppSession.mCookieStore != <span class="keyword">null</span>)</div><div class="line">                    http.setRequestProperty(<span class="string">"Cookie"</span>, AppSession.mCookieStore);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                http.setRequestMethod(<span class="string">"POST"</span>);<span class="comment">// 设置请求类型为post</span></div><div class="line">                http.setDoInput(<span class="keyword">true</span>);</div><div class="line">                http.setDoOutput(<span class="keyword">true</span>);</div><div class="line">                <span class="comment">// http.setRequestProperty("Content-Type", "text/xml");</span></div><div class="line">                <span class="keyword">if</span> (AppSession.mCookieStore != <span class="keyword">null</span> &amp;&amp; AppSession.mCookieStore.trim().length() &gt; <span class="number">0</span>)</div><div class="line">                    http.setRequestProperty(<span class="string">"Cookie"</span>, AppSession.mCookieStore);</div><div class="line">                DataOutputStream out = <span class="keyword">new</span> DataOutputStream(http.getOutputStream());</div><div class="line">                out.writeBytes(data);</div><div class="line">                out.flush();</div><div class="line">                out.close();</div><div class="line">            &#125; <span class="comment">// 设置http返回状态200（ok）还是403</span></div><div class="line">            AppSession.httpsResponseCode = http.getResponseCode();</div><div class="line">            BufferedReader in = <span class="keyword">null</span>;</div><div class="line">            <span class="keyword">if</span> (AppSession.httpsResponseCode == <span class="number">200</span>) &#123;</div><div class="line">                getCookie(http);</div><div class="line">                in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(http.getInputStream()));</div><div class="line">            &#125; <span class="keyword">else</span></div><div class="line">                in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(http.getErrorStream()));</div><div class="line">            String temp = in.readLine();</div><div class="line">            <span class="keyword">while</span> (temp != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (result != <span class="keyword">null</span>)</div><div class="line">                    result += temp;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    result = temp;</div><div class="line">                temp = in.readLine();</div><div class="line">            &#125;</div><div class="line">            in.close();</div><div class="line">            http.disconnect();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** * 得到cookie * */</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getCookie</span><span class="params">(HttpURLConnection http)</span> </span>&#123;</div><div class="line">        String cookieVal = <span class="keyword">null</span>;</div><div class="line">        String key = <span class="keyword">null</span>;</div><div class="line">        AppSession.mCookieStore = <span class="string">""</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; (key = http.getHeaderFieldKey(i)) != <span class="keyword">null</span>; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (key.equalsIgnoreCase(<span class="string">"set-cookie"</span>)) &#123;</div><div class="line">                cookieVal = http.getHeaderField(i);</div><div class="line">                cookieVal = cookieVal.substring(<span class="number">0</span>, cookieVal.indexOf(<span class="string">";"</span>));</div><div class="line">                AppSession.mCookieStore = AppSession.mCookieStore + cookieVal + <span class="string">";"</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>总的来说，http效率更高，https安全性更高。</p>
+<h2 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h2><p>https协议需要到ca申请证书，一般免费证书很少，需要交费。<br>http是超文本传输协议，信息是明文传输，https 则是具有安全性的ssl加密传输协议 http和https使用的是完全不同的连接方式用的端口也不一样：前者是80，后者是443。<br>http的连接很简单，是无状态的 HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议 要比http协议安全 HTTPS解决的问题：</p>
+<p>1、信任主机的问题。 采用https 的server 必须从CA 申请一个用于证明服务器用途类型的证书。<br>改证书只有用于对应的server 的时候，客户度才信任次主机。所以目前所有的银行系统网站，关键部分应用都是https 的。 客户通过信任该证书，从而信任了该主机。其实这样做效率很低，但是银行更侧重安全。 这一点对我们没有任何意义，我们的server，采用的证书不管自己issue 还是从公众的地方issue， 客户端都是自己人，所以我们也就肯定信任该server。</p>
+<p>2、通讯过程中的数据的泄密和被窜改。<br>1）一般意义上的https， 就是 server 有一个证书。<br>主要目的是保证server 就是他声称的server。这个跟第一点一样。服务端和客户端之间的所有通讯，都是加密的。<br>具体讲，是客户端产生一个对称的密钥，通过server 的证书来交换密钥。 一般意义上的握手过程。加下来所有的信息往来就都是加密的。 第三方即使截获，也没有任何意义。因为他没有密钥。当然窜改也就没有什么意义了。</p>
+<p>2）少许对客户端有要求的情况下，会要求客户端也必须有一个证书。<br>这里客户端证书，其实就类似表示个人信息的时候，除了用户名/密码， 还有一个CA 认证过的身份。 应为个人证书一般来说上别人无法模拟的，所有这样能够更深的确认自己的身份。目前少数个人银行的专业版是这种做法，具体证书可能是拿U盘作为一个备份的载体。像我用的交通银行的网上银行就是采取的这种方式。 HTTPS 一定是繁琐的。<br>本来简单的http协议，一个get一个response。由于https 要还密钥和确认加密算法的需要。单握手就需要6/7 个往返。任何应用中，过多的round trip 肯定影响性能。接下来才是具体的http协议，每一次响应或者请求， 都要求客户端和服务端对会话的内容做加密/解密。尽管对称加密/解密效率比较高，可是仍然要消耗过多的CPU，为此有专门的SSL 芯片。 如果CPU 信能比较低的话，肯定会降低性能，从而不能serve 更多的请求。</p>
+<h2 id="SSL的简介"><a href="#SSL的简介" class="headerlink" title="SSL的简介"></a>SSL的简介</h2><p>SSL是Netscape公司所提出的安全保密协议，在浏览器(如Internet Explorer、Netscape Navigator)和Web服务器(如Netscape的Netscape Enterprise Server、ColdFusion Server等等)之间构造安全通道来进行数据传输，SSL运行在TCP/IP层之上、应用层之下，为应用程序提供加密数据通道，它采用了RC4、MD5 以及RSA等加密算法，使用40 位的密钥，适用于商业信息的加密。</p>
+<p>同时，Netscape公司相应开发了HTTPS协议并内置于其浏览器中，HTTPS实际上就是SSL over HTTP，它使用默认端口443，而不是像HTTP那样使用端口80来和TCP/IP进行通信。HTTPS协议使用SSL在发送方把原始数据进行加密，然 后在接受方进行解密，加密和解密需要发送方和接受方通过交换共知的密钥来实现，因此，所传送的数据不容易被网络黑客截获和解密。</p>
+<p>然而，加密和解密过程需要耗费系统大量的开销，严重降低机器的性能，相关测试数据表明使用HTTPS协议传输数据的工作效率只有使用HTTP协议传输的十 分之一。</p>
+<p>假如为了安全保密，将一个网站所有的Web应用都启用SSL技术来加密，并使用HTTPS协议进行传输，那么该网站的性能和效率将会大大降低，而且没有这个必要，因为一般来说并不是所有数据都要求那么高的安全保密级别，所以，我们只需对那些涉及机密数据的交互处理使用HTTPS协议，这样就做到鱼与熊掌兼得。总之不需要用https 的地方，就尽量不要用。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/gueter/article/details/1524447" target="_blank" rel="external">HTTP协议详解 </a></li>
+<li><a href="http://kubihai.com/flash/539514.html" target="_blank" rel="external">HTTP协议和HTTPS协议详解</a></li>
+<li><a href="http://www.chinaz.com/web/2015/0707/420248.shtml" target="_blank" rel="external">https和http有何区别？</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/30/protocol_http_and_https/" data-id="cj4zvsgcl005w0gnh2ng3ri3u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/">https</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/30/protocol_ssl_socket/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用SSL构建安全的Socket
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/24/android_animation_translate/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android动画之translate(位移动画)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo博客搭建图文教程[Windows] | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一.前言一直纠结于哪里写博客，曾用过新浪博客，百度空间，JavaEye，LOFTER，OSChina，cnblogs，CSDN，自搭WordPress，都不满意。再后来也弄过Jekyll和Octopress，觉累不爱。直到多看了一眼hexo，这个逼格极高的程序猿写作方式，我喜欢。就连hexo的发音都像是黑客哦！如果你跟我一样纠结哪里写博，那就来到GitHub吧，让我们一起hexo！H人希绝对不会让">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建图文教程[Windows]">
+<meta property="og:url" content="http://yoursite.com/2015/11/06/tools_hexo_build_guidance/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一.前言一直纠结于哪里写博客，曾用过新浪博客，百度空间，JavaEye，LOFTER，OSChina，cnblogs，CSDN，自搭WordPress，都不满意。再后来也弄过Jekyll和Octopress，觉累不爱。直到多看了一眼hexo，这个逼格极高的程序猿写作方式，我喜欢。就连hexo的发音都像是黑客哦！如果你跟我一样纠结哪里写博，那就来到GitHub吧，让我们一起hexo！H人希绝对不会让">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Nodejs-test.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Git-install.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Git-path-setting.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Github-sign-up.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Github-create-a-new-repo.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Github-new-repo-setting.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Github-new-repo-look-like.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Github-pages.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/npm-install-hexo-cli.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/hexo-v.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/hexo-init.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/hexo-g.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/hexo-first-time.png">
+<meta property="og:image" content="http://bruce.u.qiniudn.com/2013/11/22/hexo-your-blog/add-ssh-keys.jpg">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/domin-setting.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/domin-config.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/domin-dnspod.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/dnspod-setting.png">
+<meta property="og:image" content="https://xuanwo.org/imgs/opinion/Github-domin.png">
+<meta property="og:updated_time" content="2017-07-11T17:45:09.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo博客搭建图文教程[Windows]">
+<meta name="twitter:description" content="一.前言一直纠结于哪里写博客，曾用过新浪博客，百度空间，JavaEye，LOFTER，OSChina，cnblogs，CSDN，自搭WordPress，都不满意。再后来也弄过Jekyll和Octopress，觉累不爱。直到多看了一眼hexo，这个逼格极高的程序猿写作方式，我喜欢。就连hexo的发音都像是黑客哦！如果你跟我一样纠结哪里写博，那就来到GitHub吧，让我们一起hexo！H人希绝对不会让">
+<meta name="twitter:image" content="https://xuanwo.org/imgs/opinion/Nodejs-test.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-tools_hexo_build_guidance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/06/tools_hexo_build_guidance/" class="article-date">
+  <time datetime="2015-11-06T03:25:29.000Z" itemprop="datePublished">2015-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tools/">tools</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo博客搭建图文教程[Windows]
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一.前言"></a>一.前言</h2><p>一直纠结于哪里写博客，曾用过新浪博客，百度空间，JavaEye，LOFTER，OSChina，cnblogs，CSDN，自搭WordPress，都不满意。再后来也弄过Jekyll和Octopress，觉累不爱。直到多看了一眼hexo，这个逼格极高的程序猿写作方式，我喜欢。就连hexo的发音都像是黑客哦！如果你跟我一样纠结哪里写博，那就来到GitHub吧，让我们一起hexo！H人希绝对不会让你失望，相信很快hexo就会流行起来。hexo出自台湾大学生tommy351之手，是一个基于Node.js的静态博客程序，其编译上百篇文字只需要几秒。hexo生成的静态网页可以直接放到GitHub Pages，BAE，SAE等平台上。本文致力于提供一份足够简单，长期维护的基于Github Pages的Hexo博客搭建图文教程，希望能有所帮助。</p>
+<h2 id="二-准备"><a href="#二-准备" class="headerlink" title="二.准备"></a>二.准备</h2><p>你需要准备好以下软件：</p>
+<ul>
+<li>Node.js环境</li>
+<li>Git<br><strong> 配置Node.js环境</strong><br>下载Node.js安装文件：</li>
+<li><a href="http://nodejs.org/dist/v0.12.1/node-v0.12.1-x86.msi" target="_blank" rel="external">Windows Installer 32-bit</a></li>
+<li><a href="http://nodejs.org/dist/v0.12.1/x64/node-v0.12.1-x64.msi" target="_blank" rel="external">Windows Installer 64-bit</a></li>
+</ul>
+<p>安装Node.js，保持默认设置即可，一路Next，安装很快就结束了。<br>然后我们检查一下是不是要求的组件都安装好了，同时按下Win和R，打开运行窗口：</p>
+<p>在新打开的窗口中输入cmd，敲击回车，打开命令行界面。<br>在打开的命令行界面中，输入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node -v</div><div class="line">npm -v</div></pre></td></tr></table></figure></p>
+<p>如果结果如下图所示，则说明安装正确，可以进行下一步了，如果不正确，查看系统的环境变量是否已经配置（这个是自动配置的，但也有意外，可以手动重新配置一下），如果还是不行，则需要回头检查自己的安装过程。<br><img src="https://xuanwo.org/imgs/opinion/Nodejs-test.png" alt=""></p>
+<h2 id="三-配置Git环境"><a href="#三-配置Git环境" class="headerlink" title="三.配置Git环境"></a>三.配置Git环境</h2><h3 id="下载Git安装文件"><a href="#下载Git安装文件" class="headerlink" title="下载Git安装文件"></a>下载Git安装文件</h3><ul>
+<li><a href="https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20150319/Git-1.9.5-preview20150319.exe" target="_blank" rel="external">Git-1.9.5-preview20150319.exe</a><br>然后就进入了Git的安装界面，如图：<br><img src="https://xuanwo.org/imgs/opinion/Git-install.png" alt=""><br>和Node.js一样，大部分设置都只需要保持默认，但是出于我们操作方便考虑，建议PATH选项按照下图选择：<br><img src="https://xuanwo.org/imgs/opinion/Git-path-setting.png" alt=""></li>
+</ul>
+<blockquote>
+<p>这是对上图的解释，不需要了解请直接跳过Git的默认设置下，出于安全考虑，只有在Git Bash中才能进行Git的相关操作。按照上图进行的选择，将会使得Git安装程序在系统PATH中加入Git的相关路径，使得你可以在CMD界面下调用Git，不用打开Git Bash了。</p>
+</blockquote>
+<p>一样的，我们来检查一下Git是不是安装正确了，打开命令行，输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git --version</div></pre></td></tr></table></figure></p>
+<p>如果结果如下图所示，则说明安装正确，可以进行下一步了，如果不正确，检查自己的环境变量，如果还是不行，则需要回头检查自己的安装过程。</p>
+<h3 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h3><p>如果已经拥有账号，请跳过此步~<br>打开<a href="https://github.com/" target="_blank" rel="external">github官网</a>，在下图的框中，分别输入自己的用户名，邮箱，密码。<br><img src="https://xuanwo.org/imgs/opinion/Github-sign-up.png" alt=""></p>
+<p>然后前往自己刚才填写的邮箱，点开Github发送给你的注册确认信，确认注册，结束注册流程。<br>一定要确认注册，否则无法使用gh-pages！</p>
+<h3 id="创建代码库"><a href="#创建代码库" class="headerlink" title="创建代码库"></a>创建代码库</h3><p>登陆之后，点击页面右上角的加号，选择New repository：<br><img src="https://xuanwo.org/imgs/opinion/Github-create-a-new-repo.png" alt=""></p>
+<h3 id="进入代码库创建页面"><a href="#进入代码库创建页面" class="headerlink" title="进入代码库创建页面"></a>进入代码库创建页面</h3><p>在Repository name下填写yourname.github.io，Description (optional)下填写一些简单的描述（不写也没有关系），如图所示：<br><img src="https://xuanwo.org/imgs/opinion/Github-new-repo-setting.png" alt=""></p>
+<p>正确创建之后，你将会看到如下界面：<br><img src="https://xuanwo.org/imgs/opinion/Github-new-repo-look-like.png" alt=""></p>
+<h3 id="开启gh-pages功能"><a href="#开启gh-pages功能" class="headerlink" title="开启gh-pages功能"></a>开启gh-pages功能</h3><p>点击界面右侧的Settings，你将会打开这个库的setting页面，向下拖动，直到看见GitHub Pages，如图：<br><img src="https://xuanwo.org/imgs/opinion/Github-pages.png" alt=""></p>
+<p>点击Automatic page generator，Github将会自动替你创建出一个gh-pages的页面。<br>如果你的配置没有问题，那么大约15分钟之后，yourname.github.io这个网址就可以正常访问了~<br>如果yourname.github.io已经可以正常访问了，那么Github一侧的配置已经全部结束了。<br>PS: yourname.github.io是固定格式，而且yourname要和你的github名一样。</p>
+<h2 id="四-配置Hexo"><a href="#四-配置Hexo" class="headerlink" title="四.配置Hexo"></a>四.配置Hexo</h2><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>在自己认为合适的地方创建一个文件夹，然后在文件夹空白处按住Shift+鼠标右键，然后点击在此处打开命令行窗口。（同样要记住啦，下文中会使用在当前目录打开命令行来代指上述的操作）<br>在命令行中输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g</div></pre></td></tr></table></figure></p>
+<p>然后你将会看到:<br><img src="https://xuanwo.org/imgs/opinion/npm-install-hexo-cli.png" alt=""></p>
+<p>可能你会看到一个WARN，但是不用担心，这不会影响你的正常使用。<br>然后输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo --save</div></pre></td></tr></table></figure></p>
+<p>然后你会看到命令行窗口刷了一大堆白字，下面我们来看一看Hexo是不是已经安装好了。<br>在命令行中输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -v</div></pre></td></tr></table></figure></p>
+<p>如果你看到了如图文字，则说明已经安装成功了。<br><img src="https://xuanwo.org/imgs/opinion/hexo-v.png" alt=""></p>
+<h3 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h3><p>接着上面的操作，输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure></p>
+<p>如图：<br><img src="https://xuanwo.org/imgs/opinion/hexo-init.png" alt=""></p>
+<p>然后输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure></p>
+<p>之后npm将会自动安装你需要的组件，只需要等待npm操作即可。</p>
+<h3 id="首次体验Hexo"><a href="#首次体验Hexo" class="headerlink" title="首次体验Hexo"></a>首次体验Hexo</h3><p>继续操作，同样是在命令行中，输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g</div></pre></td></tr></table></figure></p>
+<p>(hexo generate)<br>如图：<br><img src="https://xuanwo.org/imgs/opinion/hexo-g.png" alt=""></p>
+<p>然后输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s</div></pre></td></tr></table></figure></p>
+<p>(hexo server)</p>
+<p>然后会提示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure></p>
+<p>在浏览器中打开<a href="http://localhost:4000/，你将会看到：" target="_blank" rel="external">http://localhost:4000/，你将会看到：</a><br><img src="https://xuanwo.org/imgs/opinion/hexo-first-time.png" alt=""></p>
+<p>到目前为止，Hexo在本地的配置已经全都结束了。</p>
+<h2 id="五-使用Hexo"><a href="#五-使用Hexo" class="headerlink" title="五.使用Hexo"></a>五.使用Hexo</h2><p>在配置过程中请使用<a href="http://www.yamllint.com/" target="_blank" rel="external">yamllint</a>来保证自己的yaml语法正确<br><strong> 修改全局配置文件</strong><br>此部分可以参考<a href="http://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="external">Hexo官方文档</a><br>您可以在 _config.yml 中修改大部份的配置。</p>
+<h2 id="六-配置Deployment"><a href="#六-配置Deployment" class="headerlink" title="六.配置Deployment"></a>六.配置Deployment</h2><h3 id="添加SSH-Key"><a href="#添加SSH-Key" class="headerlink" title="添加SSH-Key"></a>添加SSH-Key</h3><p>首先，你需要为自己配置身份信息，打开Git Bash命令行(安装目录下，配置了环境变量直接cmd)，然后输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name <span class="string">"yourname"</span></div><div class="line">git config --global user.email <span class="string">"youremail"</span></div></pre></td></tr></table></figure></p>
+<p>生成密钥：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C <span class="string">"bu.ru@qq.com"</span></div></pre></td></tr></table></figure></p>
+<p>输入文件路径：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">H:\hexo\blog&gt;ssh-keygen -t rsa -C <span class="string">"bu.ru@qq.com"</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (//.ssh/id_rsa): H:\git\myssh\ssh</div><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</div><div class="line">Enter same passphrase again:</div><div class="line">Your identification has been saved <span class="keyword">in</span> H:\git\myssh\ssh.</div><div class="line">Your public key has been saved <span class="keyword">in</span> H:\git\myssh\ssh.pub.</div><div class="line">The key fingerprint is:</div><div class="line">b0:0c:2e:67:33:ab:c1:50:10:40:0a:ba:c1:80:59:22 bu.ru@qq.com</div></pre></td></tr></table></figure></p>
+<p>有个bug，文件路径中的盘符H必须大写，否则会报错。<br>上述命令若执行成功，会在H:\git\myssh目录下生成两个文件id_rsa和id_rsa.pub，最后两步：</p>
+<p>用文本编辑器打开ssh.pub文件，拷贝其中的内容，将其添加到Add SSH Key<br>将id_rsa和id_rsa.pub拷贝至你Git安装目录下的.ssh目录，如H:\PortableGit-1.8.4.ssh<br><img src="http://bruce.u.qiniudn.com/2013/11/22/hexo-your-blog/add-ssh-keys.jpg" alt=""><br>Add SSH KeysAdd SSH Keys</p>
+<p>最后可以验证一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure></p>
+<p>若有问题，请重新设置。常见错误请参考：</p>
+<ul>
+<li><a href="http://help.github.com/articles/generating-ssh-keys" target="_blank" rel="external">GitHub Help - Generating SSH Keys</a></li>
+<li><a href="http://help.github.com/articles/error-permission-denied-publickey" target="_blank" rel="external">GitHub Help - Error Permission denied (publickey)</a></li>
+</ul>
+<p>在_config.yml文件中，找到Deployment，然后按照如下修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">type: git</div><div class="line">repo: git@github.com:yourname/yourname.github.io.git</div><div class="line">branch: master</div></pre></td></tr></table></figure></p>
+<p>如果使用git方式进行部署，执行npm install hexo-deployer-git –save来安装所需的插件<br>然后在当前目录打开命令行，输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d</div></pre></td></tr></table></figure></p>
+<p>随后按照提示，分别输入自己的Github账号用户名和密码，开始上传。<br>然后通过<a href="http://yourname.github.io/来访问自己刚刚上传的网站。" target="_blank" rel="external">http://yourname.github.io/来访问自己刚刚上传的网站。</a><br><strong> PS：</strong>如果hexo deploy提示失败，有可能是repo的问题，修改成github上的http地址试试，例如：repository: <a href="http://github.com/xxx/xxx.github.io.git" target="_blank" rel="external">http://github.com/xxx/xxx.github.io.git</a></p>
+<h3 id="七-添加新文章"><a href="#七-添加新文章" class="headerlink" title="七.添加新文章"></a>七.添加新文章</h3><p>打开Hexo目录下的source文件夹，所有的文章都会以md形式保存在_post文件夹中，只要在_post文件夹中新建md类型的文档，就能在执行hexo g的时候被渲染。<br>新建的文章头需要添加一些yml信息，如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">title: hello-world   //在此处添加你的标题。</div><div class="line">date: 2014-11-7 08:55:29   //在此处输入你编辑这篇文章的时间。</div><div class="line">tags: [ACM, UVa, C/C++]  //在此处添加这篇文章的标签，多个标签需要使用`[ ]`来包裹，用`,`来分隔。</div><div class="line">categories: Exercise   //在此处输入这篇文章的分类。</div><div class="line">toc: true  //在此处设定是否开启目录，需要主题支持。</div><div class="line">---</div></pre></td></tr></table></figure></p>
+<h2 id="八-进阶"><a href="#八-进阶" class="headerlink" title="八.进阶"></a>八.进阶</h2><p>如果成功完成了上述的全部步骤，恭喜你，你已经搭建了一个最为简单且基础的博客。但是这个博客还非常简单， 没有个人的定制，操作也比较复杂，下面的进阶技巧将会让你获得对Hexo更为深入的了解。</p>
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>可以在<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">此处</a>寻找自己喜欢的主题<br>下载所有的主题文件，保存到Hexo目录下的themes文件夹下。然后在_config.yml文件中修改：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Extensions</div><div class="line">## Plugins: http://hexo.io/plugins/</div><div class="line">## Themes: http://hexo.io/themes/</div><div class="line">theme: landscape //themes文件夹中对应文件夹的名称</div></pre></td></tr></table></figure></p>
+<p>然后先执行hexo clean，然后重新hexo g，并且hexo d，很快就能看到新主题的效果了~</p>
+<h3 id="更换域名"><a href="#更换域名" class="headerlink" title="更换域名"></a>更换域名</h3><p>首先，需要注册一个域名。在中国的话，.cn全都需要进行备案，如果不想备案的话，请注册别的顶级域名，可以使用godaddy或新网或万网中的任意一家，自己权衡价格即可。<br>然后，我们需要配置一下域名解析。推荐使用DNSPod的服务，比较稳定，解析速度比较快。在域名注册商出修改NS服务器地址为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">f1g1ns1.dnspod.net</div><div class="line">f1g1ns2.dnspod.net</div></pre></td></tr></table></figure></p>
+<p>以新网为例，首先点击域名管理进入管理页面：<br><img src="https://xuanwo.org/imgs/opinion/domin-setting.png" alt=""></p>
+<p>然后点击域名后面的管理：<br><img src="https://xuanwo.org/imgs/opinion/domin-config.png" alt=""></p>
+<p>进入域名管理的操作界面，点击域名管理，来到域名管理界面：<br><img src="https://xuanwo.org/imgs/opinion/domin-dnspod.png" alt=""></p>
+<p>点击修改域名DNS，然后选择填写具体信息，在下面的空框中填入DNSPod的NS服务器：</p>
+<p>然后我们进入DNSPod的界面，开始真正进入域名解析的配置= =。在DNSPod中，首先添加域名，然后分别添加如下条目：<br><img src="https://xuanwo.org/imgs/opinion/dnspod-setting.png" alt=""></p>
+<p>最后，我们对Github进行一下配置。<br>在自己本地的hexo目录下的source文件夹中，新建一个CNAME文件（注意，没有后缀名。），内容为yourdomin.xxx。然后再执行一下hexo d -g，重新上传自己的博客。<br>在github中打开你自己的库，进入库的setting界面，如果看到了如下提示，说明配置成功了。<br><img src="https://xuanwo.org/imgs/opinion/Github-domin.png" alt=""></p>
+<p>在这一系列的操作中，包括修改NS服务器，设置A解析等等，都需要一定的时间。短则10分钟，长则24小时，最长不会超过72小时。如果超过72小时，请检查自己的配置过程，或者修改自己本地的DNS服务器。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="external">https://xuanwo.org/2015/03/26/hexo-intor/</a></li>
+<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">http://ibruce.info/2013/11/22/hexo-your-blog/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/06/tools_hexo_build_guidance/" data-id="cj4zvsgd0006t0gnhdhclbs7r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/06/android_viewpager1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ViewPager的基本使用一
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/06/android_as_shortkey/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">倍数提高工作效率的Android Studio奇技</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

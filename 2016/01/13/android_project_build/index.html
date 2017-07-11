@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>从零开始搭建架构实施Android项目 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我们先假设一个场景需求：刚有孩子的爸爸妈妈对用照片、视频记录宝宝成长有强烈的意愿，但苦于目前没有一款专门的手机APP做这件事。A公司洞察到市场需求，要求开发团队尽快完成Android客户端的开发。以下模拟团队和工作开展。  团队情况：产品经理1人，Android开发2人，服务端开发2人，UI设计1人。 开发周期：两个月。 工作量：大约50个界面。 隐含需求：考虑到用户群体有可能激增的情况，服务端需">
+<meta name="keywords" content="project_build">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始搭建架构实施Android项目">
+<meta property="og:url" content="http://yoursite.com/2016/01/13/android_project_build/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="我们先假设一个场景需求：刚有孩子的爸爸妈妈对用照片、视频记录宝宝成长有强烈的意愿，但苦于目前没有一款专门的手机APP做这件事。A公司洞察到市场需求，要求开发团队尽快完成Android客户端的开发。以下模拟团队和工作开展。  团队情况：产品经理1人，Android开发2人，服务端开发2人，UI设计1人。 开发周期：两个月。 工作量：大约50个界面。 隐含需求：考虑到用户群体有可能激增的情况，服务端需">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111201359960-1995072843.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111231126053-1862756669.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111225510741-595470259.png">
+<meta property="og:updated_time" content="2017-07-11T17:45:09.399Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始搭建架构实施Android项目">
+<meta name="twitter:description" content="我们先假设一个场景需求：刚有孩子的爸爸妈妈对用照片、视频记录宝宝成长有强烈的意愿，但苦于目前没有一款专门的手机APP做这件事。A公司洞察到市场需求，要求开发团队尽快完成Android客户端的开发。以下模拟团队和工作开展。  团队情况：产品经理1人，Android开发2人，服务端开发2人，UI设计1人。 开发周期：两个月。 工作量：大约50个界面。 隐含需求：考虑到用户群体有可能激增的情况，服务端需">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111201359960-1995072843.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android_project_build" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/13/android_project_build/" class="article-date">
+  <time datetime="2016-01-13T10:54:29.000Z" itemprop="datePublished">2016-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从零开始搭建架构实施Android项目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们先假设一个场景需求：刚有孩子的爸爸妈妈对用照片、视频记录宝宝成长有强烈的意愿，但苦于目前没有一款专门的手机APP做这件事。A公司洞察到市场需求，要求开发团队尽快完成Android客户端的开发。以下模拟团队和工作开展。</p>
+<ul>
+<li>团队情况：产品经理1人，Android开发2人，服务端开发2人，UI设计1人。</li>
+<li>开发周期：两个月。</li>
+<li>工作量：大约50个界面。</li>
+<li>隐含需求：考虑到用户群体有可能激增的情况，服务端需要有一定的并发能力。</li>
+<li>前提：原型已设计完成。</li>
+</ul>
+<h2 id="1-服务端概要设计"><a href="#1-服务端概要设计" class="headerlink" title="1 服务端概要设计"></a>1 服务端概要设计</h2><p><strong> 1.1 系统架构</strong><br>先给出服务端的架构图。<br><img src="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111201359960-1995072843.png" alt=""></p>
+<p>由于服务端开发有Java、PHP背景，为了快速完成开发任务，我们选择PHP作为服务端开发语言，顺便也把数据库定为MySQL。考虑后期扩展和数据库访问性能，拟引入Redis非关系型数据库。同时为了提高数据读的性能，在云服务器和数据库之间用上缓存，并为数据库主从备份、读写分离。服务器就不搭建在本地了，管理是一大问题。现在云服务器一大把，七牛、阿里云、腾讯云、百度云、金山云等等，技术成熟，而且价格还算公道。在此我们选择阿里云。为了应对可能面临的并发问题，云服务器要考虑负载均衡。项目中可能存在大量的需要上传和下载照片和视频，我们选择阿里云的开放存储服务，同时为了提升各个地区的下载体验，我们引入CDN。客户端通过API Service和服务端交换数据，图片和视频的下载直接通过CDN。</p>
+<p><strong> 1.2 模块划分</strong></p>
+<p>根据需求和原型设计，可能的模块划分如下：</p>
+<ul>
+<li>注册登录模块</li>
+<li>用户模块</li>
+<li>小孩模块</li>
+<li>媒体（图片+视频）模块</li>
+<li>相册模块</li>
+<li>……</li>
+</ul>
+<p><strong> 1.3 数据交换和API接口</strong></p>
+<p>服务端与客户端使用JSON交换数据，使用自定义JSON格式，约定返回code、message，实体封装在result中，支持单个实体、实体列表、多个实体列表，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;code&quot;:500,</div><div class="line">    &quot;message&quot;:&quot;系统异常，请稍后重试&quot;,</div><div class="line">    &quot;result&quot;:&quot;&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;code&quot;:200,</div><div class="line">    &quot;message&quot;:&quot;登录成功&quot;,</div><div class="line">    &quot;result&quot;:&#123;</div><div class="line">        &quot;user&quot;:&#123;</div><div class="line">            &quot;userId&quot;:1,</div><div class="line">            &quot;nickName&quot;:&quot;Leo&quot;,</div><div class="line">            &quot;email&quot;:&quot;Leo@xxx.com&quot;,</div><div class="line">            &quot;gender&quot;:0</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;code&quot;:200,</div><div class="line">    &quot;message&quot;:&quot;SUCCESS&quot;,</div><div class="line">    &quot;result&quot;:&#123;</div><div class="line">        &quot;album&quot;:&#123;</div><div class="line"> 　　        &quot;kid&quot;:&#123;</div><div class="line">                 &quot;kidId&quot;:1,</div><div class="line">                 &quot;nickName&quot;:&quot;LEE&quot;,</div><div class="line">                 &quot;gender&quot;:1,</div><div class="line">                 &quot;birthday&quot;:&quot;2014-3-6&quot;,</div><div class="line">                 ......</div><div class="line">        　　  &#125;,</div><div class="line">        　   &quot;media&quot;:&#123;</div><div class="line">                 &quot;mediaId&quot;:123,</div><div class="line">                 &quot;mediaType&quot;:1,</div><div class="line">                 &quot;createdTime&quot;:193743546746,</div><div class="line">                 &quot;mediaDescription&quot;:&quot;这是小孩第一次出去春游&quot;,</div><div class="line">                 ......</div><div class="line">       　　  &#125;</div><div class="line">　　     &#125;　</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>主要API接口设计如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">http://api.xxx.com/service/v1.0/user/login</div><div class="line">http://api.xxx.com/service/v1.0/user/third-login</div><div class="line">http://api.xxx.com/service/v1.0/user/register</div><div class="line">http://api.xxx.com/service/v1.0/user/logout</div><div class="line">http://api.xxx.com/service/v1.0/user/info/update</div><div class="line">http://api.xxx.com/service/v1.0/album/upload</div><div class="line">http://api.xxx.com/service/v1.0/album/update</div><div class="line">http://api.xxx.com/service/v1.0/album/delete</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>也许你看到了，API做了二级域名映射，同时为了服务端后期API版本的升级管理，在URL中加上了版本标识V1.0。命名方面我尽量做到restful的风格。对了，此处没有使用Https。为了解决数据传输的安全，我做了点特别的处理：对请求体和响应结果进行RSA加密（如果服务端返回的数据稍稍过大，这个RSA严重影响客户端解密，后来我换成了AES），所有请求为POST请求，所以API URL后面没有带参数，你也看不到任何请求相关的信息。</p>
+<p><strong> 1.4 数据库设计</strong><br>根据需求和原型设计，数据库的设计大概需要两周时间。其实一周基本搞定了，但为了考虑充分，留出一周时间来检验和调整。数据库E-R图略。</p>
+<h2 id="2-Android客户端"><a href="#2-Android客户端" class="headerlink" title="2 Android客户端"></a>2 Android客户端</h2><p><strong> 2.1 基本结构</strong><br>Android本身就是MVC，所以我不打算引入MVP或MVVM。我的理念是职责分层，快速推出Android 1.0。主要的包结构如下：<br><img src="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111231126053-1862756669.png" alt=""><br>工程的搭建和包的划分有各种各样的，适合自己的就行了。想讨论或想看别人怎么做的，点击这里：<a href="http://mobile.51cto.com/abased-386212.htm" target="_blank" rel="external">App工程结构搭建：几种常见Android代码架构分析</a></p>
+<p><strong> 2.2 功能划分</strong><br>注册登录，个人信息，我的小孩，相册管理，消息通知，系统设置等等。</p>
+<p><strong> 2.3 引入的第三方技术</strong><br>重复发明轮子是不可取的。有些模块根本没必要自己写。以下是引入的第三方库，以及优势说明。</p>
+<p>2.3.1 网络请求库android-async-http</p>
+<ul>
+<li>在匿名回调中处理请求结果</li>
+<li>在UI线程外进行http请求</li>
+<li>文件断点上传</li>
+<li>智能重试</li>
+<li>默认gzip压缩</li>
+<li>支持解析成Json格式</li>
+<li>可将Cookies持久化到SharedPreferences</li>
+</ul>
+<p>2.3.2 云巴推送</p>
+<ul>
+<li>专注于为需要实时数据交换的产品提供完美解决方案</li>
+<li>基于发布者/订阅者(publisher/subscriber)模式，集成简单</li>
+<li>对比了百度云推送、腾讯信鸽推送，云巴效果更好</li>
+<li>原极光推送CTO创办的</li>
+</ul>
+<p>2.3.3 xUtils（只使用其中的DbUtils和ViewUtils）</p>
+<ul>
+<li>Android中的ORM框架，一行代码就可以进行增删改查</li>
+<li>支持事务，默认关闭</li>
+<li>可通过注解自定义表名、列名、外键、唯一性约束、NOT NULL约束、CHECK约束等（需要混淆的时候请注解表名和列名）</li>
+<li>Android中的IOC框架，完全注解方式就可以进行UI，资源和事件绑定</li>
+<li>新的事件绑定方式，使用混淆工具混淆后仍可正常工作</li>
+</ul>
+<p>2.3.4 友盟统计</p>
+<ul>
+<li>国内专业的移动应用统计分析平台</li>
+<li>统计和分析流量来源、内容使用、用户属性和行为数据</li>
+<li>Crash log跟踪</li>
+</ul>
+<p>2.3.5 云通讯验证码</p>
+<ul>
+<li>解决方案成熟，众多公司使用</li>
+</ul>
+<p>2.3.6 高德地图定位</p>
+<ul>
+<li>GPS+基站+wifi的混合定位方式</li>
+<li>接入简单</li>
+</ul>
+<p>2.3.7 异步图片加载库Android-Universal-Image-Loader</p>
+<ul>
+<li>多线程下载图片，图片可以来源于网络，文件系统，项目文件夹assets中以及drawable中等</li>
+<li>支持随意的配置ImageLoader，例如线程池，图片下载器，内存缓存策略，硬盘缓存策略，图片显示选项以及其他的一些配置</li>
+<li>支持图片的内存缓存，文件系统缓存或者SD卡缓存</li>
+<li>支持图片下载过程的监听</li>
+<li>根据控件(ImageView)的大小对Bitmap进行裁剪，减少Bitmap占用过多的内存</li>
+<li>较好的控制图片的加载过程，例如暂停图片加载，重新开始加载图片，一般使用在ListView,GridView中，滑动过程中暂停加载图片，停止滑动的时候去加载图片</li>
+<li>提供在较慢的网络下对图片进行加载</li>
+</ul>
+<p>2.3.8 阿里云OSS Android客户端SDK</p>
+<ul>
+<li>提供文件（图片、视频等等）上传</li>
+<li>大文件分块上传</li>
+<li>删除操作（不推荐在客户端使用）</li>
+</ul>
+<p>2.3.9 组件内通讯EventBus</p>
+<ul>
+<li>基于发布者/订阅者(publisher/subscriber)模式</li>
+<li>简化了应用程序内各组件间、组件与后台线程间的通信</li>
+</ul>
+<p>2.3.10 Android本地数据库加密库SQLCipher</p>
+<ul>
+<li>基于SQLite扩展的开源数据库，在SQLite的基础之上增加了数据加密功能</li>
+<li>SQLCipher对Android SDK中所有与数据库相关的API都制作了一份镜像，使得开发者可以像操作普遍的数据库文件一样来操作SQLCipher</li>
+</ul>
+<p><strong> 2.4 基础组件封装</strong><br>2.4.1 基础回调接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public interface DataCallback &#123;</div><div class="line">    </div><div class="line">    void onSuccess(Object result);</div><div class="line">    </div><div class="line">    void onFailure(Object result);</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.4.2 网络访问</p>
+<p>先看一下登录的序列图：<br><img src="http://images2015.cnblogs.com/blog/316892/201601/316892-20160111225510741-595470259.png" alt=""><br>HttpManager类负责调用AsyncHttpWrapper中的post方法，和对服务端返回的数据解密、JSON转对象、回调上层；AsyncHttpWrapper则负责请求体的封装加密和其它的校验参数封装。看一下HttpManager类的post方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">public void post(Context context, String url, RequestParams params, final String modelName,</div><div class="line">                     final DataCallback callback) &#123;</div><div class="line">        AsyncHttpWrapper.post(context, url, params, new AsyncHttpResponseHandler() &#123;</div><div class="line">            @Override</div><div class="line">            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) &#123;</div><div class="line">                try &#123;</div><div class="line">                    if (modelName != null) &#123;</div><div class="line">                        handleResponse(responseBody, callback, modelName);</div><div class="line">                    &#125; else &#123;</div><div class="line">                        String response = new String(responseBody);</div><div class="line">                        // 解密</div><div class="line">                        response = AES128.getInstance().decrypt(AppUtil.decodeReplace(response));</div><div class="line">                        </div><div class="line">                        // JSON转对象</div><div class="line">                        BaseMessage message = AppUtil.getMessage(response);</div><div class="line">                        if (callback != null) &#123;</div><div class="line">                            // 如果自定义code是200</div><div class="line">                            if (Coder.CODE_200.equals(message.getCode())) &#123;</div><div class="line">                                callback.onSuccess(message.getMessage());</div><div class="line">                            &#125; else &#123;</div><div class="line">                                callback.onFailure(new ServerError(message.getCode()));</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125; catch (JSONException e) &#123;</div><div class="line">                    LogUtil.e(e);</div><div class="line">                    callback.onFailure(&quot;服务端返回的数据不能解析成JSON&quot;);</div><div class="line">                &#125; catch (Exception e) &#123;</div><div class="line">                    LogUtil.e(e);</div><div class="line">                    callback.onFailure(e);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            @Override</div><div class="line">            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) &#123;</div><div class="line">                if (callback != null) &#123;</div><div class="line">                    callback.onFailure(error);</div><div class="line">                    if (responseBody != null) &#123;</div><div class="line">                        String s = new String(responseBody);</div><div class="line">                        LogUtil.e(s);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>AsyncHttpWrapper中的post方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public static void post(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) &#123;</div><div class="line">        // 设置请求头部信息</div><div class="line">        generateHeader(context);</div><div class="line">        </div><div class="line">        // 加密请求参数</div><div class="line">        String encryParams = AES128.getInstance().encrypt(params.toString());</div><div class="line">        </div><div class="line">        RequestParams requestParams = new RequestParams();</div><div class="line">        requestParams.put(&quot;param&quot;, AppUtil.encodeReplace(encryParams));</div><div class="line">        </div><div class="line">        client.post(context, url, requestParams, responseHandler);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private static AsyncHttpClient client = new AsyncHttpClient();</div></pre></td></tr></table></figure>
+<p>2.4.3 Adapter封装<br>为了加快开发速度，重用代码，Adapter的使用有技巧。每次在getView中查找控件id、利用ViewHolder、赋值，最后返回convertView，看着都是差不多的代码。是时候脱离这个苦海了。先看怎么解决共用的ViewHolder问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static &lt;T extends View&gt; T get(View view, int id) &#123;</div><div class="line">        SparseArrayCompat&lt;View&gt; viewHolder = (SparseArrayCompat&lt;View&gt;) view.getTag();</div><div class="line">        if (viewHolder == null) &#123;</div><div class="line">            viewHolder = new SparseArrayCompat&lt;&gt;();</div><div class="line">            view.setTag(viewHolder);</div><div class="line">        &#125;</div><div class="line">        View childView = viewHolder.get(id);</div><div class="line">        if (childView == null) &#123;</div><div class="line">            childView = view.findViewById(id);</div><div class="line">            viewHolder.put(id, childView);</div><div class="line">        &#125;</div><div class="line">        return (T) childView;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>ViewHolder的作用，就是通过convertView.setTag与convertView进行绑定。当convertView复用时，直接从与之对应的ViewHolder(getTag)中拿到convertView布局中的控件，省去了findViewById的时间。上面的代码就是这样的原理。</p>
+<p>然后就是CommonAdapter了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">public abstract class CommonAdapter&lt;T&gt; extends BaseAdapter &#123;</div><div class="line">    </div><div class="line">    protected LayoutInflater inflater;</div><div class="line">    protected Context context;</div><div class="line">    protected List&lt;T&gt; datas;</div><div class="line">    protected final int itemLayoutId;</div><div class="line">    </div><div class="line">    public CommonAdapter(Context context, List&lt;T&gt; datas, int itemLayoutId) &#123;</div><div class="line">        this.context = context;</div><div class="line">        this.inflater = LayoutInflater.from(context);</div><div class="line">        this.datas = datas;</div><div class="line">        this.itemLayoutId = itemLayoutId;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public int getCount() &#123;</div><div class="line">        return datas != null ? datas.size() : 0;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public T getItem(int position) &#123;</div><div class="line">        return datas.get(position);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public long getItemId(int position) &#123;</div><div class="line">        return position;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">        final CommonViewHolder viewHolder = getViewHolder(position, convertView, parent);</div><div class="line">        convert(viewHolder, getItem(position), position);</div><div class="line">        return viewHolder.getConvertView();</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public abstract void convert(CommonViewHolder viewHolder, T item, int position);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>好了，不贴代码了。看不明白了请点击这里：Android 快速开发系列 打造万能的ListView GridView 适配器<br>2.4.5 其它Utils封装<br>如AES128加密类、BitmapUtils、SecurePreferences、StringUtil、ToastUtil、IOUtil等等。</p>
+<p><strong> 2.5 接口测试</strong><br>为了保证数据交换、加解密正常，首先对某一个接口进行测试，以验证API Service能正常跑通。比如可以先对登录进行模拟测试，看是否成功，同时包括异常的测试，服务端是不是处理了边界异常，返回给客户端的都是封装过的异常信息，而不是抛一个敏感信息给客户端。提前进行接口测试有助于我们的基础组件运行没问题，方便后期其它模块的快速集成。</p>
+<p><strong> 2.6 快速开发</strong><br>基础组件封装好后，除了少量的从网络获取数据逻辑和本地数据库的增删改查，客户端基本上就是界面的布局工作了。界面开发基本看熟练程度和自定义View的重用。</p>
+<p>好了，基本就这些。两个Android开发人员两个月内完成肯定是可以的，前提是至少有一个熟手。为了便于后期维护开发，可以参考文章:<a href="http://aresxiong.com/2015/12/02/android_design_model_mvp/" target="_blank" rel="external">Android设计模式之MVP </a>。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://www.cnblogs.com/lao-liang/p/5122425.html?plg_nld=1&amp;plg_uin=1&amp;plg_auth=1&amp;plg_nld=1&amp;plg_usr=1&amp;plg_vkey=1&amp;plg_dev=1&amp;from=singlemessage&amp;isappinstalled=1" target="_blank" rel="external">从零开始搭建架构实施Android项目</a></li>
+<li><a href="http://aresxiong.com/2015/12/02/android_design_model_mvp/" target="_blank" rel="external">Android设计模式之MVP</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/01/13/android_project_build/" data-id="cj4zvsgba003r0gnhiw1i7w52" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/project-build/">project_build</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/27/reading_book_list1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          201601书单整理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/13/android_webview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">android之WebView使用详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

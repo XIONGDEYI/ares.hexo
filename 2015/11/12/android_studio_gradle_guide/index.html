@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AndroidStudio之Gradle Guide官方文档翻译 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言google推出了全新的Android Studio集成开发环境，其中Android项目的结构与Eclipse的Android项目结构有很大的区别，原因就在于两开发环境使用的构建工具不同。Android Studio使用Gradle构建工具，Eclipse的ADT插件使用的是Ant构建工具。因为两个构建工具的区别，导致习惯了Eclipse开发环境的开发者刚开始比较难适应Android Stud">
+<meta name="keywords" content="androidstudio,gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndroidStudio之Gradle Guide官方文档翻译">
+<meta property="og:url" content="http://yoursite.com/2015/11/12/android_studio_gradle_guide/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言google推出了全新的Android Studio集成开发环境，其中Android项目的结构与Eclipse的Android项目结构有很大的区别，原因就在于两开发环境使用的构建工具不同。Android Studio使用Gradle构建工具，Eclipse的ADT插件使用的是Ant构建工具。因为两个构建工具的区别，导致习惯了Eclipse开发环境的开发者刚开始比较难适应Android Stud">
+<meta property="og:updated_time" content="2017-07-11T17:45:09.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AndroidStudio之Gradle Guide官方文档翻译">
+<meta name="twitter:description" content="前言google推出了全新的Android Studio集成开发环境，其中Android项目的结构与Eclipse的Android项目结构有很大的区别，原因就在于两开发环境使用的构建工具不同。Android Studio使用Gradle构建工具，Eclipse的ADT插件使用的是Ant构建工具。因为两个构建工具的区别，导致习惯了Eclipse开发环境的开发者刚开始比较难适应Android Stud">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android_studio_gradle_guide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/12/android_studio_gradle_guide/" class="article-date">
+  <time datetime="2015-11-12T03:11:29.000Z" itemprop="datePublished">2015-11-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AndroidStudio之Gradle Guide官方文档翻译
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>google推出了全新的Android Studio集成开发环境，其中Android项目的结构与Eclipse的Android项目结构有很大的区别，原因就在于两开发环境使用的构建工具不同。<br>Android Studio使用Gradle构建工具，Eclipse的ADT插件使用的是Ant构建工具。因为两个构建工具的区别，导致习惯了Eclipse开发环境的开发者刚开始比较难适应Android Studio。如果要迁移到Android Studio，建议最好了解下Gradle构建工具。Gradle构建工具是任务驱动型的构建工具，并且可以通过各种Plugin插件扩展功能以适应各种构建任务。对应Android项目的Gradle插件就是Android Gradle Plugin。本文是Google官方的Android Gradle Plugin使用指南翻译，如英语水平还不错的同学，建议直接查看官方原文。</p>
+<h2 id="1-Introduction（简介"><a href="#1-Introduction（简介" class="headerlink" title="1.Introduction（简介)"></a>1.Introduction（简介)</h2><h3 id="1-1-gradle构建系统的目标"><a href="#1-1-gradle构建系统的目标" class="headerlink" title="1.1 gradle构建系统的目标"></a>1.1 gradle构建系统的目标</h3><p>采用Gradle作为新构建系统的目标：</p>
+<ul>
+<li>让重用代码和资源变得更加容易。</li>
+<li>让创建同一应用程序的不同版本变得更加容易，无论是多个apk发布版本还是同一个应用的不同定制版本。</li>
+<li>让构建过程变得更加容易配置，扩展和定制。</li>
+<li>整合优秀的IDE</li>
+</ul>
+<h3 id="1-2-为什么使用gradle"><a href="#1-2-为什么使用gradle" class="headerlink" title="1.2 为什么使用gradle"></a>1.2 为什么使用gradle</h3><p>Gradle是一个优秀的构建系统和构建工具，它允许通过插件创建自定义的构建逻辑。 我们基于Gradle以下的一些特点而选择了它：</p>
+<ul>
+<li>采用了Domain Specific Language(DSL语言)来描述和控制构建逻辑。</li>
+<li>构建文件基于Groovy，并且允许通过混合声明DSL元素和使用代码来控制DSL元素以控制自定义的构建逻辑。</li>
+<li>支持Maven或者Ivy的依赖管理。</li>
+<li>非常灵活。允许使用最好的实现，但是不会强制实现的方式。</li>
+<li>插件可以提供自己的DSL和API以供构建文件使用。</li>
+<li>良好的API工具供IDE集成。</li>
+</ul>
+<h2 id="2-Requirements（要求）"><a href="#2-Requirements（要求）" class="headerlink" title="2.Requirements（要求）"></a>2.Requirements（要求）</h2><ul>
+<li>Gradle 2.2版本。</li>
+<li>SDK build tools 要求版本19.0.0。一些新的特征可能需要更高版本。</li>
+</ul>
+<h2 id="3-Basic-Project（基本项目）"><a href="#3-Basic-Project（基本项目）" class="headerlink" title="3.Basic Project（基本项目）"></a>3.Basic Project（基本项目）</h2><p>一个Gradle项目的构建过程定义在build.gradle文件中，位于项目的根目录下。(可以参考<a href="https://docs.gradle.org/current/userguide/userguide_single.html" target="_blank" rel="external">Gradle User Guide</a>)</p>
+<h3 id="3-1-简单的构建文件"><a href="#3-1-简单的构建文件" class="headerlink" title="3.1 简单的构建文件"></a>3.1 简单的构建文件</h3><p>最简单的Android项目的build.gradle文件包含以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        mavenCentral()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:0.11.1'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">apply plugin: <span class="string">'android'</span></div><div class="line"></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion 19</div><div class="line">    buildToolsVersion <span class="string">"19.0.0"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里包括了Android build file的3个主要部分：</p>
+<p>buildscrip{…}这里配置了驱动构建过程的代码。</p>
+<p>在这个部分，它声明了使用Maven仓库，并且声明了一个maven文件的依赖路径。这个文件就是包含了1.3.1版本android gradle插件的库。</p>
+<blockquote>
+<p>注意：这里的配置只影响控制构建过程的代码，不影响项目源代码。项目本身需要声明自己的仓库和依赖关系，稍后将会提到这部分。</p>
+</blockquote>
+<p>接下来，跟前面提到的Java Plugin一样添加了android plugin。</p>
+<p>最后，andorid{…}配置了所有android构建过程需要的参数。这里也是Android DSL的入口点。</p>
+<p>默认情况下，只需要配置目标编译SDK版本和编译工具版本，即compileSdkVersion和buildToolsVersion属性。 这个complieSdkVersion属性相当于旧构建系统中project.properites文件中的target属性。这个新的属性可以跟旧的target属性一样指定一个int或者String类型的值。</p>
+<blockquote>
+<p>重要：你只能添加android plugin。同时添加java plugin会导致构建错误。<br>注意：你同样需要在相同路径下添加一个local.properties文件，并使用sdk.dir属性来设置SDK路径。 另外，你也可以通过设置ANDROID_HOME环境变量，这两种方式没有什么不同，根据你自己的喜好选择其中一种设置。</p>
+</blockquote>
+<h3 id="3-2-项目结构"><a href="#3-2-项目结构" class="headerlink" title="3.2 项目结构"></a>3.2 项目结构</h3><p>上面提到的基本的构建文件需要一个默认的文件夹结构。Gradle遵循约定优先于配置的概念，在可能的情况尽可能提供合理的默认配置参数。<br>基本的项目开始于两个名为“source sets”的组件，即main source code和test code。它们分别位于：</p>
+<ul>
+<li>src/main/</li>
+<li>src/androidTest/</li>
+</ul>
+<p>里面每一个存在的文件夹对应相应的源组件。 对于Java plugin和Android plugin来说，它们的Java源代码和资源文件路径如下：</p>
+<ul>
+<li>java/</li>
+<li>resources/</li>
+</ul>
+<p>但对于Android plugin来说，它还拥有以下特有的文件和文件夹结构：</p>
+<ul>
+<li>AndroidManifest.xml</li>
+<li>res/</li>
+<li>assets/</li>
+<li>aidl/</li>
+<li>rs/</li>
+<li>jni/</li>
+</ul>
+<blockquote>
+<p>注意：src/androidTest/AndroidManifest.xml是不需要的，它会自动被创建。</p>
+</blockquote>
+<p><strong> 3.1.1 项目结构配置</strong><br>当默认的项目结构不适用的时候，你可能需要去配置它。根据Gradle文档，重新为Java项目配置sourceSets可以使用以下方法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">sourceSets &#123;</div><div class="line">    main &#123;</div><div class="line">        java &#123;</div><div class="line">            srcDir <span class="string">'src/java'</span></div><div class="line">        &#125;</div><div class="line">        resources &#123;</div><div class="line">            srcDir <span class="string">'src/resources'</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：srcDir将会被添加到指定的已存在的源文件夹中（这在Gradle文档中没有提到，但是实际上确实会这样执行）。</p>
+</blockquote>
+<p>替换默认的源代码文件夹，你可能想要使用能够传入一个路径数组的srcDirs来替换单一的srcDir。以下是使用调用对象的另一种不同方法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sourceSets &#123;</div><div class="line">    main.java.srcDirs = [<span class="string">'src/java'</span>]</div><div class="line">    main.resources.srcDirs = [<span class="string">'src/resources'</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>想要获取更多信息，可以参考Gradle文档中关于Java Pluign的部分。</p>
+<p>Android Plugin使用的是类似的语法。但是由于它使用的是自己的sourceSets，这些配置将会被添加在android对象中。</p>
+<p>以下是一个示例，它使用了旧项目结构中的main源码，并且将androidTest sourceSet组件重新映射到tests文件夹。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    sourceSets &#123;</div><div class="line">        main &#123;</div><div class="line">            manifest.srcFile <span class="string">'AndroidManifest.xml'</span></div><div class="line">            java.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            resources.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            aidl.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            renderscript.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            res.srcDirs = [<span class="string">'res'</span>]</div><div class="line">            assets.srcDirs = [<span class="string">'assets'</span>]</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        androidTest.setRoot(<span class="string">'tests'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：由于旧的项目结构将所有的源文件（java,aidl,renderscripthe和java资源文件）都放在同一个目录里面，所以我们需要将这些sourceSet组件重新映射到src目录下。</p>
+<p>注意：setRoot()方法将移动整个组件（包括它的子文件夹）到一个新的文件夹。示例中将会移动src/androidTest/<em>到tests/</em>下。 以上这些是Android特有的，如果配置在Java的sourceSets里面将不会有作用。</p>
+</blockquote>
+<p>以上也是将旧构建系统项目迁移到新构建系统需要做的迁移工作。</p>
+<h3 id="3-3-构建任务"><a href="#3-3-构建任务" class="headerlink" title="3.3 构建任务"></a>3.3 构建任务</h3><p><strong> 3.3.1 通用任务</strong><br>添加一个插件到构建文件中将会自动创建一系列构建任务(build tasks)去执行（注：gradle属于任务驱动型构建工具，它的构建过程是基于Task的）。Java plugin和Android plugin都会创建以下task：</p>
+<ul>
+<li>assemble 这个task将会组合项目的所有输出。</li>
+<li>check 这个task将会执行所有检查。</li>
+<li>build 这个task将会执行assemble和check两个task的所有工作</li>
+<li>clean 这个task将会清空项目的输出。</li>
+</ul>
+<p>实际上assemble，check，build这三个task不做任何事情。它们只是一个Task标志，用来告诉android plugin添加实际需要执行的task去完成这些工作。</p>
+<p>这就允许你去调用相同的task，而不需要考虑当前是什么类型的项目，或者当前项目添加了什么plugin。 例如，添加了findbugs plugin将会创建一个新的task并且让check task依赖于这个新的task。当check task被调用的时候，这个新的task将会先被调用。</p>
+<p>在命令行环境中，你可以执行以下命令来获取更多高级别的task：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradle tasks</div></pre></td></tr></table></figure></p>
+<p>查看所有task列表和它们之间的依赖关系可以执行以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradle tasks --all</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：Gradle会自动监视一个task声明的所有输入和输出。 两次执行build task并且期间项目没有任何改动，gradle将会使用UP-TO-DATE通知所有task。这意味着第二次build执行的时候不会请求任何task执行。这允许task之间互相依赖，而不会导致不需要的构建请求被执行。</p>
+</blockquote>
+<p><strong> 3.3.2 Java项目的Task</strong><br>Java plugin主要创建了两个task，依赖于main task（一个标识性的task）：</p>
+<ul>
+<li>assemble<ul>
+<li>jar 这个task创建所有输出</li>
+</ul>
+</li>
+<li>check<ul>
+<li>test 这个task执行所有的测试。</li>
+</ul>
+</li>
+</ul>
+<p>jar task自身直接或者间接依赖于其他task：classes task将会被调用于编译java源码。 testClasses task用于编译测试，但是它很少被调用，因为test task依赖于它（类似于classes task）。</p>
+<p>通常情况下，你只需要调用到assemble和check，不需要其他task。</p>
+<p>你可以在Gradle文档中查看java plugin的全部task。</p>
+<p><strong> 3.3.3 Android项目的tasks</strong><br>Android plugin使用相同的约定以兼容其他插件，并且附加了自己的标识性task，包括：</p>
+<ul>
+<li>assemble 这个task用于组合项目中的所有输出。</li>
+<li>check 这个task用于执行所有检查。</li>
+<li>connectedCheck 这个task将会在一个指定的设备或者模拟器上执行检查，它们可以同时在所有连接的设备上执行。</li>
+<li>deviceCheck 通过APIs连接远程设备来执行检查，这是在CL服务器上使用的。</li>
+<li>build 这个task执行assemble和check的所有工作。</li>
+<li>clean 这个task清空项目的所有输出。</li>
+</ul>
+<p>这些新的标识性task是必须的，以保证能够在没有设备连接的情况下执行定期检查。 注意build task不依赖于deviceCheck或者connectedCheck。<br>一个Android项目至少拥有两个输出：debug APK（调试版APK)和release APK（发布版APK）。每一个输出都拥有自己的标识性task以便能够单独构建它们。<br>assemble</p>
+<ul>
+<li>assembleDebug </li>
+<li>assembleRelease</li>
+</ul>
+<p>它们都依赖于其它一些tasks以完成构建一个APK需要多个步骤。其中assemble task依赖于这两个task，所以执行assemble将会同时构建出两个APK。</p>
+<blockquote>
+<p>小提示：gradle在命令行终端上支持骆驼命名法的task简称，例如，执行<br>      gradle aR<br>  命令等同于执行<br>      gradle assembleRelease。</p>
+</blockquote>
+<p>check task也拥有自己的依赖：</p>
+<ul>
+<li>check<ul>
+<li>lint</li>
+</ul>
+</li>
+<li>connectedCheck<ul>
+<li>connectedAndroidTest</li>
+<li>connectedUiAutomatorTest(目前还没有应用到）</li>
+</ul>
+</li>
+<li>deviceCheck<ul>
+<li>这个test依赖于test创建时，其它实现测试扩展点的插件。</li>
+</ul>
+</li>
+</ul>
+<p>最后，只要task能够被安装（那些要求签名的task），android plugin就会为所有构建类型（debug，release，test）安装或者卸载。</p>
+<h3 id="3-4-基本的构建定制"><a href="#3-4-基本的构建定制" class="headerlink" title="3.4 基本的构建定制"></a>3.4 基本的构建定制</h3><p>Android plugin提供了大量DSL用于直接从构建系统定制大部分事情。</p>
+<p><strong> 3.4.1 Manifest属性</strong><br>通过SDL可以配置一下manifest选项：</p>
+<ul>
+<li>minSdkVersion</li>
+<li>targetSdkVersion</li>
+<li>versionName</li>
+<li>applicationId (有效的包名 – 更多详情请查阅ApplicationId 对比 PackageName)</li>
+<li>package Name for the test application</li>
+<li>Instrumentation test runner</li>
+</ul>
+<p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 19</div><div class="line">    buildToolsVersion <span class="string">"19.0.0"</span></div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        versionCode 12</div><div class="line">        versionName <span class="string">"2.0"</span></div><div class="line">        minSdkVersion 16</div><div class="line">        targetSdkVersion 16</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在android元素中的defaultConfig元素中定义所有配置。</p>
+<p>之前的Android Plugin版本使用packageName来配置manifest文件中的packageName属性。从0.11.0版本开始，你需要在build.gradle文件中使用applicationId来配置manifest文件中的packageName属性。 这是为了消除应用程序的packageName（也是程序的ID）和java包名所引起的混乱。</p>
+<p>在构建文件中定义的强大之处在于它是动态的。 例如，可以从一个文件中或者其它自定义的逻辑代码中读取版本信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">def <span class="function"><span class="title">computeVersionName</span></span>() &#123;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion 19</div><div class="line">    buildToolsVersion <span class="string">"19.0.0"</span></div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        versionCode 12</div><div class="line">        versionName computeVersionName()</div><div class="line">        minSdkVersion 16</div><div class="line">        targetSdkVersion 16</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意：不要使用与在给定范围内的getter方法可能引起冲突的方法名。例如，在defaultConfig{…}中调用getVersionName()将会自动调用defaultConfig.getVersionName()方法，你自定义的getVersionName()方法就被取代掉了。</p>
+<p>如果一个属性没有使用DSL进行设置，一些默认的属性值将会被使用。以下表格是可能使用到的值:</p>
+<table><tr><th>Property Name</th><th>Default value in DSL object</th><th>Default value</th></tr><tr><td>versionCode</td><td>-1</td><td>value from manifest if present</td></tr><tr><td>versionName</td><td>null</td><td>value from manifest if present</td></tr><tr><td>minSdkVersion</td><td>-1</td><td>value from manifest if present</td></tr><tr><td>targetSdkVersion</td><td>-1</td><td>value from manifest if present</td></tr><tr><td>applicationId</td><td>null</td><td>value from manifest if present</td></tr><tr><td>testApplicationId</td><td>null</td><td>applicationId + “.test”</td></tr><tr><td>testInstrumentationRunner</td><td>null</td><td>android.test.InstrumentationTestRunner</td></tr><tr><td>signingConfig</td><td>null</td><td>null</td></tr><tr><td>proguardFile</td><td>N/A (set only)</td><td>N/A (set only)</td></tr><tr><td>proguardFiles</td><td>N/A (set only)</td><td>N/A (set only)</td></tr></table>
+
+<p>如果你在构建脚本中使用自定义代码逻辑请求这些属性，那么第二列的值将非常重要。例如，你可能会写：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (android.defaultConfig.testInstrumentationRunner == null) &#123;</div><div class="line">    // assign a better default...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果这个值一直保持null，那么在构建执行期间将会实际替换成第三列的默认值。但是在DSL元素中并没有包含这个默认值，所以，你无法查询到这个值。 除非是真的需要，这是为了预防解析应用的manifest文件。</p>
+<p><strong> 3.4.2 构建类型</strong></p>
+<p>默认情况下，Android Plugin会自动给项目设置同时构建应用程序的debug和release版本。 两个版本之间的不同主要围绕着能否在一个安全设备上调试，以及APK如何签名。</p>
+<p>Debug版本采用使用通用的name/password键值对自动创建的数字证书进行签名，以防止构建过程中出现请求信息。Release版本在构建过程中没有签名，需要稍后再签名。</p>
+<p>这些配置通过一个BuildType对象来配置。默认情况下，这两个实例都会被创建，分别是一个debug版本和一个release版本。</p>
+<p>Android plugin允许像创建其他构建类型一样定制debug和release实例。这需要在buildTypes的DSL容器中配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    buildTypes &#123;</div><div class="line">        debug &#123;</div><div class="line">            applicationIdSuffix <span class="string">".debug"</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        jnidebug.initWith(buildTypes.debug)</div><div class="line">        jnidebug &#123;</div><div class="line">            packageNameSuffix <span class="string">".jnidebug"</span></div><div class="line">            jnidebugBuild <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p>以上代码片段实现了以下功能：</p>
+<ul>
+<li>配置默认的debug构建类型<ul>
+<li>将debug版本的包名设置为.debug以便能够同时在一台设备上安装debug和release版本的apk。</li>
+</ul>
+</li>
+<li>创建了一个名为jnidebug的新构建类型，并且这个构建类型是debug构建类型的一个副本。</li>
+<li>继续配置jnidebug构建类型，允许使用JNI组件，并且也添加了不一样的包名后缀。</li>
+</ul>
+<p>创建一个新的构建类型就是简单的在buildType标签下添加一个新的元素，并且可以使用initWith()或者直接使用闭包来配置它。</p>
+<p>以下是一些可能使用到的属性和默认值：</p>
+<table><tr><th>Property name</th><th>Default values for debug</th><th>Default values for release / other</th></tr><tr><td>debuggable</td><td>TRUE</td><td>FALSE</td></tr><tr><td>jniDebugBuild</td><td>FALSE</td><td>FALSE</td></tr><tr><td>renderscriptDebugBuild</td><td>FALSE</td><td>FALSE</td></tr><tr><td>renderscriptOptimLevel</td><td>3</td><td>3</td></tr><tr><td>applicationIdSuffix</td><td>null</td><td>null</td></tr><tr><td>versionNameSuffix</td><td>null</td><td>null</td></tr><tr><td>signingConfig</td><td>android.signingConfigs.debug</td><td>null</td></tr><tr><td>zipAlign</td><td>FALSE</td><td>TRUE</td></tr><tr><td>runProguard</td><td>FALSE</td><td>FALSE</td></tr><tr><td>proguardFile</td><td>N/A (set only)</td><td>N/A (set only)</td></tr><tr><td>proguardFiles</td><td>N/A (set only)</td><td>N/A (set only)</td></tr></table>
+
+<p>除了以上属性之外，Build Type还会受项目源码和资源影响： 对于每一个Build Type都会自动创建一个匹配的sourceSet。默认的路径为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src/&lt;buildtypename&gt;/</div></pre></td></tr></table></figure></p>
+<p>这意味着BuildType名称不能是main或者androidTest（因为这两个是由plugin强制实现的），并且他们互相之间都必须是唯一的。</p>
+<p>跟其他sourceSet设置一样，Build Type的source set路径可以重新被定向：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    sourceSets.jnidebug.setRoot(<span class="string">'foo/jnidebug'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外，每一个Build Type都会创建一个新的assemble任务。</p>
+<p>assembleDebug和assembleRelease两个Task在上面已经提到过，这里要讲这两个Task从哪里被创建。当debug和release构建类型被预创建的时候，它们的tasks就会自动创建对应的这个两个Task。<br>上面提到的build.gradle代码片段中也会实现assembleJnidebug task，并且assemble会像依赖于assembleDebug和assembleRelease一样依赖于assembleJnidebug。</p>
+<blockquote>
+<p>提示：你可以在终端下输入gradle aJ去运行assembleJnidebug task。</p>
+</blockquote>
+<p>可能会使用到的情况：</p>
+<ul>
+<li>release模式不需要，只有debug模式下才使用到的权限</li>
+<li>自定义的debug实现</li>
+<li>为debug模式使用不同的资源（例如当资源的值由绑定的证书决定）</li>
+</ul>
+<p>BuildType的代码和资源通过以下方式被使用：</p>
+<ul>
+<li>manifest将被混合进app的manifest</li>
+<li>代码行为只是另一个资源文件夹</li>
+<li>资源将叠加到main的资源中，并替换已存在的资源。</li>
+</ul>
+<p><strong> 3.4.3 签名配置</strong><br>对一个应用程序签名需要以下：</p>
+<ul>
+<li>一个Keystory</li>
+<li>一个keystory密码</li>
+<li>一个key的别名</li>
+<li>一个key的密码</li>
+<li>存储类型</li>
+</ul>
+<p>位置，键名，两个密码，还有存储类型一起形成了签名配置。<br>默认情况下，debug被配置成使用一个debug keystory。 debug keystory使用了默认的密码和默认key及默认的key密码。 debug keystory的位置在$HOME/.android/debug.keystroe，如果对应位置不存在这个文件将会自动创建一个。</p>
+<p><u>debug Build Type(构建类型) </u> 会自动使用debug SigningConfig (签名配置)。</p>
+<p>可以创建其他配置或者自定义内建的默认配置。通过signingConfigs这个DSL容器来配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    signingConfigs &#123;</div><div class="line">        debug &#123;</div><div class="line">            storeFile file(<span class="string">"debug.keystore"</span>)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        myConfig &#123;</div><div class="line">            storeFile file(<span class="string">"other.keystore"</span>)</div><div class="line">            storePassword <span class="string">"android"</span></div><div class="line">            keyAlias <span class="string">"androiddebugkey"</span></div><div class="line">            keyPassword <span class="string">"android"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    buildTypes &#123;</div><div class="line">        foo &#123;</div><div class="line">            debuggable <span class="literal">true</span></div><div class="line">            jniDebugBuild <span class="literal">true</span></div><div class="line">            signingConfig signingConfigs.myConfig</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上代码片段修改debug keystory的路径到项目的根目录下。在这个例子中，这将自动影响其他使用到debug构建类型的构建类型。<br>这里也创建了一个新的Single Config（签名配置）和一个使用这个新签名配置的新的Build Type（构建类型）。</p>
+<blockquote>
+<p>注意：只有默认路径下的debug keystory不存在时会被自动创建。更改debug keystory的路径并不会自动在新路径下创建debug keystory。如果创建一个新的不同名字的SignConfig，但是使用默认的debug keystore路径来创建一个非默认的名字的SigningConing，那么还是会在默认路径下创建debug keystory。换句话说，会不会自动创建是根据keystory的路径来判断，而不是配置的名称。</p>
+<p>注意：虽然经常使用项目根目录的相对路径作为keystore的路径，但是也可以使用绝对路径，尽管这并不推荐（除了自动创建出来的debug keystore）。</p>
+<p>注意：如果你将这些文件添加到版本控制工具中，你可能不希望将密码直接写到这些文件中。下面Stack Overflow链接提供从控制台或者环境变量中获取密码的方法：<a href="http://stackoverflow.com/questions/18328730/how-to-create-a-release-signed-apk-file-using-gradle" target="_blank" rel="external">方法</a>我们以后还会在这个指南中添加更多的详细信息。</p>
+</blockquote>
+<p><strong> 3.4.4 运行 Proguard</strong></p>
+<p>从Gradle Plugin for ProGuard version 4.10之后就开始支持ProGuard。ProGuard插件是自动添加进来的。如果Build Type的runProguard属性被设置为true，对应的task将会自动创建。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    buildTypes &#123;</div><div class="line">        release &#123;</div><div class="line">            runProguard <span class="literal">true</span></div><div class="line">            proguardFile getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    productFlavors &#123;</div><div class="line">        flavor1 &#123;</div><div class="line">        &#125;</div><div class="line">        flavor2 &#123;</div><div class="line">            proguardFile <span class="string">'some-other-rules.txt'</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>发布版本将会使用它的Build Type中声明的规则文件，product flavor（定制的产品版本）将会使用对应flavor中声明的规则文件。</p>
+<p>这里有两个默认的规则文件：</p>
+<ul>
+<li>proguard-android.txt</li>
+<li>proguard-android-optimize.txt</li>
+</ul>
+<p>这两个文件都在SDK的路径下。使用getDefaultProguardFile()可以获取这些文件的完整路径。它们除了是否要进行优化之外，其它都是相同的。</p>
+<h2 id="4-依赖关系，Android库和多项目设置"><a href="#4-依赖关系，Android库和多项目设置" class="headerlink" title="4.依赖关系，Android库和多项目设置"></a>4.依赖关系，Android库和多项目设置</h2><p>Gradle项目可以依赖于其它组件。这些组件可以是外部二进制包，或者是其它的Gradle项目。</p>
+<h3 id="4-1-依赖二进制包"><a href="#4-1-依赖二进制包" class="headerlink" title="4.1 依赖二进制包"></a>4.1 依赖二进制包</h3><p><strong> 4.1.1 本地包</strong><br>配置一个外部库的jar包依赖，你需要在compile配置中添加一个依赖。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile files(<span class="string">'libs/foo.jar'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：这个dependencies DSL标签是标准Gradle API中的一部分，所以它不属于android标签。</p>
+</blockquote>
+<p>这个compile配置将被用于编译main application。它里面的所有东西都被会被添加到编译的classpath中，同时也会被打包进最终的APK。 以下是添加依赖时可能用到的其它一些配置选项：</p>
+<ul>
+<li>compile main application（主module）</li>
+<li>androidTestCompile test application（测试module）</li>
+<li>debugCompile debug Build Type（debug类型的编译）</li>
+<li>releaseCompile release Build Type（发布类型的编译）</li>
+</ul>
+<p>因为没有可能去构建一个没有关联任何Build Type（构建类型）的APK，APK默认配置了两个或两个以上的编译配置：compile和&lt; buildtype &gt;Compile. 创建一个新的Build Type将会自动创建一个基于它名字的新配置。<br>这对于debug版本需要使用一个自定义库（为了反馈实例化的崩溃信息等）但发布版本不需要，或者它们依赖于同一个库的不同版本时会非常有用。</p>
+<p><strong> 4.1.2 远程文件</strong></p>
+<p>Gradle支持从Maven或者Ivy仓库中拉取文件。<br>首先必须将仓库添加到列表中，然后必须在依赖中声明Maven或者Ivy声明的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">    mavenCentral()</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">    compile <span class="string">'com.google.guava:guava:11.0.2'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：mavenCentral()是指定仓库URL的简单方法。Gradle支持远程和本地仓库。</p>
+<p>注意：Gradle会遵循依赖关系的传递性。这意味着如果一个依赖本身依赖于其它东西，这些东西也会一并被拉取回来。</p>
+</blockquote>
+<p>更多关于设置依赖关系的信息，请参考<a href="http://gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html" target="_blank" rel="external">Gradle用户指南</a>和<a href="http://gradle.org/docs/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html" target="_blank" rel="external">DSL文档</a>。</p>
+<h3 id="4-2-多项目设置"><a href="#4-2-多项目设置" class="headerlink" title="4.2 多项目设置"></a>4.2 多项目设置</h3><p>Gradle项目也可以通过使用多项目配置依赖于其它Gradle项目。<br>多项目配置的实现通常是在一个根项目路径下将所有项目作为子文件夹包含进去。<br>例如，给定以下项目结构：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">MyProject/</div><div class="line"> + app/</div><div class="line"> + libraries/</div><div class="line">    + lib1/</div><div class="line">    + lib2/</div></pre></td></tr></table></figure></p>
+<p>我们可以定义3个项目。Grand将会按照以下名字映射它们：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">:app</div><div class="line">:libraries:lib1</div><div class="line">:libraries:lib2</div></pre></td></tr></table></figure></p>
+<p>每一个项目都拥有自己的build.gradle文件来声明自己如何构建。 另外，在根目录下还有一个setting.gradle文件用于声明所有项目。 这些文件的结构如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">MyProject/</div><div class="line"> | settings.gradle</div><div class="line"> + app/</div><div class="line">    | build.gradle</div><div class="line"> + libraries/</div><div class="line">    + lib1/</div><div class="line">       | build.gradle</div><div class="line">    + lib2/</div><div class="line">       | build.gradle</div></pre></td></tr></table></figure></p>
+<p>其中setting.gradle的内容非常简单：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">include <span class="string">':app'</span>, <span class="string">':libraries:lib1'</span>, <span class="string">':libraries:lib2'</span></div></pre></td></tr></table></figure></p>
+<p>这里定义了哪一个文件夹才是真正的Gradle项目。<br>其中:app项目可能依赖于这些库，这是通过以下依赖配置声明的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile project(<span class="string">':libraries:lib1'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>更多关于多项目配置的信息请参考<a href="http://gradle.org/docs/current/userguide/multi_project_builds.html" target="_blank" rel="external">这里</a>。</p>
+<h3 id="4-3-库项目"><a href="#4-3-库项目" class="headerlink" title="4.3 库项目"></a>4.3 库项目</h3><p>在上面的多项目配置中，:libraries:lib1和:libraries:lib2可能是一个Java项目，并且:app这个Android项目将会使用它们的jar包输出。<br>但是，如果你想要共享代码来访问Android API或者使用Android样式的资源，那么这些库就不能是通常的Java项目，而应该是Android库项目。</p>
+<p><strong> 4.3.1 创建一个库项目</strong></p>
+<p>一个库项目与通常的Android项目非常类似，只是有一点小区别。<br>尽管构建库项目不同于构建应用程序，它们使用了不同的plugin。但是在内部这些plugin共享了大部分相同的代码，并且它们都由相同的com.android.tools.build.gradle.jar提供。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line"></div><div class="line">    repositories &#123;</div><div class="line">        mavenCentral()</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:0.5.6'</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">apply plugin: <span class="string">'android-library'</span></div><div class="line"></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion 15</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里创建了一个使用API 15编译SourceSet的库项目，并且依赖关系的配置方法与应用程序项目的配置方法一样，同样也支持自定义配置。</p>
+<p><strong> 4.3.2 普通项目和库项目之间的区别</strong></p>
+<p>一个库项目的main输出是一个.aar包（它代表Android的归档文件）。它组合了编译代码（例如jar包或者是本地的.so文件）和资源（manifest，res，assets）。 一个库项目同样也可以独立于应用程序生成一个测试用的apk来测试。<br>标识Task同样适用于库项目（assembleDebug，assembleRelease），因此在命令行上与构建一个项目没有什么不同。</p>
+<p>其余的部分，库项目与应用程序项目一样。它们都拥有build type和product flavor，也可以生成多个aar版本。 记住大部分Build Type的配置不适用于库项目。但是你可以根据库项目是否被其它项目使用或者是否用来测试来使用自定义的sourceSet改变库项目的内容。</p>
+<p><strong> 4.3.3 引用一个库项目</strong></p>
+<p>引用一个库项目的方法与引用其它项目的方法一样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile project(<span class="string">':libraries:lib1'</span>)</div><div class="line">    compile project(<span class="string">':libraries:lib2'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：如果你要引用多个库，那么排序将非常重要。这类似于旧构建系统里面的project.properties文件中的依赖排序。</p>
+</blockquote>
+<p><strong> 4.3.4 库项目发布</strong></p>
+<p>一般情况下一个库只会发布它的release Variant（变种）版本。这个版本将会被所有引用它的项目使用，而不管它们本身自己构建了什么版本。这是由于Gradle的限制，我们正在努力消除这个问题，所以这只是临时的限制。<br>你可以控制哪一个Variant版本作为发行版：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    defaultPublishConfig <span class="string">"debug"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意这里的发布配置名称引用的是完整的Variant版本名称。Relesae，debug只适用于项目中没有其它特性版本的时候使用。如果你想要使用其它Variant版本取代默认的发布版本，你可以：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    defaultPublishConfig <span class="string">"flavor1Debug"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>将库项目的所有Variant版本都发布也是可能的。我们计划在一般的项目依赖项目（类似于上述所说的）情况下允许这种做法，但是由于Gradle的限制（我们也在努力修复这个问题）现在还不太可能。 默认情况下没有启用发布所有Variant版本。可以通过以下启用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    publishNonDefault <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>理解发布多个Variant版本意味着发布多个arr文件而不是一个arr文件包含所有Variant版本是非常重要的。每一个arr包都包含一个单一的Variant版本。 发布一个变种版本意味着构建一个可用的arr文件作为Gradle项目的输出文件。无论是发布到一个maven仓库，还是其它项目需要创建一个这个库项目的依赖都可以使用到这个文件。</p>
+<p>Gradle有一个默认文件的概念。当添加以下配置后就会被使用到：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile project(<span class="string">':libraries:lib2'</span>)</div></pre></td></tr></table></figure></p>
+<p>创建一个其它发布文件的依赖，你需要指定具体使用哪一个：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    flavor1Compile project(path: <span class="string">':lib1'</span>, configuration: <span class="string">'flavor1Release'</span>)</div><div class="line">    flavor2Compile project(path: <span class="string">':lib1'</span>, configuration: <span class="string">'flavor2Release'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>重要：注意已发布的配置是一个完整的Variant版本，其中包括了build type，并且需要像以上一样被引用。<br>当启用非默认发布，maven发布插件将会发布其它Variant版本作为扩展包（按分类器分类）。这意味着不能真正的兼容发布到maven仓库。你应该另外发布一个单一的Variant版本到仓库中，或者允许发布所有配置以支持跨项目依赖。</p>
+</blockquote>
+<h2 id="5-测试"><a href="#5-测试" class="headerlink" title="5.测试"></a>5.测试</h2><p>构建一个测试程序已经被集成到应用项目中，没有必要再专门建立一个测试项目。</p>
+<h3 id="5-1-基本知识和配置"><a href="#5-1-基本知识和配置" class="headerlink" title="5.1 基本知识和配置"></a>5.1 基本知识和配置</h3><p>正如前面所提到的，紧邻main sourceSet的就是androidTest sourceSet，默认路径在src/androidTest/下。 在这个测试sourceSet中会构建一个使用Android测试框架，并且可以部署到设备上的测试apk来测试应用程序。这里面包含单元测试，集成测试，和后续UI自动化测试。 这个测试sourceSet不应该包含AndroidManifest.xml文件，因为这个文件会自动生成。</p>
+<p>下面这些值可能会在测试应用配置中使用到：</p>
+<ul>
+<li>testPackageName</li>
+<li>testInstrumentationRunner</li>
+<li>testHandleProfiling</li>
+<li>testfunctionalTest</li>
+</ul>
+<p>正如前面所看到的，这些配置在defaultConfig对象中配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    defaultConfig &#123;</div><div class="line">        testPackageName <span class="string">"com.test.foo"</span></div><div class="line">        testInstrumentationRunner <span class="string">"android.test.InstrumentationTestRunner"</span></div><div class="line">        testHandleProfiling <span class="literal">true</span></div><div class="line">        testFunctionalTest <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在测试应用程序的manifest文件中，instrumentation节点的targetPackage属性值会自动使用测试应用的package名称设置，即使这个名称是通过defaultConfig或者Build Type对象自定义的。这也是manifest文件需要自动生成的一个原因。</p>
+<p>另外，这个测试sourceSet也可以拥有自己的依赖。 默认情况下，应用程序和他的依赖会自动添加的测试应用的classpath中，但是也可以通过以下来扩展：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    androidTestCompile <span class="string">'com.google.guava:guava:11.0.2'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>测试应用通过assembleTest task来构建。assembleTest不依赖于main中的assemble task，需要手动设置运行，不能自动运行。</p>
+<p>目前只有一个Build Type被测试。默认情况下是debug Build Type，但是这也可以通过以下自定义配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    testBuildType <span class="string">"staging"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="5-2-运行测试"><a href="#5-2-运行测试" class="headerlink" title="5.2 运行测试"></a>5.2 运行测试</h3><p>正如前面提到的，标志性task connectedCheck要求一个连接的设备来启动。 这个过程依赖于androidTest task，因此将会运行androidTest。这个task将会执行下面内容：</p>
+<ul>
+<li>确认应用和测试应用都被构建（依赖于assembleDebug和assembleTest）。</li>
+<li>安装这两个应用。</li>
+<li>运行这些测试。</li>
+<li>卸载这两个应用。</li>
+</ul>
+<p>如果有多于一个连接设备，那么所有测试都会同时运行在所有连接设备上。如果其中一个测试失败，不管是哪一个设备算失败。<br>所有测试结果都被保存为XML文档，路径为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_build/androidTest-results_</div></pre></td></tr></table></figure></p>
+<p>这类似于JUnit的运行结果保存在build/test-results.</p>
+<p>同样，这也可以自定义配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line"></div><div class="line">    testOptions &#123;</div><div class="line">        resultsDir = <span class="string">"<span class="variable">$project</span>.buildDir/foo/results"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里的android.testOptions.resultsDir将由Project.file(String)获得。</p>
+<h3 id="5-3-测试Android库"><a href="#5-3-测试Android库" class="headerlink" title="5.3 测试Android库"></a>5.3 测试Android库</h3><p>测试Android库项目的方法与应用项目的方法类似。<br>唯一的不同在于整个库（包括它的依赖）都是自动作为依赖库被添加到测试应用中。结果就是测试APK不单只包含它的代码，还包含了库项目自己和库的所有依赖。 库的manifest被组合到测试应用的manifest中（作为一些项目引用这个库的壳）。</p>
+<p>androidTest task的变改只是安装（或者卸载）测试APK（因为没有其它APK被安装）。<br>其它的部分都是类似的。</p>
+<h3 id="5-4-测试报告"><a href="#5-4-测试报告" class="headerlink" title="5.4 测试报告"></a>5.4 测试报告</h3><p>当运行单元测试的时候，Gradle会输出一份HTML格式的报告以方便查看结果。 Android plugin也是基于此，并且扩展了HTML报告文件，它将所有连接设备的报告都合并到一个文件里面。</p>
+<p><strong> 5.4.1 独立项目</strong></p>
+<p>一个项目将会自动生成测试运行。默认位置为：build/reports/androidTests<br>这非常类似于JUnit的报告所在位置build/reports/tests，其它的报告通常位于build/reports/&lt; plugin &gt;/。</p>
+<p>这个路径也可以通过以下方式自定义：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line"></div><div class="line">    testOptions &#123;</div><div class="line">        reportDir = <span class="string">"<span class="variable">$project</span>.buildDir/foo/report"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>报告将会合并运行在不同设备上的测试结果。</p>
+<p><strong> 5.4.2 多项目报告</strong></p>
+<p>在一个配置了多个应用或者多个库项目的多项目里，当同时运行所有测试的时候，生成一个报告文件记录所有的测试可能是非常有用的。<br>为了实现这个目的，需要使用同一个依赖文件（译注：指的是使用android gradle插件的依赖文件）中的另一个插件。可以通过以下方式添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        mavenCentral()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:0.5.6'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">apply plugin: <span class="string">'android-reporting'</span></div></pre></td></tr></table></figure></p>
+<p>这必须添加到项目的根目录下，例如与settings.gradle文件同个目录的build.gradle文件中。</p>
+<p>之后，在命令行中导航到项目根目录下，输入以下命令就可以运行所有测试并合并所有报告：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradle deviceCheck mergeAndroidReports --<span class="built_in">continue</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：这里的–continue选项将允许所有测试，即使子项目中的任何一个运行失败都不会停止。如果没有这个选项，第一个失败测试将会终止全部测试的运行，这可能导致一些项目没有执行过它们的测试。</p>
+</blockquote>
+<h3 id="5-5-Lint支持"><a href="#5-5-Lint支持" class="headerlink" title="5.5 Lint支持"></a>5.5 Lint支持</h3><blockquote>
+<p>Lint支持，译者注：Lint是一个可以检查Android项目中存在的问题的工具</p>
+</blockquote>
+<p>从0.7.0版本开始，你可以为项目中一个特定的Variant（变种）版本运行lint，也可以为所有Variant版本都运行lint。它将会生成一个报告描述哪一个Variant版本中存在着问题。<br>你可以通过以下lint选项配置lint。通常情况下你只需要配置其中一部分，以下列出了所有可使用的选项：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    lintOptions &#123;</div><div class="line">        // <span class="built_in">set</span> to <span class="literal">true</span> to turn off analysis progress reporting by lint</div><div class="line">        quiet <span class="literal">true</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, stop the gradle build <span class="keyword">if</span> errors are found</div><div class="line">        abortOnError <span class="literal">false</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, only report errors</div><div class="line">        ignoreWarnings <span class="literal">true</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, emit full/absolute paths to files with errors (<span class="literal">true</span> by default)</div><div class="line">        //absolutePaths <span class="literal">true</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, check all issues, including those that are off by default</div><div class="line">        checkAllWarnings <span class="literal">true</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, treat all warnings as errors</div><div class="line">        warningsAsErrors <span class="literal">true</span></div><div class="line">        // turn off checking the given issue id<span class="string">'s</span></div><div class="line">        disable 'TypographyFractions<span class="string">','</span>TypographyQuotes<span class="string">'</span></div><div class="line">        // turn on the given issue id's</div><div class="line">        <span class="built_in">enable</span> <span class="string">'RtlHardcoded'</span>,<span class="string">'RtlCompat'</span>, <span class="string">'RtlEnabled'</span></div><div class="line">        // check *only* the given issue id<span class="string">'s</span></div><div class="line">        check 'NewApi<span class="string">', '</span>InlinedApi<span class="string">'</span></div><div class="line">        // if true, don't include <span class="built_in">source</span> code lines <span class="keyword">in</span> the error output</div><div class="line">        noLines <span class="literal">true</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, show all locations <span class="keyword">for</span> an error, <span class="keyword">do</span> not truncate lists, etc.</div><div class="line">        showAll <span class="literal">true</span></div><div class="line">        // Fallback lint configuration (default severities, etc.)</div><div class="line">        lintConfig file(<span class="string">"default-lint.xml"</span>)</div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, generate a text report of issues (<span class="literal">false</span> by default)</div><div class="line">        textReport <span class="literal">true</span></div><div class="line">        // location to write the output; can be a file or <span class="string">'stdout'</span></div><div class="line">        textOutput <span class="string">'stdout'</span></div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, generate an XML report <span class="keyword">for</span> use by <span class="keyword">for</span> example Jenkins</div><div class="line">        xmlReport <span class="literal">false</span></div><div class="line">        // file to write report to (<span class="keyword">if</span> not specified, defaults to lint-results.xml)</div><div class="line">        xmlOutput file(<span class="string">"lint-report.xml"</span>)</div><div class="line">        // <span class="keyword">if</span> <span class="literal">true</span>, generate an HTML report (with issue explanations, sourcecode, etc)</div><div class="line">        htmlReport <span class="literal">true</span></div><div class="line">        // optional path to report (default will be lint-results.html <span class="keyword">in</span> the builddir)</div><div class="line">        htmlOutput file(<span class="string">"lint-report.html"</span>)</div><div class="line"></div><div class="line">   // <span class="built_in">set</span> to <span class="literal">true</span> to have all release builds run lint on issues with severity=fatal</div><div class="line">   // and abort the build (controlled by abortOnError above) <span class="keyword">if</span> fatal issues are found</div><div class="line">   checkReleaseBuilds <span class="literal">true</span></div><div class="line">        // Set the severity of the given issues to fatal (<span class="built_in">which</span> means they will be</div><div class="line">        // checked during release builds (even <span class="keyword">if</span> the lint target is not included)</div><div class="line">        fatal <span class="string">'NewApi'</span>, <span class="string">'InlineApi'</span></div><div class="line">        // Set the severity of the given issues to error</div><div class="line">        error <span class="string">'Wakelock'</span>, <span class="string">'TextViewEdits'</span></div><div class="line">        // Set the severity of the given issues to warning</div><div class="line">        warning <span class="string">'ResourceAsColor'</span></div><div class="line">        // Set the severity of the given issues to ignore (same as disabling the check)</div><div class="line">        ignore <span class="string">'TypographyQuotes'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="6-构建变种版本"><a href="#6-构建变种版本" class="headerlink" title="6.构建变种版本"></a>6.构建变种版本</h2><p>新构建系统的一个目标就是允许为同一个应用创建不同的版本。<br>这里有两个主要的使用情景：</p>
+<ul>
+<li>1.同一个应用的不同版本。 例如一个免费的版本和一个收费的专业版本。</li>
+<li>2.同一个应用需要打包成不同的apk以发布Google Play Store。 点击此处查看更多详细信息。</li>
+<li>3.综合1和2两种情景。</li>
+</ul>
+<p>这个目标就是要让在同一个项目里生成不同的APK成为可能，以取代以前需要使用一个库项目和两个及两个以上的应用项目分别生成不同APK的做法。</p>
+<h3 id="6-1-不同定制的产品"><a href="#6-1-不同定制的产品" class="headerlink" title="6.1 不同定制的产品"></a>6.1 不同定制的产品</h3><p>一个product flavor定义了从项目中构建了一个应用的自定义版本。一个单一的项目可以同时定义多个不同的flavor来改变应用的输出。<br>这个新的设计概念是为了解决不同的版本之间的差异非常小的情况。虽然最项目终生成了多个定制的版本，但是它们本质上都是同一个应用，那么这种做法可能是比使用库项目更好的实现方式。</p>
+<p>Product flavor需要在productFlavors这个DSL容器中声明：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ....</div><div class="line"></div><div class="line">    productFlavors &#123;</div><div class="line">        flavor1 &#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        flavor2 &#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里创建了两个flavor，名为flavor1和flavor2。</p>
+<blockquote>
+<p>注意：flavor的命名不能与已存在的Build Type或者androidTest这个sourceSet有冲突。</p>
+</blockquote>
+<h3 id="6-2-构建类型-定制产品-构建变种版本"><a href="#6-2-构建类型-定制产品-构建变种版本" class="headerlink" title="6.2 构建类型+定制产品=构建变种版本"></a>6.2 构建类型+定制产品=构建变种版本</h3><p>正如前面章节所提到的，每一个Build Type都会生成一个新的APK。<br>Product Flavor同样也会做这些事情：项目的输出将会拼接所有可能的Build Type和Product Flavor（如果有Flavor定义存在的话）的组合。</p>
+<p>每一种组合（包含Build Type和Product Flavor）就是一个Build Variant（构建变种版本）。</p>
+<p>例如，在上面的Flavor声明例子中与默认的debug和release两个Build Type将会生成4个Build Variant：</p>
+<ul>
+<li>Flavor1 - debug</li>
+<li>Flavor1 - release</li>
+<li>Flavor2 - debug</li>
+<li>Flavor2 - release</li>
+</ul>
+<p>项目中如果没有定义flavor同样也会有Build Variant，只是使用的是默认的flavor和配置。default(默认)的flavor/config是没有名字的，所以生成的Build Variant列表看起来就跟Build Type列表一样。</p>
+<h3 id="6-3-Product-Flavor的配置"><a href="#6-3-Product-Flavor的配置" class="headerlink" title="6.3 Product Flavor的配置"></a>6.3 Product Flavor的配置</h3><p>每一个flavor都是通过闭包来配置的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 8</div><div class="line">        versionCode 10</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    productFlavors &#123;</div><div class="line">        flavor1 &#123;</div><div class="line">            packageName <span class="string">"com.example.flavor1"</span></div><div class="line">            versionCode 20</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        flavor2 &#123;</div><div class="line">            packageName <span class="string">"com.example.flavor2"</span></div><div class="line">            minSdkVersion 14</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意ProductFlavor类型的android.productFlavors.*对象与android.defaultConfig对象的类型是相同的。这意味着它们共享相同的属性。</p>
+</blockquote>
+<p>defaultConfig为所有的flavor提供基本的配置，每一个flavor都可以重设这些配置的值。在上面的例子中，最终的配置结果将会是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">* `flavor1`</div><div class="line">    * `packageName`: com.example.flavor1</div><div class="line">    * `minSdkVersion`: 8</div><div class="line">    * `versionCode`: 20</div><div class="line">* `flavor2`</div><div class="line">    * `packageName`: com.example.flavor2</div><div class="line">    * `minSdkVersion`: 14</div><div class="line">    * `versionCode`: 10</div></pre></td></tr></table></figure></p>
+<p>通常情况下，Build Type的配置会覆盖其它的配置。例如，Build Type的packageNameSuffix会被追加到Product Flavor的packageName上面。<br>也有一些情况是一些设置可以同时在Build Type和Product Flavor中设置。在这种情况下，按照个别为主的原则决定。</p>
+<p>例如，signingConfig就这种属性的一个例子。 signingConfig允许通过设置android.buildTypes.release.signingConfig来为所有的release包共享相同的SigningConfig。也可以通过设置android.productFlavors.*.signingConfig来为每一个release包指定它们自己的SigningConfig。</p>
+<h3 id="6-4-源组件和依赖关系"><a href="#6-4-源组件和依赖关系" class="headerlink" title="6.4 源组件和依赖关系"></a>6.4 源组件和依赖关系</h3><p>与Build Type类似，Product Flavor也会通过它们自己的sourceSet提供代码和资源。</p>
+<p>上面的例子将会创建4个sourceSet：</p>
+<ul>
+<li>android.sourceSets.flavor1 位于src/flavor1/</li>
+<li>android.sourceSets.flavor2 位于src/flavor2/</li>
+<li>android.sourceSets.androidTestFlavor1 位于src/androidTestFlavor1/</li>
+<li>android.sourceSets.androidTestFlavor2 位于src/androidTestFlavor2/</li>
+</ul>
+<p>这些sourceSet用于与android.sourceSets.main和Build Type的sourceSet来构建APK。</p>
+<p>下面的规则用于处理所有使用的sourceSet来构建一个APK：</p>
+<ul>
+<li>多个文件夹中的所有的源代码（src/*/java）都会合并起来生成一个输出。</li>
+<li>所有的Manifest文件都会合并成一个Manifest文件。类似于Build Type，允许Product Flavor可以拥有不同的的组件和权限声明。</li>
+<li>所有使用的资源（Android res和assets）遵循的优先级为Build Type会覆盖Product Flavor，最终覆盖main sourceSet的资源。</li>
+<li>每一个Build Variant都会根据资源生成自己的R类（或者其它一些源代码）。Variant互相之间没有什么是共享的。</li>
+</ul>
+<p>最终，类似Build Type，Product Flavor也可以有它们自己的依赖关系。例如，如果使用flavor来生成一个基于广告的应用版本和一个付费的应用版本，其中广告版本可能需要依赖于一个广告SDK，但是另一个不需要。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    flavor1Compile <span class="string">"..."</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这个例子中，src/flavor1/AndroidManifest.xml文件中可能需要声明访问网络的权限。</p>
+<p>每一个Variant也会创建额外的sourceSet：</p>
+<ul>
+<li>android.sourceSets.flavor1Debug 位于src/flavor1Debug/</li>
+<li>android.sourceSets.flavor1Release 位于src/flavor1Release/</li>
+<li>android.sourceSets.flavor2Debug 位于src/flavor2Debug/</li>
+<li>android.sourceSets.flavor2Release 位于src/flavor2Release/</li>
+</ul>
+<p>这些sourceSet拥有比Build Type的sourceSet更高的优先级，并允许在Variant的层次上做一些定制。</p>
+<h3 id="6-5-构建和任务"><a href="#6-5-构建和任务" class="headerlink" title="6.5 构建和任务"></a>6.5 构建和任务</h3><p>我们前面提到每一个Build Type会创建自己的assemble&lt; name &gt;task，但是Build Variant是Build Type和Product Flavor的组合。<br>当使用Product Flavor的时候，将会创建更多的assemble-type task。分别是：</p>
+<ul>
+<li>1.assemble&lt; Variant Name &gt; 允许直接构建一个Variant版本，例如assembleFlavor1Debug。</li>
+<li>2.assemble&lt; Build Type Name &gt; 允许构建指定Build Type的所有APK，例如assembleDebug将会构建Flavor1Debug和Flavor2Debug两个Variant版本。</li>
+<li>3.assemble&lt; Product Flavor Name &gt; 允许构建指定flavor的所有APK，例如assembleFlavor1将会构建Flavor1Debug和Flavor1Release两个Variant版本。</li>
+</ul>
+<p>另外assemble task会构建所有可能组合的Variant版本。</p>
+<h3 id="6-6-测试"><a href="#6-6-测试" class="headerlink" title="6.6 测试"></a>6.6 测试</h3><p>测试multi-flavors项目非常类似于测试简单的项目。<br>androidTest sourceSet用于定义所有flavor共用的测试，但是每一个flavor也可以有它自己特有的测试。</p>
+<p>正如前面提到的，每一个flavor都会创建自己的测试sourceSet：</p>
+<ul>
+<li>android.sourceSets.androidTestFlavor1 位于src/androidTestFlavor1/</li>
+<li>android.sourceSets.androidTestFlavor2 位于src/androidTestFlavor2/</li>
+</ul>
+<p>同样的，它们也可以拥有自己的依赖关系：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    androidTestFlavor1Compile <span class="string">"..."</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这些测试可以通过main的标志性deviceCheck task或者main的androidTest task（当flavor被使用的时候这个task相当于一个标志性task）来执行。</p>
+<p>每一个flavor也拥有它们自己的task来这行这些测试：androidTest&lt; VariantName &gt;。例如：</p>
+<ul>
+<li>androidTestFlavor1Debug</li>
+<li>androidTestFlavor2Debug</li>
+</ul>
+<p>同样的，每一个Variant版本也会创建对应的测试APK构建task和安装或卸载task：</p>
+<ul>
+<li>assembleFlavor1Test</li>
+<li>installFlavor1Debug</li>
+<li>installFlavor1Test</li>
+<li>uninstallFlavor1Debug<br>  …</li>
+</ul>
+<p>最终的HTML报告支持根据flavor合并生成。 下面是测试结果和报告文件的路径，第一个是每一个flavor版本的结果，后面的是合并起来的结果：</p>
+<ul>
+<li>build/androidTest-results/flavors/&lt; FlavorName &gt;</li>
+<li>build/androidTest-results/all/</li>
+<li>build/reports/androidTests/flavors&lt; FlavorName &gt;</li>
+<li>build/reports/androidTests/all/</li>
+</ul>
+<h3 id="6-7-多版本-Multi-flavor-variants"><a href="#6-7-多版本-Multi-flavor-variants" class="headerlink" title="6.7 多版本(Multi-flavor variants)"></a>6.7 多版本(Multi-flavor variants)</h3><p>在一些情况下，一个应用可能需要基于多个标准来创建多个版本。例如，Google Play中的multi-apk支持4个不同的过滤器。区分创建的不同APK的每一个过滤器要求能够使用多维的Product Flavor。</p>
+<p>假如有个游戏需要一个免费版本和一个付费的版本，并且需要在multi-apk支持中使用ABI过滤器（译注：ABI，应用二进制接口，优点是不需要改动应用的任何代码就能够将应用迁移到任何支持相同ABI的平台上）。这个游戏应用需要3个ABI和两个特定应用版本，因此就需要生成6个APK（没有因计算不同Build Types生成的Variant版本）。 然而，注意到在这个例子中，为三个ABI构建的付费版本源代码都是相同，因此创建6个flavor来实现不是一个好办法。 相反的，使用两个flavor维度，并且自动构建所有可能的Variant组合。</p>
+<p>这个功能的实现就是使用Flavor Groups。每一个Group代表一个维度，并且flavor都被分配到一个指定的Group中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line"></div><div class="line">    flavorGroups <span class="string">"abi"</span>, <span class="string">"version"</span></div><div class="line"></div><div class="line">    productFlavors &#123;</div><div class="line">        freeapp &#123;</div><div class="line">            flavorGroup <span class="string">"version"</span></div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        x86 &#123;</div><div class="line">            flavorGroup <span class="string">"abi"</span></div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>andorid.flavorGroups数组按照先后排序定义了可能使用的group。每一个Product Flavor都被分配到一个group中。</p>
+<p>上面的例子中将Product Flavor分为两组（即两个维度），为别为abi维度[x86,arm,mips]和version维度[freeapp,paidapp]，再加上默认的Build Type有[debug,release]，这将会组合生成以下的Build Variant：</p>
+<ul>
+<li>x86-freeapp-debug</li>
+<li>x86-freeapp-release</li>
+<li>arm-freeapp-debug</li>
+<li>arm-freeapp-release</li>
+<li>mips-freeapp-debug</li>
+<li>mips-freeapp-release</li>
+<li>x86-paidapp-debug</li>
+<li>x86-paidapp-release</li>
+<li>arm-paidapp-debug</li>
+<li>arm-paidapp-release</li>
+<li>mips-paidapp-debug</li>
+<li>mips-paidapp-release</li>
+</ul>
+<p>android.flavorGroups中定义的group排序非常重要（Variant命名和优先级等）。</p>
+<p>每一个Variant版本的配置由几个Product Flavor对象决定：</p>
+<ul>
+<li>android.defaultConfig</li>
+<li>一个来自abi组中的对象</li>
+<li>一个来自version组中的对象</li>
+</ul>
+<p>flavorGroups中的排序决定了哪一个flavor覆盖哪一个，这对于资源来说非常重要，因为一个flavor中的值会替换定义在低优先级的flavor中的值。<br>flavor groups使用最高的优先级定义，因此在上面例子中的优先级为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">abi &gt; version &gt; defaultConfig</div></pre></td></tr></table></figure></p>
+<p>Multi-flavors项目同样拥有额外的sourceSet，类似于Variant的sourceSet，只是少了Build Type：</p>
+<ul>
+<li>android.sourceSets.x86Freeapp 位于src/x86Freeapp/</li>
+<li>android.sourceSets.armPaidapp 位于src/armPaidapp/</li>
+<li>等等…</li>
+</ul>
+<p>这允许在flavor-combination的层次上进行定制。它们拥有过比基础的flavor sourceSet更高的优先级，但是优先级低于Build Type的sourceSet。</p>
+<h2 id="7-高级构建定制"><a href="#7-高级构建定制" class="headerlink" title="7.高级构建定制"></a>7.高级构建定制</h2><h3 id="7-1-构建选项"><a href="#7-1-构建选项" class="headerlink" title="7.1 构建选项"></a>7.1 构建选项</h3><p><strong> 7.1.1 Java编译选项</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileOptions &#123;</div><div class="line">        sourceCompatibility = <span class="string">"1.6"</span></div><div class="line">        targetCompatibility = <span class="string">"1.6"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>默认值是“1.6”。这个设置将影响所有task编译Java源代码。</p>
+<p><strong> 7.1.2 aapt选项</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    aaptOptions &#123;</div><div class="line">        noCompress <span class="string">'foo'</span>, <span class="string">'bar'</span></div><div class="line">        ignoreAssetsPattern <span class="string">"!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir&gt;_*:!CVS:!thumbs.db:!picasa.ini:!*~"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这将影响所有使用aapt的task。</p>
+<p><strong> 7.1.3 dex选项</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    dexOptions &#123;</div><div class="line">        incremental <span class="literal">false</span></div><div class="line"></div><div class="line">        preDexLibraries = <span class="literal">false</span></div><div class="line"></div><div class="line">        jumboMode = <span class="literal">false</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这将应用所有使用dex的task。</p>
+<h3 id="7-2-操作task"><a href="#7-2-操作task" class="headerlink" title="7.2 操作task"></a>7.2 操作task</h3><p>基础Java项目有一组有限的task用于互相处理生成一个输出。 classes是一个编译Java源代码的task。可以在build.gradle文件中通过脚本很容易使用classes。这是project.tasks.classes的缩写。<br>在Android项目中，相比之下这就有点复杂。因为Android项目中会有大量相同的task，并且它们的名字基于Build Types和Product Flavor生成。</p>
+<p>为了解决这个问题，android对象有两个属性：</p>
+<ul>
+<li>applicationVariants（只适用于app plugin）</li>
+<li>libraryVariants（只适用于library plugin）</li>
+<li>testVariants（两个plugin都适用）</li>
+</ul>
+<p>这三个都会分别返回一个ApplicationVariant、LibraryVariant和TestVariant对象的<a href="http://www.gradle.org/docs/current/javadoc/org/gradle/api/DomainObjectCollection.html" target="_blank" rel="external">DomainObjectCollection</a>。<br>注意使用这三个collection中的其中一个都会触发生成所有对应的task。这意味着使用collection之后不需要更改配置。</p>
+<p>DomainObjectCollection可以直接访问所有对象，或者通过过滤器进行筛选。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android.applicationVariants.each &#123; variant -&gt;</div><div class="line">    ....</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这三个variant类都共享下面的属性:</p>
+<table><tr><th>属性名</th><th>属性类型</th><th>说明</th></tr><tr><td>name</td><td>String</td><td>Variant的名字，必须是唯一的。</td></tr><tr><td>description</td><td>String</td><td>Variant的描述说明。</td></tr><tr><td>dirName</td><td>String</td><td>Variant的子文件夹名，必须也是唯一的。可能也会有不止一个子文件夹，例如“debug/flavor1”</td></tr><tr><td>baseName</td><td>String</td><td>Variant输出的基础名字，必须唯一。</td></tr><tr><td>outputFile</td><td>File</td><td>Variant的输出，这是一个可读可写的属性。</td></tr><tr><td>processManifest</td><td>ProcessManifest</td><td>处理Manifest的task。</td></tr><tr><td>aidlCompile</td><td>AidlCompile</td><td>编译AIDL文件的task。</td></tr><tr><td>renderscriptCompile</td><td>RenderscriptCompile</td><td>编译Renderscript文件的task。</td></tr><tr><td>mergeResources</td><td>MergeResources</td><td>混合资源文件的task。</td></tr><tr><td>mergeAssets</td><td>MergeAssets</td><td>混合asset的task。</td></tr><tr><td>processResources</td><td>ProcessAndroidResources</td><td>处理并编译资源文件的task。</td></tr><tr><td>generateBuildConfig</td><td>GenerateBuildConfig</td><td>生成BuildConfig类的task。</td></tr><tr><td>javaCompile</td><td>JavaCompile</td><td>编译Java源代码的task。</td></tr><tr><td>processJavaResources</td><td>Copy</td><td>处理Java资源的task。</td></tr><tr><td>assemble</td><td>DefaultTask</td><td>Variant的标志性assemble task。</td></tr></table>
+
+<p>ApplicationVariant类还有以下附加属性:</p>
+<table><tr><th>属性名</th><th>属性类型</th><th>说明</th></tr><tr><td>buildType</td><td>BuildType</td><td>Variant的BuildType。</td></tr><tr><td>productFlavors</td><td>List</td><td>Variant的ProductFlavor。一般不为空但也允许空值。</td></tr><tr><td>mergedFlavor</td><td>ProductFlavor</td><td>android.defaultConfig和variant.productFlavors的合并。</td></tr><tr><td>signingConfig</td><td>SigningConfig</td><td>Variant使用的SigningConfig对象。</td></tr><tr><td>isSigningReady</td><td>boolean</td><td>如果是true则表明这个Variant已经具备了所有需要签名的信息。</td></tr><tr><td>testVariant</td><td>BuildVariant</td><td>将会测试这个Variant的TestVariant。</td></tr><tr><td>dex</td><td>Dex</td><td>将代码打包成dex的task。如果这个Variant是个库，这个值可以为空。</td></tr><tr><td>packageApplication</td><td>PackageApplication</td><td>打包最终APK的task。如果这个Variant是个库，这个值可以为空。</td></tr><tr><td>zipAlign</td><td>ZipAlign</td><td>zip压缩APK的task。如果这个Variant是个库或者APK不能被签名，这个值可以为空。</td></tr><tr><td>install</td><td>DefaultTask</td><td>负责安装的task，不能为空。</td></tr><tr><td>uninstall</td><td>DefaultTask</td><td>负责卸载的task。</td></tr></table>
+
+<p>LibraryVariant类还有以下附加属性：</p>
+<table><tr><th>属性名</th><th>属性类型</th><th>说明</th></tr><tr><td>buildType</td><td>BuildType</td><td>Variant的BuildType.</td></tr><tr><td>mergedFlavor</td><td>ProductFlavor</td><td>The defaultConfig values</td></tr><tr><td>testVariant</td><td>BuildVariant</td><td>用于测试这个Variant。</td></tr><tr><td>packageLibrary</td><td>Zip</td><td>用于打包库项目的AAR文件。如果是个库项目，这个值不能为空。</td></tr></table>
+
+<p>TestVariant类还有以下属性:</p>
+<table><tr><th>属性名</th><th>属性类型</th><th>说明</th></tr><tr><td>buildType</td><td>BuildType</td><td>Variant的Build Type。</td></tr><tr><td>productFlavors</td><td>List</td><td>Variant的ProductFlavor。一般不为空但也允许空值。</td></tr><tr><td>mergedFlavor</td><td>ProductFlavor</td><td>android.defaultConfig和variant.productFlavors的合并。</td></tr><tr><td>signingConfig</td><td>SigningConfig</td><td>Variant使用的SigningConfig对象。</td></tr><tr><td>isSigningReady</td><td>boolean</td><td>如果是true则表明这个Variant已经具备了所有需要签名的信息。</td></tr><tr><td>testedVariant</td><td>BaseVariant</td><td>TestVariant测试的BaseVariant</td></tr><tr><td>dex</td><td>Dex</td><td>将代码打包成dex的task。如果这个Variant是个库，这个值可以为空。</td></tr><tr><td>packageApplication</td><td>PackageApplication</td><td>打包最终APK的task。如果这个Variant是个库，这个值可以为空。</td></tr><tr><td>zipAlign</td><td>ZipAlign</td><td>zip压缩APK的task。如果这个Variant是个库或者APK不能被签名，这个值可以为空。</td></tr><tr><td>install</td><td>DefaultTask</td><td>负责安装的task，不能为空。</td></tr><tr><td>uninstall</td><td>DefaultTask</td><td>负责卸载的task。</td></tr><tr><td>connectedAndroidTest</td><td>DefaultTask</td><td>在连接设备上行执行Android测试的task。</td></tr><tr><td>providerAndroidTest</td><td>DefaultTask</td><td>使用扩展API执行Android测试的task。</td></tr></table>
+
+<p>Android task特有类型的API：</p>
+<ul>
+<li>ProcessManifest<ul>
+<li>File manifestOutputFile</li>
+</ul>
+</li>
+<li>AidlCompile<ul>
+<li>File sourceOutputDir</li>
+</ul>
+</li>
+<li>RenderscriptCompile<ul>
+<li>File sourceOutputDir</li>
+<li>File resOutputDir</li>
+</ul>
+</li>
+<li>MergeResources<ul>
+<li>File outputDir</li>
+</ul>
+</li>
+<li>MergeAssets<ul>
+<li>File outputDir</li>
+</ul>
+</li>
+<li>ProcessAndroidResources<ul>
+<li>File manifestFile</li>
+<li>File resDir</li>
+<li>File assetsDir</li>
+<li>File sourceOutputDir</li>
+<li>File textSymbolOutputDir</li>
+<li>File packageOutputFile</li>
+<li>File proguardOutputFile</li>
+</ul>
+</li>
+<li>GenerateBuildConfig<ul>
+<li>File sourceOutputDir</li>
+</ul>
+</li>
+<li>Dex<ul>
+<li>File outputFolder</li>
+</ul>
+</li>
+<li>PackageApplication<ul>
+<li>File resourceFile</li>
+<li>File dexFile</li>
+<li>File javaResourceDir</li>
+<li>File jniDir</li>
+<li>File outputFile<br>直接在Variant对象中使用“outputFile”可以改变最终的输出文件夹。</li>
+</ul>
+</li>
+<li>ZipAlign<ul>
+<li>File inputFile</li>
+<li>File outputFile<br>直接在Variant对象中使用“outputFile”可以改变最终的输出文件夹。</li>
+</ul>
+</li>
+</ul>
+<p>每个task类型的API由于Gradle的工作方式和Android plugin的配置方式而受到限制。 首先，Gradle意味着拥有的task只能配置输入输出的路径和一些可能使用的选项标识。因此，task只能定义一些输入或者输出。</p>
+<p>其次，这里面大多数task的输入都不是单一的，一般都混合了sourceSet、Build Type和Product Flavor中的值。为了保持构建文件的简单和可读性，目标是要让开发者通过DSL语言修改这些对象来配饰构建的过程，而不是深入修改输入和task的选项。</p>
+<p>另外需要注意，除了ZipAlign这个task类型，其它所有类型都要求设置私有数据来让它们运行。这意味着不可能自动创建这些类型的新task实例。<br>这些API也可能会被更改。一般来说，目前的API是围绕着给定task的输入和输出入口来添加额外的处理（如果需要的时候）。欢迎反馈意见，特别是那些没有预见过的需求。<br>对于Gradle的task（DefaultTask，JavaCompile，Copy，Zip），请参考Gradle文档。</p>
+<h3 id="7-3-BuildType和Product-Flavor属性参考"><a href="#7-3-BuildType和Product-Flavor属性参考" class="headerlink" title="7.3 BuildType和Product Flavor属性参考"></a>7.3 BuildType和Product Flavor属性参考</h3><p>coming soon。。。。= = 对于Gradle的task（DefaultTask，JavaCompile，Copy，Zip），请参考Gradle文档。</p>
+<h3 id="7-4-使用（JDK）1-7版本的sourceCompatibility"><a href="#7-4-使用（JDK）1-7版本的sourceCompatibility" class="headerlink" title="7.4 使用（JDK）1.7版本的sourceCompatibility"></a>7.4 使用（JDK）1.7版本的sourceCompatibility</h3><p>使用Android KitKat（19版本的buildTools）就可以使用diamond operator，multi-catch，switch中使用字符串，try with resource等等（译注：都是JDK7的一些新特性，详情请参考JDK7文档）。设置使用1.7版本，需要修改你的构建文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 19</div><div class="line">    buildToolsVersion <span class="string">"19.0.0"</span></div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 7</div><div class="line">        targetSdkVersion 19</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    compileOptions &#123;</div><div class="line">        sourceCompatibility JavaVersion.VERSION_1_7</div><div class="line">        targetCompatibility JavaVersion.VERSION_1_7</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用Android KitKat（19版本的buildTools）就可以使用diamond operator，multi-catch，switch中使用字符串，try with resource等等（译注：都是JDK7的一些新特性，详情请参考JDK7文档）。设置使用1.7版本，需要修改你的构建文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 19</div><div class="line">    buildToolsVersion <span class="string">"19.0.0"</span></div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        minSdkVersion 7</div><div class="line">        targetSdkVersion 19</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    compileOptions &#123;</div><div class="line">        sourceCompatibility JavaVersion.VERSION_1_7</div><div class="line">        targetCompatibility JavaVersion.VERSION_1_7</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：你可以将minSdkVersion的值设置为19之前的版本，只是你只能使用除了try with resources之外的其它新语言特性。如果你想要使用try with resources特性，你就需要把minSdkVersion也设置为19。</p>
+</blockquote>
+<p>你同样也需要确认Gradle使用1.7或者更高版本的JDK（Android Gradle plugin也需要0.6.1或者更高的版本）。注意：你可以将minSdkVersion的值设置为19之前的版本，只是你只能使用除了try with resources之外的其它新语言特性。如果你想要使用try with resources特性，你就需要把minSdkVersion也设置为19。</p>
+<p>你同样也需要确认Gradle使用1.7或者更高版本的JDK（Android Gradle plugin也需要0.6.1或者更高的版本）。</p>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>该官方文档的翻译大部分参考了<a href="http://blog.csdn.net/qinxiandiqi/article/category/2394347" target="_blank" rel="external">琴弦第七</a>的翻译,鉴于他翻译的版本比较老了，所以根据官方文档做了局部更新，水平有限，翻译错误请留言。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/qinxiandiqi/article/category/2394347" target="_blank" rel="external">中文版原文翻译</a></li>
+<li><a href="http://avatarqing.github.io/Gradle-Plugin-User-Guide-Chinese-Verision" target="_blank" rel="external">中文版avatarqing整理版本</a></li>
+<li><a href="https://github.com/AvatarQing/Gradle-Plugin-User-Guide-Chinese-Verision" target="_blank" rel="external">avatarqing版本GitHub地址</a></li>
+<li><a href="http://tools.android.com/tech-docs/new-build-system/user-guide" target="_blank" rel="external">Gradle Plugin User Guide 官方原文地址</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/12/android_studio_gradle_guide/" data-id="cj4zvsgc500540gnhxxv3vje1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/13/android_studio_study/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android Studio学习笔记1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/11/android_studio_problems_solution/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">AndroidStudio常见问题解决方案</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

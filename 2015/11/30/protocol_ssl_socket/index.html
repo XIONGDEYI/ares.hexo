@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用SSL构建安全的Socket | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言SSL(安全套接层)是 Netscape公司在1994年开发的，最初用于WEB浏览器，为浏览器与服务器间的数据传递提供安全保障，提供了加密、来源认证和数据完整性的功能。现在SSL3.0得到了普遍的使用，它的改进版TLS(传输层安全)已经成为互联网标准。SSL本身和TCP套接字连接是很相似的，在协议栈中，SSL可以被简单的看作是安全的TCP连接，但是某些TCP连接的特性它是不支持的，比如带外数据">
+<meta name="keywords" content="ssl,socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用SSL构建安全的Socket">
+<meta property="og:url" content="http://yoursite.com/2015/11/30/protocol_ssl_socket/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言SSL(安全套接层)是 Netscape公司在1994年开发的，最初用于WEB浏览器，为浏览器与服务器间的数据传递提供安全保障，提供了加密、来源认证和数据完整性的功能。现在SSL3.0得到了普遍的使用，它的改进版TLS(传输层安全)已经成为互联网标准。SSL本身和TCP套接字连接是很相似的，在协议栈中，SSL可以被简单的看作是安全的TCP连接，但是某些TCP连接的特性它是不支持的，比如带外数据">
+<meta property="og:updated_time" content="2017-07-11T17:45:09.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用SSL构建安全的Socket">
+<meta name="twitter:description" content="前言SSL(安全套接层)是 Netscape公司在1994年开发的，最初用于WEB浏览器，为浏览器与服务器间的数据传递提供安全保障，提供了加密、来源认证和数据完整性的功能。现在SSL3.0得到了普遍的使用，它的改进版TLS(传输层安全)已经成为互联网标准。SSL本身和TCP套接字连接是很相似的，在协议栈中，SSL可以被简单的看作是安全的TCP连接，但是某些TCP连接的特性它是不支持的，比如带外数据">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-protocol_ssl_socket" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/30/protocol_ssl_socket/" class="article-date">
+  <time datetime="2015-11-30T09:04:29.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/protocol/">protocol</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用SSL构建安全的Socket
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SSL(安全套接层)是 Netscape公司在1994年开发的，最初用于WEB浏览器，为浏览器与服务器间的数据传递提供安全保障，提供了加密、来源认证和数据完整性的功能。现在SSL3.0得到了普遍的使用，它的改进版TLS(传输层安全)已经成为互联网标准。SSL本身和TCP套接字连接是很相似的，在协议栈中，SSL可以被简单的看作是安全的TCP连接，但是某些TCP连接的特性它是不支持的，比如带外数据(out-of-bound)。</p>
+<p>在构建基于 Socket的C/S程序时，通过添加对SSL的支持来保障数据安全和完整是不错的方法。完善的Java为我们提供了简单的实现方法：JSSE(Java 安全套接字扩展)。JSSE是一个纯Java实现的SSL和TLS协议框架，抽象了SSL和TLS复杂的算法，使安全问题变得简单。JSSE已经成为 J2SE1.4版本中的标准组件，支持SSL 3.0和TLS 1.0。我们将通过一个具体的例子演示JSSE的一些基本应用。例子中的服务器端将打开一个SSL Socket，只有持有指定证书的客户端可以与它连接，所有的数据传递都是加密的。</p>
+<p>构造一个SSLSocket是非常简单的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SSLServerSocketFactory factory=(SSLServerSocketFactory)SSLServerSocketFactory.getDefault();</div><div class="line">SSLServerSocket server = (SSLServerSocket) factory.createServerSocket(portNumber);</div><div class="line">SSLSocket socket = (SSLSocket);</div></pre></td></tr></table></figure></p>
+<p>但是执行这样的程序会产生一个异常，报告找不到可信任的证书。SSLSocket和普通的Socket是不一样的，它需要一个证书来进行安全认证。</p>
+<h2 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h2><p>生成一个CA证书，在命令行下执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool –genkey –keystore SSLKey –keyalg rsa –<span class="built_in">alias</span> SSL</div></pre></td></tr></table></figure></p>
+<p>参数是用户可以自己指定的，第一个参数是要生成的证书的名字，第二个参数是证书的别名。rsa指明了我们使用的加密方法。</p>
+<p>系统会要求输入证书发放者的信息，逐项输入即可。系统生成的文件命将会和证书名相同。证书可以提交给权威CA认证组织审核，如果通过审核，组织会提供信任担保，向客户担保你的连接是安全的。当然这不是必须的。在我们的例子中会把证书直接打包到客户端程序中，保证客户端是授权用户，避免伪造客户，所以不需要提交审核。</p>
+<h2 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h2><p>现在可以编写服务器端的代码，与普通的Socket代码不同，我们需要在程序中导入证书，并使用该证书构造SSLSocket。需要的说明的是：</p>
+<ul>
+<li><p>KeyStore ks=KeyStore.getInstance(“JKS”);<br>访问Java密钥库，JKS是keytool创建的Java密钥库，保存密钥。</p>
+</li>
+<li><p>KeyManagerFactory kmf=KeyManagerFactory.getInstance(“SunX509”);<br>创建用于管理JKS密钥库的X.509密钥管理器。</p>
+</li>
+<li><p>SSLContext sslContext=SSLContext.getInstance(“SSLv3”);<br>构造SSL环境，指定SSL版本为3.0，也可以使用TLSv1，但是SSLv3更加常用。</p>
+</li>
+<li><p>sslContext.init(kmf.getKeyManagers(),null,null);<br>初始化SSL环境。第二个参数是告诉JSSE使用的可信任证书的来源，设置为null是从javax.net.ssl.<br>trustStore中获得证书。第三个参数是JSSE生成的随机数，这个参数将影响系统的安全性，设置为null是个好选择，可以保证JSSE的安全性。</p>
+</li>
+</ul>
+<p>完整代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">*SSL Socket的服务器端</div><div class="line">*@Author Bromon</div><div class="line">*/</div><div class="line"><span class="keyword">import</span> java.net.Socket;</div><div class="line"><span class="keyword">import</span> java.security.KeyStore;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.net.ssl.KeyManagerFactory;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLContext;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLServerSocket;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLServerSocketFactory;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLSocket;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SSLServer</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">int</span> port = <span class="number">8266</span>; <span class="comment">// 系统将要监听的端口号,82.6.6是偶以前女朋友的生日^_^</span></div><div class="line">    <span class="keyword">static</span> SSLServerSocket server;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * 构造函数</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SSLServer</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param port 监听的端口号</div><div class="line">     * </div><div class="line">     * @return 返回一个SSLServerSocket对象</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> SSLServerSocket <span class="title">getServerSocket</span><span class="params">(<span class="keyword">int</span> thePort)</span> </span>&#123;</div><div class="line">        SSLServerSocket s = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            String key = <span class="string">"SSLKey"</span>; <span class="comment">// 要使用的证书名</span></div><div class="line"></div><div class="line">            <span class="keyword">char</span> keyStorePass[] = <span class="string">"12345678"</span>.toCharArray(); <span class="comment">// 证书密码</span></div><div class="line"></div><div class="line">            <span class="keyword">char</span> keyPassword[] = <span class="string">"12345678"</span>.toCharArray(); <span class="comment">// 证书别称所使用的主要密码</span></div><div class="line"></div><div class="line">            KeyStore ks = KeyStore.getInstance(<span class="string">"JKS"</span>); <span class="comment">// 创建JKS密钥库</span></div><div class="line"></div><div class="line">            ks.load(<span class="keyword">new</span> FileInputStream(key), keyStorePass);</div><div class="line"></div><div class="line">            <span class="comment">// 创建管理JKS密钥库的X.509密钥管理器</span></div><div class="line">            KeyManagerFactory kmf = KeyManagerFactory.getInstance(<span class="string">"SunX509"</span>);</div><div class="line"></div><div class="line">            kmf.init(ks, keyPassword);</div><div class="line"></div><div class="line">            SSLContext sslContext = SSLContext.getInstance(<span class="string">"SSLv3"</span>);</div><div class="line"></div><div class="line">            sslContext.init(kmf.getKeyManagers(), <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 根据上面配置的SSL上下文来产生SSLServerSocketFactory,与通常的产生方法不同</span></div><div class="line">            SSLServerSocketFactory factory = sslContext.getServerSocketFactory();</div><div class="line"></div><div class="line">            s = (SSLServerSocket) factory.createServerSocket(thePort);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(e);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            server = getServerSocket(port);</div><div class="line">            System.out.println(<span class="string">"在”+port+”端口等待连接..."</span>);</div><div class="line"></div><div class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">                SSLSocket socket = (SSLSocket) server.accept();</div><div class="line"></div><div class="line">                <span class="comment">// 将得到的socket交给CreateThread对象处理,主线程继续监听</span></div><div class="line">                <span class="keyword">new</span> CreateThread(socket);</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(<span class="string">"main方法错误80:"</span> + e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * 内部类,获得主线程的socket连接,生成子线程来处理</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreateThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> BufferedReader in;</div><div class="line">    <span class="keyword">static</span> PrintWriter out;</div><div class="line">    <span class="keyword">static</span> Socket s;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * 构造函数,获得socket连接,初始化in和out对象</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CreateThread</span><span class="params">(Socket socket)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            s = socket;</div><div class="line">            in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(s.getInputStream(), <span class="string">"gb2312"</span>));</div><div class="line"></div><div class="line">            out = <span class="keyword">new</span> PrintWriter(s.getOutputStream(), <span class="keyword">true</span>);</div><div class="line"></div><div class="line">            start(); <span class="comment">// 开新线程执行run方法</span></div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(e);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * 线程方法,处理socket传递过来的数据</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            String msg = in.readLine();</div><div class="line">            System.out.println(msg);</div><div class="line">            s.close();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">``` </div><div class="line"></div><div class="line">将我们刚才生成的证书放到程序所在的目录下，上面的代码就可以在编译之后执行：</div><div class="line">``` bash</div><div class="line">java org.ec107.ssl.SSLServer</div></pre></td></tr></table></figure></p>
+<p>在8266端口等待连接…</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>客户端的代码相对简单，我们可以不在程序中指定SSL环境，而是在执行客户端程序时指定。需要注意的是客户端并没有导入证书，而是采用了默认的工厂方法构造SSLSocket：</p>
+<ul>
+<li>SSLSocketFactory factory=(SSLSocketFactory)SSLSocketFactory.getDefault(); //构造默认的工厂方法</li>
+<li>Socket s=factory.createSocket(“localhost”,port);</li>
+</ul>
+<p>打开一个SSLSocket连接<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">*SSL Socket 的客户端</div><div class="line">*@Author Bromon</div><div class="line">*/</div><div class="line"><span class="keyword">import</span> java.net.Socket;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLSocketFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SSLClient</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">int</span> port = <span class="number">8266</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();</div><div class="line"></div><div class="line">            Socket s = factory.createSocket(<span class="string">"localhost"</span>, port);</div><div class="line"></div><div class="line">            PrintWriter out = <span class="keyword">new</span> PrintWriter(s.getOutputStream(), <span class="keyword">true</span>);</div><div class="line">            out.println(<span class="string">"安全的说你好"</span>);</div><div class="line">            out.close();</div><div class="line">            s.close();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>把服务器产生的证书(SSLKey)拷贝到程序所在的目录，执行这个程序的时候需要向javax.net.ssl.trustStore环境变量传入证书名：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java –Djavax.net.ssl.trustStore=SSLKey org.xxx.ssl.SSLClient //自己程序的包路径</div></pre></td></tr></table></figure></p>
+<p>可以在服务器的控制台看到客户端发送过来的数据。<br>执行客户端可以有另一种方法，把证书拷贝到java home/lib/security目录下，名字改为jssecacerts，然后可以直接执行客户端：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java org.xxx.ssl.SSLClient</div></pre></td></tr></table></figure></p>
+<p>程序会自动的到上述目录下去寻找jssecacerts文件作为默认的证书。需要注意的是这里的java home并不是我们在安装J2SE时指定的那个JAVA_HOME。可以执行一个程序来得到java home的位置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetJavaHome</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</div><div class="line">        System.out.println(System.getProperty(“java.home”));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>一般情况下(windows 2K)hava home的位置是在C:Program FilesJavaj2re1.4.0_02，相对的，证书就应该拷贝到C:Program FilesJavaj2re1.4.0_02libsecurity下，如果安装了自带JDK的Java IDE，比如 JBuilder，情况可能会有不同。</p>
+<p>如果程序客户在不持有证书的情况下直接进行连接，服务器端会产生运行时异常，不允许进行连接。</p>
+<blockquote>
+<p>运行环境：windows 2K server，j2sdk1.4.1</p>
+</blockquote>
+<h2 id="SSL双向认证java实现"><a href="#SSL双向认证java实现" class="headerlink" title="SSL双向认证java实现"></a>SSL双向认证java实现</h2><p>下面通过模拟场景，介绍SSL双向认证的java实现。</p>
+<p>默认的情况下，我认为读者已经对SSL原理有一定的了解，所以文章中对SSL的原理，不做详细的介绍。<br>如果有这个需要，那么通过GOOGLE，可以搜索到很多这样的文章。</p>
+<p><strong> 模拟场景</strong><br>Server端和Client端通信，需要进行授权和身份的验证，即Client只能接受Server的消息，Server只能接受Client的消息。</p>
+<p><strong> 实现技术</strong><br>JSSE（Java Security Socket Extension）<br>是Sun为了解决在Internet上的安全通讯而推出的解决方案。它实现了SSL和TSL（传输层安全）协议。在JSSE中包含了数据加密，服务器验证，消息完整性和客户端验证等技术。通过使用JSSE，开发人员可以在客户机和服务器之间通过TCP/IP协议安全地传输数据</p>
+<p>为了实现消息认证。<br>Server需要：</p>
+<ul>
+<li>1）KeyStore: 其中保存服务端的私钥</li>
+<li>2）Trust KeyStore:其中保存客户端的授权证书</li>
+</ul>
+<p>同样，Client需要：</p>
+<ul>
+<li>1）KeyStore：其中保存客户端的私钥</li>
+<li>2）Trust KeyStore：其中保存服务端的授权证书</li>
+</ul>
+<p>我们可以使用Java自带的keytool命令，去生成这样信息文件<br>1）生成服务端私钥，并且导入到服务端KeyStore文件中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -genkey -<span class="built_in">alias</span> serverkey -keystore kserver.keystore</div></pre></td></tr></table></figure></p>
+<p>过程中，分别需要填写，根据需求自己设置就行</p>
+<blockquote>
+<p>keystore密码：123456<br>名字和姓氏：stone<br>组织单位名称：eulic<br>组织名称：eulic<br>城市或区域名称：HZ<br>州或省份名称：ZJ<br>国家代码：CN</p>
+</blockquote>
+<p>serverkey私钥的密码，不填写和keystore的密码一致：123456<br>就可以生成kserver.keystore文件<br>server.keystore是给服务端用的，其中保存着自己的私钥</p>
+<p>2）根据私钥，导出服务端证书<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -<span class="built_in">export</span> -<span class="built_in">alias</span> serverkey -keystore kserver.keystore -file server.crt</div></pre></td></tr></table></figure></p>
+<p>server.crt就是服务端的证书</p>
+<p>3）将服务端证书，导入到客户端的Trust KeyStore中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -import -<span class="built_in">alias</span> serverkey -file server.crt -keystore tclient.keystore</div></pre></td></tr></table></figure></p>
+<p>tclient.keystore是给客户端用的，其中保存着受信任的证书</p>
+<p>采用同样的方法，生成客户端的私钥，客户端的证书，并且导入到服务端的Trust KeyStore中</p>
+<ul>
+<li>1）keytool -genkey -alias clientkey -keystore kclient.keystore</li>
+<li>2）keytool -export -alias clientkey -keystore kclient.keystore -file client.crt</li>
+<li>3）keytool -import -alias clientkey -file client.crt -keystore tserver.keystore</li>
+</ul>
+<p>如此一来，生成的文件分成两组<br>服务端保存：kserver.keystore tserver.keystore<br>客户端保存：kclient.keystore  tclient.kyestore</p>
+<p>接下来，就采用JSSE，分别生成SSLServerSocket,SSLSocket</p>
+<p>服务端，生成SSLServerSocket代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">SSLContext ctx = SSLContext.getInstance(<span class="string">"SSL"</span>);</div><div class="line"></div><div class="line">KeyManagerFactory kmf = KeyManagerFactory.getInstance(<span class="string">"SunX509"</span>);</div><div class="line">TrustManagerFactory tmf = TrustManagerFactory.getInstance(<span class="string">"SunX509"</span>);</div><div class="line"></div><div class="line">KeyStore ks = KeyStore.getInstance(<span class="string">"JKS"</span>);</div><div class="line">KeyStore tks = KeyStore.getInstance(<span class="string">"JKS"</span>);</div><div class="line"></div><div class="line">ks.load(<span class="keyword">new</span> FileInputStream(<span class="string">"data/kserver.keystore"</span>), SERVER_KEY_STORE_PASSWORD.toCharArray());</div><div class="line">tks.load(<span class="keyword">new</span> FileInputStream(<span class="string">"data/tserver.keystore"</span>), SERVER_TRUST_KEY_STORE_PASSWORD.toCharArray());</div><div class="line"></div><div class="line">kmf.init(ks, SERVER_KEY_STORE_PASSWORD.toCharArray());</div><div class="line">tmf.init(tks);</div><div class="line"></div><div class="line">ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), <span class="keyword">null</span>);</div><div class="line"></div><div class="line"><span class="keyword">return</span> (SSLServerSocket) ctx.getServerSocketFactory().createServerSocket(DEFAULT_PORT);</div></pre></td></tr></table></figure></p>
+<p>客户端，生成SSLSocket的代码，大同小异<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">SSLContext ctx = SSLContext.getInstance(<span class="string">"SSL"</span>);</div><div class="line"></div><div class="line">KeyManagerFactory kmf = KeyManagerFactory.getInstance(<span class="string">"SunX509"</span>);</div><div class="line">TrustManagerFactory tmf = TrustManagerFactory.getInstance(<span class="string">"SunX509"</span>);</div><div class="line"></div><div class="line">KeyStore ks = KeyStore.getInstance(<span class="string">"JKS"</span>);</div><div class="line">KeyStore tks = KeyStore.getInstance(<span class="string">"JKS"</span>);</div><div class="line"></div><div class="line">ks.load(<span class="keyword">new</span> FileInputStream(<span class="string">"data/kclient.keystore"</span>), CLIENT_KEY_STORE_PASSWORD.toCharArray());</div><div class="line">tks.load(<span class="keyword">new</span> FileInputStream(<span class="string">"data/tclient.keystore"</span>), CLIENT_TRUST_KEY_STORE_PASSWORD.toCharArray());</div><div class="line"></div><div class="line">kmf.init(ks, CLIENT_KEY_STORE_PASSWORD.toCharArray());</div><div class="line">tmf.init(tks);</div><div class="line"></div><div class="line">ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), <span class="keyword">null</span>);</div><div class="line"></div><div class="line"><span class="keyword">return</span> (SSLSocket) ctx.getSocketFactory().createSocket(DEFAULT_HOST, DEFAULT_PORT);</div></pre></td></tr></table></figure></p>
+<p>如此，就完成了服务端和客户端之间的基于身份认证的交互。</p>
+<p>client采用kclient.keystore中的clientkey私钥进行数据加密，发送给server<br>server采用tserver.keystore中的client.crt证书（包含了clientkey的公钥）对数据解密，如果解密成功，证明消息来自client，进行逻辑处理</p>
+<p>server采用kserver.keystore中的serverkey私钥进行数据叫米，发送给client<br>client采用tclient.keystore中的server.crt证书（包含了serverkey的公钥）对数据解密，如果解密成功，证明消息来自server，进行逻辑处理</p>
+<p>如果过程中，解密失败，那么证明消息来源错误。不进行逻辑处理。这样就完成了双向的身份认证。</p>
+<p>下面我附上简单的SSLServer.java SSLClient.java，供大家演示用。<br>启动服务端的时候，大家不妨采用telnet 127.0.0.1 7777连接，看看能不能实现消息传递。</p>
+<p><a href="http://writeblog.csdn.net/Files/stone2083/java/lab.zip" target="_blank" rel="external">SSL DEMO</a><br>备注：<br>demo是采用maven构建项目的<br>demo文件的编码是用utf8，为了避免中文乱码，请把workspace设置成utf8编码</p>
+<p>申明下,我自己对ssl的认识还是很肤浅的,仅仅上次和cnnic合作的时候,为了了解安全性问题,才被迫稍微看了相应的一些知识.</p>
+<p>所谓认证,是要对某台(当然可以是集群)服务器身份做认证.<br>认证方式有两种:<br>自签名认证:服务端生成key,然后根据key导出证书.公布于站点.<br>通过第三方认证机构认证:有服务端生成key,然后导出认证信息,交由天威诚信等第三方认证机构认证,最后生成证书,公布于站点.</p>
+<p>客户端,将证书下载,确认为可信任公司认证信息,并且导入到受信任区(trustscore),建立连接与服务端进行正常交互.至此,就完成了对服务端的认证.<br>所以客户端必须将证书导入信任区.</p>
+<p>java中,可以查看证书:<br>写个简单的方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"cert.cer"</span>);</div><div class="line">CertificateFactory cf=CertificateFactory.getInstance(<span class="string">"X509"</span>);</div><div class="line">X509Certificate c=(X509Certificate) cf.generateCertificate(fis);</div><div class="line">System.out.println(c.getSubjectDN());</div><div class="line"><span class="comment">//可以查看下X509Certificate的一些get方法.</span></div></pre></td></tr></table></figure></p>
+<p>其实keytool仅仅是jdk中的工具.<br>openssl是更常用的一个工具,可见<a href="http://www.openssl.org/" target="_blank" rel="external">官网</a></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/yangdelong/article/details/4575983" target="_blank" rel="external">用SSL构建安全的Socket</a></li>
+<li><a href="http://www.blogjava.net/stone2083/archive/2008/07/10/169015.html" target="_blank" rel="external">SSL双向认证java实现</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/30/protocol_ssl_socket/" data-id="cj4zvsgcl005z0gnhmfpc8qze" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket/">socket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssl/">ssl</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/30/android_viewpager_pageradapter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          PagerAdapter的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/30/protocol_http_and_https/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HTTP协议和HTTPS协议详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

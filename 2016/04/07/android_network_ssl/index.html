@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>为你的Android App实现自签名的SSL证书 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍网络安全已成为大家最关心的问题. 如果你利用服务器存储客户资料, 那你应该考虑使用 SSL 加密客户跟服务器之间的通讯. 随着这几年手机应用迅速崛起. 黑客也开始向手机应用转移, 原因有下列3点:  手机系统各式各样, 缺乏统一的标准. 许多程序员缺乏手机应用开发经验. 更严重的是, 通过手机应用, 黑客可以得到手机用户的隐私数据, 如:日程安排, 联系人信息, 网页浏览历史记录, 个人资料,">
+<meta name="keywords" content="ssl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为你的Android App实现自签名的SSL证书">
+<meta property="og:url" content="http://yoursite.com/2016/04/07/android_network_ssl/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="介绍网络安全已成为大家最关心的问题. 如果你利用服务器存储客户资料, 那你应该考虑使用 SSL 加密客户跟服务器之间的通讯. 随着这几年手机应用迅速崛起. 黑客也开始向手机应用转移, 原因有下列3点:  手机系统各式各样, 缺乏统一的标准. 许多程序员缺乏手机应用开发经验. 更严重的是, 通过手机应用, 黑客可以得到手机用户的隐私数据, 如:日程安排, 联系人信息, 网页浏览历史记录, 个人资料,">
+<meta property="og:image" content="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_837.jpg">
+<meta property="og:image" content="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_89.png">
+<meta property="og:image" content="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_282.gif">
+<meta property="og:image" content="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_825.png">
+<meta property="og:updated_time" content="2017-07-11T17:45:09.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为你的Android App实现自签名的SSL证书">
+<meta name="twitter:description" content="介绍网络安全已成为大家最关心的问题. 如果你利用服务器存储客户资料, 那你应该考虑使用 SSL 加密客户跟服务器之间的通讯. 随着这几年手机应用迅速崛起. 黑客也开始向手机应用转移, 原因有下列3点:  手机系统各式各样, 缺乏统一的标准. 许多程序员缺乏手机应用开发经验. 更严重的是, 通过手机应用, 黑客可以得到手机用户的隐私数据, 如:日程安排, 联系人信息, 网页浏览历史记录, 个人资料,">
+<meta name="twitter:image" content="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_837.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android_network_ssl" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/07/android_network_ssl/" class="article-date">
+  <time datetime="2016-04-07T02:36:29.000Z" itemprop="datePublished">2016-04-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/protocol/">protocol</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      为你的Android App实现自签名的SSL证书
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>网络安全已成为大家最关心的问题. 如果你利用服务器存储客户资料, 那你应该考虑使用 SSL 加密客户跟服务器之间的通讯. 随着这几年手机应用迅速崛起. 黑客也开始向手机应用转移, 原因有下列3点:</p>
+<ul>
+<li>手机系统各式各样, 缺乏统一的标准.</li>
+<li>许多程序员缺乏手机应用开发经验.</li>
+<li>更严重的是, 通过手机应用, 黑客可以得到手机用户的隐私数据, 如:日程安排, 联系人信息, 网页浏览历史记录, 个人资料, 社交数据, 短信或者手机用户所在的地理位置.</li>
+</ul>
+<p>最为一个网络安全爱好者的我, 最近花了几个月的时间对50到60个安卓应用进行安全分析, 结果发现这些应用存在许多安全漏洞.</p>
+<p>下面我主要讲一讲, 怎样才能写出比较安全的安卓代码.</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>从最基本的开始讲.阅读本文前, 最好先看下 Ranjan.D article 写的一篇跟安卓连接有关的文章<a href="http://www.codeproject.com/Articles/818734/Article-Android-Connectivity" target="_blank" rel="external">Android Connectivity</a>.</p>
+<p>下列代码用来打开一个 http 连接.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">URL urlConnection = new URL(&quot;http://www.codeproject.com/&quot;);</div><div class="line">HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();</div></pre></td></tr></table></figure></p>
+<p>不要在 http连接中打开:登陆页面, 或是传递用户名, 密码, 银行卡之类的重要个人资料. 这些重要个人数据应该通过 HTTPS 传输. (具体参看HTTPS).</p>
+<h2 id="HTTPS是什么"><a href="#HTTPS是什么" class="headerlink" title="HTTPS是什么"></a>HTTPS是什么</h2><p>HTTPS 其实就是个安全版的 http. HTTPS 能保证电子商务的交易安全. 如:网上银行.<br>像 IE 或者火狐浏览器, 如果出现下面的挂锁图标.<br><img src="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_837.jpg" alt=""></p>
+<p>同时, 在浏览器的地址栏中以 https:// 开头, 这表示, 你的浏览器跟这个网站的数据往来都是安全的.</p>
+<p>https 跟 http 的最大区别在于 https 多加了一个保障通讯安全的层.<br><img src="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_89.png" alt=""></p>
+<p>像下列代码这样打开一个 https 连接, 可以保障这个连接的数据通讯安全.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">URL urlConnection = new URL(&quot;https://www.codeproject.com/&quot;);</div><div class="line">HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();</div><div class="line">InputStream in = new BufferedInputStream(urlConnection.getInputStream());</div></pre></td></tr></table></figure></p>
+<p>HTTPS 通过 SSL/TLS 传递数据.</p>
+<h2 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h2><p>SSL (Secure Sockets Layer) 是一种在客户端跟服务器端建立一个加密连接的安全标准. 一般用来加密网络服务器跟浏览器, 或者是邮件服务器跟邮件客户端(如: Outlook)之间传输的数据.</p>
+<p>SSL 能保障敏感信息(如:银行卡号, 社保卡号, 登陆凭证等)的传输安全. 一般情况下, 数据在浏览器跟服务器之间的传输使用的是明文格式, 这种方式存在资料被窃取的风险. 如果黑客能拦截浏览器跟服务器之间的通讯数据, 就能看到通讯的内容. </p>
+<h2 id="SSL-HTTPS-and-X-509-证书概述"><a href="#SSL-HTTPS-and-X-509-证书概述" class="headerlink" title="SSL/HTTPS and X.509 证书概述"></a>SSL/HTTPS and X.509 证书概述</h2><p>你要是对 SSL 或 X.509 证书一无所知, 那我大概解释下. 对于那些打算用自签名证书(self-signed certificate)的人来说, 需要了解自签名证书跟花钱购买机构颁发的证书有什么区别. </p>
+<p>首先我们需要了解下 SSL 证书究竟是个什么东东? 其实它就包含俩部分:<br> 1) 一个身份标识, 一个用来识别身份的东西, 有点类似警察叔叔通过护照或驾照查你的身份;<br> 2) 一个公共密钥, 这个用来给数据加密, 而且只有证书的持有者才能解密.<br> 简而言之, SSL 证书就俩个功能, 身份验证跟保障通讯过程中的数据安全.</p>
+<p>另外还有一点很重要. 那就是一个证书可以给另外一个证书“签字”. 用 layman 的话说就是 Bob 用他自己的证书在别的证书上盖上 “同意” 两个红红的大字. 如果你信任 Bob (当然还有他的证书), 那么你也可以信任由他签发的证书. 在这个例子中, Bob 摇身一变, 成了证书颁发机构(Certificate Authority). 现在主流的浏览器都自带一大堆受信任证书颁发机构(trusted Certificate Authorities)(比如:Thawte, Verisign等).</p>
+<p>最后我们讲一讲浏览器是怎么使用证书的. 笼统的讲, 当你打开下列连接的时候 “<a href="https://www.yoursite.com”" target="_blank" rel="external">https://www.yoursite.com”</a> :</p>
+<ul>
+<li>服务器会给浏览器发一个证书.</li>
+<li>浏览器会对比证书中的“common name”(有时也叫 “subject”) 跟服务器的域名是否一样. 例如, 一个从“www.yoursite.com” 网站发过来的证书就应该有一个内容是 “www.yoursite.com” 的 common name, 否则浏览器就会提示该证书有问题.</li>
+<li>浏览器验证证书真伪, 有点像门卫通过证件上的全息图辨别你的证件是不是真的.  既然在现实生活中有人伪造别人的身份. 那么在网络世界也就有人造假, 比如用你的域名“www.yoursite.com” 来伪造一个安全证书.  浏览器在验证的时候, 会检查这个证书是否是它信任机构颁发的, 如果不是, 那么浏览器就会提示这个证书可能有问题. 当然, 用户可以选择无视警告, 继续使用.</li>
+</ul>
+<p>一旦证书通过验证 (或是用户无视警告, 继续使用有问题的证书), 浏览器就开始利用证书中的公开密钥加密数据并传给服务器.</p>
+<p>TLS (SSL)中的加密</p>
+<p>一旦服务器发过来的证书通过验证, 浏览器就会利用证书中包含的公共密钥加密某个指定的共享密钥, 然后发给服务器. 这个加密过的共享密钥只能用服务器的私有密钥才能解密(非对称加密), 别人无法解密出其中的内容. 服务器把解密出来的共享密钥保存起来, 供本次连接会话专用. 从现在开始, 服务器跟浏览器之间的所有通讯信息都用这个共享密钥加密解密(对称加密).<br><img src="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_282.gif" alt=""></p>
+<p>理论部分就这么多, 下面我们来看几个例子.</p>
+<p>在浏览器中打开网站 mail.live.com , 地址栏中会出现一个绿色图标, http 也会变成 https.</p>
+<p>单击这个绿色图标, 然后点证书信息连接, 就能看到下列内容.<br><img src="http://static.open-open.com/lib/uploadImg/20141012/20141012075333_825.png" alt=""></p>
+<p>这是个 SSL 证书, 该证书是 Verisign 给 mail.live.cm 颁发的.</p>
+<p>Verisign 是一个证书颁发机构, 它提示你的浏览器正在连接的网站是: mail.live.com, 需要跟这个网站的服务器建立一条安全连接进行通讯, 避免他人拦截或篡改浏览器跟服务器之间传递的数据.</p>
+<h2 id="MITM攻击-中间人攻击"><a href="#MITM攻击-中间人攻击" class="headerlink" title="MITM攻击(中间人攻击)"></a>MITM攻击(中间人攻击)</h2><p>MITM 攻击(MITMA)是指: 黑客拦截篡改网络中的通讯数据</p>
+<p>被动 MITMA 是指黑客只能窃取通讯数据, 而在主动 MITMA 中, 黑客除了窃取数据, 还能篡改通讯数据. 黑客利用 MITMA 方式攻击手机要比攻击台式电脑容易的多. 这主要是因为使用手机的环境在不固定, 有些地方用手机连接上网并不安全, 尤其是那些对公众免费开放的无线网络热点.</p>
+<p>证书颁发机构（CA）</p>
+<ul>
+<li>Symantec (which bought VeriSign’s SSL interests and owns Thawte and Geotrust) 38.1% 市场份额</li>
+<li>Comodo SSL 29.1%</li>
+<li>Go Daddy 13.4%</li>
+<li>GlobalSign 10%</li>
+</ul>
+<p>Jelly bean 版本的安卓系统中, 你可以在下列路径中找到证书颁发机构:<br>设置 -&gt; 安全 -&gt; 受信任的凭证.</p>
+<p><strong> Https 连接</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">URL url = new URL(&quot;https://www.example.com/&quot;);   </div><div class="line">HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();   </div><div class="line">InputStream in = urlConnection.getInputStream();</div></pre></td></tr></table></figure></p>
+<p>如果你连接的服务器(www.example.com)传过来的证书是由机构颁发的, 这段代码就能正常运行.</p>
+<p>但是如果你连的服务器用的是自己颁发的证书(self-singed certificate), 那就会出现错误.</p>
+<h2 id="自签名证书-self-signed-certicates"><a href="#自签名证书-self-signed-certicates" class="headerlink" title="自签名证书( self-signed certicates)"></a>自签名证书( self-signed certicates)</h2><p>自签名证书就是没有通过受信任的证书颁发机构, 自己给自己颁发的证书.</p>
+<p>SSL 证书大致分三类:</p>
+<ul>
+<li>由安卓认可的证书颁发机构(如: VeriSign), 或这些机构的下属机构颁发的证书.</li>
+<li>没有得到安卓认可的证书颁发机构颁发的证书.</li>
+<li>自己颁发的证书, 分临时性的(在开发阶段使用)或在发布的产品中永久性使用的两种.</li>
+</ul>
+<p>只有第一种, 也就是那些被安卓系统认可的机构颁发的证书, 在使用过程中不会出现安全提示.<br>为什么有人喜欢用自签名证书 </p>
+<ul>
+<li>免费. 购买受信任机构颁发的证书每年要交 100 到 500 美元不等的费用. 自签名证书不花一分钱.</li>
+<li>自签名证书在手机应用中的普及率较高 (跟用电脑浏览网页不同, 手机的应用一般就固定连一台服务器.).</li>
+<li>在开发阶段写的代码,  测试跟发布的时候也可以用.</li>
+</ul>
+<p>最近一项调查表明, 810万个证书中, 只有 320万个是由受信任机构颁发的. 剩余490万证书中, 自签名的占48%, 未知机构颁发的占33%, 而不被信任的机构颁发的证书占19%.</p>
+<p>无独有偶, 我的分析结果也表明, 起码有 60% 安卓应用使用自签证书.</p>
+<p>个人以为, 在手机应用中使用自签名证书没什么不好, 既不需要花钱, 也不需要修改代码.(注:如果你用的是机构颁发的证书, 在产品发布阶段, 需要修改代码).</p>
+<p>但是下面的戏法的一般性的https代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">URL url = new URL(&quot;https://www.example.com/&quot;);   </div><div class="line">HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();   </div><div class="line">InputStream in = urlConnection.getInputStream();</div></pre></td></tr></table></figure></p>
+<p>如果你使用上述的代码去验证你的自己签署的证书，由于在android操作系统中自己签署的不能通过验证的，所以安卓应用软件将会抛出错误。因此你需要书写你自己的代码来检查你的自己签署的证书。</p>
+<p>但是在这个领域中，安卓开发者犯了一个很大的错误，自己签署的证书在web开发中不是常见的，同时大多数安卓开发者来自于web开发者，所以开发者缺失在密码学的概念的知识。</p>
+<p>在我分析中，我发现开发者仅仅是简单的复制、粘贴Stack Overflow和其他博客中允许你的应用默认信任所以证书的答案。即使大多说的答案表述仅仅在测试模式下可以使用，但是开发者简单地复制代码，将会导致应用软件在遭到中间件攻击和session黑客攻击时，表现的非常的脆弱！</p>
+<p>例子：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/2703161/how-to-ignore-ssl-certificate-errors-in-apache-httpclient-4-0" target="_blank" rel="external">How to ignore SSL certificate errors in Apache HttpClient 4.0</a></li>
+<li><a href="http://stackoverflow.com/questions/2012497/accepting-a-certificate-for-https-on-android?lq=1" target="_blank" rel="external">Accepting a certificate for HTTPs on Android</a></li>
+<li><a href="http://www.caphal.com/android/using-self-signed-certificates-in-android/#toc_3" target="_blank" rel="external">Using self signed certificates with Android</a></li>
+<li><a href="http://stackoverflow.com/questions/2642777/trusting-all-certificates-using-httpclient-over-https" target="_blank" rel="external">Trusting all certificates using HttpClient over HTTPS</a></li>
+</ul>
+<p>在使用自己签署的证书时一般性的错误</p>
+<p><strong> 信任所有的证书</strong></p>
+<p>TrustManager的主要责任是去决定提出的认证证书应该是可信任的。如果证书是不可信任的，那么连接将会被终止。去认证远程的安全套接字识别，你需要用一个或者多个TrustManager（s）初始化SSLContext对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">import org.apache.http.conn.ssl.SSLSocketFactory;</div><div class="line">public class MySSLSocketFactory extends SSLSocketFactory &#123;</div><div class="line">    SSLContext sslContext = SSLContext.getInstance(&quot;TLS&quot;);</div><div class="line"></div><div class="line">    public MySSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException &#123;</div><div class="line">        super(truststore);</div><div class="line"></div><div class="line">        TrustManager tm = new X509TrustManager() &#123;</div><div class="line">            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException &#123;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException &#123;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            public X509Certificate[] getAcceptedIssuers() &#123;</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        sslContext.init(null, new TrustManager[] &#123; tm &#125;, null);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException &#123;</div><div class="line">        return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Socket createSocket() throws IOException &#123;</div><div class="line">        return sslContext.getSocketFactory().createSocket();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我发现，80到100个应用软件中，在20到25个应用中实现了上述的代码。</p>
+<p>在上述的TrustManager接口中，可以实现信任所有的证书，不论是谁签署的或者即使他们发布的任何主题。这个接口将会允许接受ANY证书。接受任何的证书将会危害数据的完整性、安全性等等。</p>
+<p>在上述的例子中，检查客户端可信任性，获得接受事件，检查服务器端可信任性是三点重要的功能。每一位开发者都应该留意这三点功能的实现上。但是却很少有开发者从不同的网站中搜索、负责上述的功能。</p>
+<p><strong> 允许所有的主机名</strong></p>
+<p>忘记检查证书是否在这个地址发布是有可能的。当证书接受了example.com的服务器，那么另外的一个域名也将被接受。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">HostnameVerifier hostnameVerifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;</div><div class="line"></div><div class="line">DefaultHttpClient client = new DefaultHttpClient();</div><div class="line"></div><div class="line">SchemeRegistry registry = new SchemeRegistry();</div><div class="line">SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();</div><div class="line">socketFactory.setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);</div><div class="line">registry.register(new Scheme(&quot;https&quot;, socketFactory, 443));</div><div class="line">SingleClientConnManager mgr = new SingleClientConnManager(client.getParams(), registry);</div><div class="line">DefaultHttpClient httpClient = new DefaultHttpClient(mgr, client.getParams());</div><div class="line"></div><div class="line">// Set verifier     </div><div class="line">HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);</div><div class="line"></div><div class="line">// Example send http request</div><div class="line">final String url = &quot;https://www.paypal.com&quot;;</div><div class="line">HttpPost httpPost = new HttpPost(url);</div><div class="line">HttpResponse response = httpClient.execute(httpPost);</div><div class="line"></div><div class="line">HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);</div><div class="line"></div><div class="line">HostnameVerifier hostnameVerifier = org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;</div></pre></td></tr></table></figure></p>
+<p>上述的代码中，即使是错误的实现，也将会接受对任何域名的任何CA证书声明。</p>
+<h2 id="Mixed-Mode-No-SSL"><a href="#Mixed-Mode-No-SSL" class="headerlink" title="Mixed-Mode/No SSL"></a>Mixed-Mode/No SSL</h2><p>应用软件开发者在相同的应用中使用最大安全、不安全的连接，或者不使用SSL将是免费的。这不是直接的SSL声明，但是和提到的没有向外的签署个有关，同时对于一般软件的使用者，检查是否使用一个安全的连接是不可能的。这将会为例如SSL剥离，或者像FireSheep这样的攻击开后门。</p>
+<p>SSL剥离是另外的一种可以使MITMA登陆并抵制SSL连接方式。利用使用最大HTTP和HTTPS应用。SSL剥离依赖大量建立在点击链接、或者来自于没有SSL重定向保护的网站SSL连接。在SSL剥离中，Mallory用HTTPS://取代了没有保护的网站中http:// 链接中。因此，除非使用者注意到了链接被篡改了，Mallory可以完全地规避SSL保护。这样的攻击主要与浏览器应用、或者原生使用安卓WebView应用有关。</p>
+<p>更多关于SSL剥离的信息：<br><a href="http://security.stackexchange.com/questions/41988/how-does-sslstrip-work" target="_blank" rel="external">http://security.stackexchange.com/questions/41988/how-does-sslstrip-work</a><br><a href="http://www.thoughtcrime.org/software/sslstrip/" target="_blank" rel="external">http://www.thoughtcrime.org/software/sslstrip/</a></p>
+<h2 id="证书锁定"><a href="#证书锁定" class="headerlink" title="证书锁定"></a>证书锁定</h2><p>直接在代码中固定写死使用某个服务器的证书. 然后在应用中使用自己定义的信任存储(trust store)代替手机系统自带的那个, 去连接指定的服务器.</p>
+<p>这样做的好处是, 我们既能使用自签名证书, 又不需要额外安装其他证书.<br><strong> 优势</strong></p>
+<ul>
+<li>安全性提升 - 采用这种方式, 应用不再依赖系统自带的信任存储(trust store). 使得破解这种应用变得复杂: 首先你要反编译, 修改完后, 还要重新编译.  关键是你不可能使用应用作者原先用的那个 keystore 文件重新颁发证书.</li>
+<li>成本降低 - 证书锁定方式让我们可以在自己的服务器上使用免费的自签名证书,  调用自己写的 API. 虽说复杂了点, 可是像这种既不花钱, 还能提高应用安全的好事上哪找去?</li>
+</ul>
+<p><strong> 缺点</strong></p>
+<ul>
+<li>适应性较差 - 一旦 SSL 证书出现变动, 应用也要跟着升级. 再发布到 Google Play. 然后祈祷用户能都升级到最新版本.</li>
+</ul>
+<p>安卓的 SSLContext 自带的 TrustManager 无法让本文示例中提到的自签名证书通过验证. 解决的办法是自己定义一个 TrustManager 类. 然后用这个类去验证自签名证书. </p>
+<p>先把证书加载到 KeyStore, 然后用 KeyStore 生成一个 TrustManager 数组, 最后再用这个 TrustManager 数组创建 SSLContext.</p>
+<p>本文的应用把服务器的证书直接存进应用的资源.(毕竟这个文件是所有用户都共用的, 而且也不会经常改动), 当然你可以把它存到别的地方.</p>
+<h2 id="实现的步骤"><a href="#实现的步骤" class="headerlink" title="实现的步骤"></a>实现的步骤</h2><p><strong> 第1步: 创建自签名证书和.bks 文件</strong></p>
+<p>1) 创建 BKS 或者 keystore, 需要用到下面这个文件,<a href="https://www.bouncycastle.org/latest_releases.html" target="_blank" rel="external">bcprov-jdk15on-146.jar</a>.下载后, 把文件存到 C:\codeproject.</p>
+<p>然后用 Keytool 生成 keystore 文件.(keytool 是 Java SDK 自带的文件, 跟javac 放在同一个目录下)在命令提示符窗口中输入 keytool 就能看到这个工具的各种选项说明. 或者输入下列路径运行.</p>
+<p>“C:\Program Files (x86)\Java\jre7\bin&gt;keytool”.</p>
+<p>2)下面是用 keytool 生成 keysotre 文件的命令.  要是这个文件已经存在, 这一步可以忽略.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -genkey -alias codeproject -keystore C:\codeproject\codeprojectssl.keystore -validity 365</div></pre></td></tr></table></figure></p>
+<p>这行命令创建一个别名为 code project 的密钥(key), 生成的文件名是 codeprojectssl.keystore. 执行文件生成过程中会要求输入密钥(key)跟keystore的密码诸如此类的东东. 这里需要注意下, 当要求你录入 Common name 的时候, 要填你的主机名. 本文例子用的是: codeproject.com</p>
+<p>3)将密钥(key)从 .keystore 文件导入 .cer 文件.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -export -alias codeproject -keystore C:\codeproject\codeprojectssl.keystore -file C:\codeproject\codeprojectsslcert.cer</div></pre></td></tr></table></figure></p>
+<p>4) 生成 bks 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -import -alias codeproject -file C:\codeproject\codeprojectsslcert.cer -keystore C:\codeproject\codeprojectssl.bks -storetype BKS -providerClass org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath C:\codeproject\bcprov-jdk15on-146.jar</div></pre></td></tr></table></figure></p>
+<p>搞定! 现在, 全部 .bks 文件都生成了. 稍后将这些文件复制到安卓应用中. 连接那些使用自签名证书的服务器的时候会用到.</p>
+<p><strong> 第2步 把 .keystore 文件复制到 /androidappdir/res/raw/</strong></p>
+<p><strong> 第3步 创建一个新类: MyHttpClient,  继承 DefaultHttpClient 类. </strong></p>
+<p>这个新类在验证SSL 证书的时候, 会自动加载我们自己创建的 keystore 文件, 而不是安卓自带的那个. 只要证书跟服务器匹配上了就没问题. 代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">import java.io.InputStream;</div><div class="line">import java.security.KeyStore;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line"></div><div class="line">public class MyHttpClient extends DefaultHttpClient &#123;</div><div class="line">  </div><div class="line"> private static Context context;</div><div class="line"> </div><div class="line"> public static void setContext(Context context) &#123;</div><div class="line">  MyHttpClient.context = context;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> public MyHttpClient(HttpParams params) &#123;</div><div class="line">  super(params);</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> public MyHttpClient(ClientConnectionManager httpConnectionManager, HttpParams params) &#123;</div><div class="line">  super(httpConnectionManager, params);</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> @Override</div><div class="line">    protected ClientConnectionManager createClientConnectionManager() &#123;</div><div class="line">        SchemeRegistry registry = new SchemeRegistry();</div><div class="line">        registry.register(new Scheme(&quot;http&quot;, PlainSocketFactory.getSocketFactory(), 80));</div><div class="line">        </div><div class="line">        // 用我们自己定义的 SSLSocketFactory 在 ConnectionManager 中注册一个 443 端口  </div><div class="line">        registry.register(new Scheme(&quot;https&quot;, newSslSocketFactory(), 443));</div><div class="line">        return new SingleClientConnManager(getParams(), registry);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    private SSLSocketFactory newSslSocketFactory() &#123;</div><div class="line">        try &#123;</div><div class="line">            // Get an instance of the Bouncy Castle KeyStore format</div><div class="line">            KeyStore trusted = KeyStore.getInstance(&quot;BKS&quot;);</div><div class="line">            // 从资源文件中读取你自己创建的那个包含证书的 keystore 文件</div><div class="line">            </div><div class="line">            InputStream in = MyHttpClient.context.getResources().openRawResource(R.raw.codeprojectssl); //这个参数改成你的 keystore 文件名</div><div class="line">            try &#123;</div><div class="line">                // 用 keystore 的密码跟证书初始化 trusted                            </div><div class="line">                trusted.load(in, &quot;这里是你的 keystore 密码&quot;.toCharArray());</div><div class="line">            &#125; finally &#123;</div><div class="line">                in.close();</div><div class="line">            &#125;</div><div class="line">            // Pass the keystore to the SSLSocketFactory. The factory is responsible</div><div class="line">            // for the verification of the server certificate.</div><div class="line">            SSLSocketFactory sf = new SSLSocketFactory(trusted);</div><div class="line">            // Hostname verification from certificate</div><div class="line">            // http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d4e506</div><div class="line">            sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER); // 这个参数可以根据需要调整, 如果对主机名的验证不需要那么严谨, 可以将这个严谨程度调低些.</div><div class="line">            return sf;</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            throw new AssertionError(e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>MyHttpClient 类的调用代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// Instantiate the custom HttpClient</div><div class="line">DefaultHttpClient client = new MyHttpClient(getApplicationContext());</div><div class="line">HttpGet get = new HttpGet(&quot;https://www.google.com&quot;);</div><div class="line">// 以 GET 方式读取服务器返回的数据</div><div class="line">HttpResponse getResponse = client.execute(get);</div><div class="line">HttpEntity responseEntity = getResponse.getEntity();</div></pre></td></tr></table></figure></p>
+<p>这是我在 CodeProject 上的发布的处女作.</p>
+<p>祝大家开心编程, 安全第一.为你的Android App实现自签名的 SSL 证书 .</p>
+<p><a href="http://www.oschina.net/translate/android-security-implementation-of-self-signed-ssl" target="_blank" rel="external">本文地址</a><br><a href="http://www.codeproject.com/Articles/826045/Android-security-Implementation-of-Self-signed-SSL" target="_blank" rel="external">原文地址</a></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://www.blogjava.net/lihao336/archive/2011/08/18/356763.html" target="_blank" rel="external">PKI常见证书格式和转换</a></li>
+<li><a href="http://www.open-open.com/lib/view/open1413071600531.html" target="_blank" rel="external">为你的Android App实现自签名的 SSL 证书</a></li>
+<li><a href="http://www.thoughtcrime.org/blog/authenticity-is-broken-in-ssl-but-your-app-ha/" target="_blank" rel="external">Your app shouldn’t suffer SSL’s problems</a></li>
+<li><a href="http://security.stackexchange.com/questions/29988/what-is-certificate-pinning" target="_blank" rel="external">What is certificate pinning</a></li>
+<li><a href="http://security.stackexchange.com/questions/41988/how-does-sslstrip-work" target="_blank" rel="external">How does SSLstrip work</a></li>
+<li><a href="https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning" target="_blank" rel="external">Certificate and Public Key Pinning</a></li>
+<li><a href="https://tools.ietf.org/html/draft-ietf-websec-key-pinning-20" target="_blank" rel="external">Public Key Pinning Extension for HTTP draft-ietf-websec-key-pinning-20</a></li>
+<li><a href="http://docs.oracle.com/javase/6/docs/technotes/guides/security/jsse/JSSERefGuide.html#HowSSLWorks" target="_blank" rel="external">How SSL Works</a></li>
+<li><a href="https://groups.google.com/forum/#!topic/android-developers/HCiHwBKOsrI" target="_blank" rel="external">p12 file’s certificates to x509</a></li>
+<li><a href="http://developer.android.com/intl/zh-cn/training/articles/security-ssl.html" target="_blank" rel="external">Security with HTTPS and SSL</a></li>
+<li><a href="https://github.com/google/nogotofail" target="_blank" rel="external">TESTTOOL-google/nogotofail</a></li>
+<li><a href="http://www.openssl.org/docs/manmaster/apps/openssl.html" target="_blank" rel="external">OpenSSL</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/07/android_network_ssl/" data-id="cj4zvsgau003a0gnh0uuy6gh4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssl/">ssl</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/04/web_springmvc1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Spring MVC入门(一)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/28/android_notification_push/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android实现推送方式解决方案</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/article/">article</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/coding/">coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/humanism/">humanism</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/message-push/">message_push</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ndk/">ndk</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/protocol/">protocol</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/reading/">reading</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/springmvc/">springmvc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/string/">string</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/study/">study</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/versioncontroll/">versioncontroll</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/好文/">好文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/电影/">电影</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AliPay/">AliPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Einstein/">Einstein</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GreenDao/">GreenDao</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORMLite/">ORMLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WXPay/">WXPay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android_studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-ui/">android_ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/androidstudio/">androidstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/application/">application</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broadcast/">broadcast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bugfix/">bugfix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinese-weman/">chinese_weman</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-collection/">code_collection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/context/">context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/decomplication/">decomplication</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-model/">design model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eventbus/">eventbus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/feminism/">feminism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullstack/">fullstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handle/">handle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/humanism/">humanism</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iframe/">iframe</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imageloader/">imageloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intent/">intent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/intentflag/">intentflag</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iphone/">iphone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jni/">jni</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/listview/">listview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/material-design/">material_design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nd/">nd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notification/">notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/obfuscation/">obfuscation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observer/">observer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/otto/">otto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pageradapter/">pageradapter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pay/">pay</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/placeholder/">placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/project-build/">project_build</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefresh/">pulltorefresh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulltorefreshlistview/">pulltorefreshlistview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/saxophone/">saxophone</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen-record/">screen-record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shortkey/">shortkey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/snack/">snack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sort/">sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spannable/">spannable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/speech/">speech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssl/">ssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/templates/">templates</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/textview/">textview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/">translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/viewpager/">viewpager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volley/">volley</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/website/">website</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xpnet/">xpnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/史玉柱/">史玉柱</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电影/">电影</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贾樟柯/">贾樟柯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AliPay/" style="font-size: 10px;">AliPay</a> <a href="/tags/Einstein/" style="font-size: 10px;">Einstein</a> <a href="/tags/GreenDao/" style="font-size: 10px;">GreenDao</a> <a href="/tags/ORMLite/" style="font-size: 10px;">ORMLite</a> <a href="/tags/WXPay/" style="font-size: 10px;">WXPay</a> <a href="/tags/activity/" style="font-size: 10px;">activity</a> <a href="/tags/android-studio/" style="font-size: 10px;">android_studio</a> <a href="/tags/android-ui/" style="font-size: 10px;">android_ui</a> <a href="/tags/androidstudio/" style="font-size: 20px;">androidstudio</a> <a href="/tags/animation/" style="font-size: 20px;">animation</a> <a href="/tags/application/" style="font-size: 10px;">application</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/broadcast/" style="font-size: 10px;">broadcast</a> <a href="/tags/bugfix/" style="font-size: 13.33px;">bugfix</a> <a href="/tags/chinese-weman/" style="font-size: 10px;">chinese_weman</a> <a href="/tags/code-collection/" style="font-size: 10px;">code_collection</a> <a href="/tags/context/" style="font-size: 10px;">context</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/decomplication/" style="font-size: 10px;">decomplication</a> <a href="/tags/design-model/" style="font-size: 13.33px;">design model</a> <a href="/tags/eclipse/" style="font-size: 10px;">eclipse</a> <a href="/tags/eventbus/" style="font-size: 10px;">eventbus</a> <a href="/tags/feminism/" style="font-size: 10px;">feminism</a> <a href="/tags/fullstack/" style="font-size: 10px;">fullstack</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/google/" style="font-size: 10px;">google</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/handle/" style="font-size: 10px;">handle</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/hexo/" style="font-size: 16.67px;">hexo</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/humanism/" style="font-size: 10px;">humanism</a> <a href="/tags/iframe/" style="font-size: 10px;">iframe</a> <a href="/tags/image/" style="font-size: 10px;">image</a> <a href="/tags/imageloader/" style="font-size: 20px;">imageloader</a> <a href="/tags/intent/" style="font-size: 10px;">intent</a> <a href="/tags/intentflag/" style="font-size: 13.33px;">intentflag</a> <a href="/tags/iphone/" style="font-size: 10px;">iphone</a> <a href="/tags/jni/" style="font-size: 10px;">jni</a> <a href="/tags/listview/" style="font-size: 10px;">listview</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/material-design/" style="font-size: 10px;">material_design</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/music/" style="font-size: 13.33px;">music</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nd/" style="font-size: 10px;">nd</a> <a href="/tags/notification/" style="font-size: 10px;">notification</a> <a href="/tags/obfuscation/" style="font-size: 10px;">obfuscation</a> <a href="/tags/observer/" style="font-size: 10px;">observer</a> <a href="/tags/opensource/" style="font-size: 13.33px;">opensource</a> <a href="/tags/otto/" style="font-size: 10px;">otto</a> <a href="/tags/pageradapter/" style="font-size: 10px;">pageradapter</a> <a href="/tags/pay/" style="font-size: 13.33px;">pay</a> <a href="/tags/placeholder/" style="font-size: 10px;">placeholder</a> <a href="/tags/project-build/" style="font-size: 10px;">project_build</a> <a href="/tags/pulltorefresh/" style="font-size: 10px;">pulltorefresh</a> <a href="/tags/pulltorefreshlistview/" style="font-size: 13.33px;">pulltorefreshlistview</a> <a href="/tags/saxophone/" style="font-size: 10px;">saxophone</a> <a href="/tags/screen-record/" style="font-size: 10px;">screen-record</a> <a href="/tags/shortkey/" style="font-size: 10px;">shortkey</a> <a href="/tags/snack/" style="font-size: 10px;">snack</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/spannable/" style="font-size: 10px;">spannable</a> <a href="/tags/speech/" style="font-size: 10px;">speech</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/ssl/" style="font-size: 13.33px;">ssl</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/svg/" style="font-size: 13.33px;">svg</a> <a href="/tags/svn/" style="font-size: 13.33px;">svn</a> <a href="/tags/templates/" style="font-size: 10px;">templates</a> <a href="/tags/textview/" style="font-size: 10px;">textview</a> <a href="/tags/tomcat/" style="font-size: 16.67px;">tomcat</a> <a href="/tags/translate/" style="font-size: 10px;">translate</a> <a href="/tags/viewpager/" style="font-size: 13.33px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/website/" style="font-size: 13.33px;">website</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/xpnet/" style="font-size: 13.33px;">xpnet</a> <a href="/tags/书单/" style="font-size: 10px;">书单</a> <a href="/tags/史玉柱/" style="font-size: 10px;">史玉柱</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/电影/" style="font-size: 10px;">电影</a> <a href="/tags/贾樟柯/" style="font-size: 10px;">贾樟柯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/11/study_my_website_collection/">常用网站收集</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_develop_config/">WEB开发之环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/04/web_springmvc1/">Spring MVC入门(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/07/android_network_ssl/">为你的Android App实现自签名的SSL证书</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/android_notification_push/">Android实现推送方式解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
