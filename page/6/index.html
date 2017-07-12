@@ -42,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="null" class="js-avatar">
+			<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">ARESXIONG</a></h1>
@@ -76,13 +76,11 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -100,7 +98,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="null" class="js-avatar">
+				<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">ARESXIONG</h1>
@@ -117,13 +115,11 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -150,6 +146,247 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-tools_tomcat_install" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/23/tools_tomcat_install/">Tomcat安装详细教程[windows+linux]</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/23/tools_tomcat_install/" class="archive-article-date">
+  	<time datetime="2015-11-23T07:04:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下面分别介绍Windows和Linux环境下tomcat安装的教程，其实tomcat的安装主要就是一系列的变量的配置，变量配置OK，安装也就算是顺利完成。</p>
+<h2 id="安装版本"><a href="#安装版本" class="headerlink" title="安装版本"></a>安装版本</h2><ul>
+<li>Windows: jdk1.8.0_51 apache-tomcat-8.0.28-windows-i64</li>
+<li>Linux(Ubuntu): jdk-8u60-linux-i586 apache-tomcat-8.0.28<br>说明：安装包根据自己系统的情况在官网下载即可。</li>
+</ul>
+<h2 id="Windows下的步骤"><a href="#Windows下的步骤" class="headerlink" title="Windows下的步骤"></a>Windows下的步骤</h2><p>1、先安装JDK，跟你平时安装软件一样，非常傻瓜地进行着，在此略过。</p>
+<p>2、配置JDK环境变量<br>简单地说，就是相当给你安装的JDK路径取个别名，方便以后在CMD命令行操作编译。<br> 1）打开控制面板主页。<br> 2）进入系统 — 高级系统设置 — 环境变量（win10）。<br> 3）在系统变量中需要新建3个变量。</p>
+<ul>
+<li>变量名为JAVA_HOME，变量值为：C:\JDK（具体请根据你安装的JDK路径而定，如果是默认应该是这个形式C:\Program Files\Java\jdk1.7）</li>
+<li>变量名为CLASSPATH，变量值为.;%JAVA_HOME%\lib;</li>
+<li>变量名为PATH，变量值为%JAVA_HOME%\bin</li>
+</ul>
+<p>说明：至此完成了JDK的环境配置，请在cmd命令行界面下输入java -version测试是否安装成功。下面进行Tomcat服务器的安装与配置。</p>
+<p>3.Tomcat的安装与配置<br>解压下载文件包，打开系统环境变量请参考JDK配置的操作。<br>在系统变量中添加以下变量</p>
+<ul>
+<li>变量名TOMCAT_HOME 变量值c:\tomcat（安装目录）</li>
+<li>变量名CATALINA_HOME 变量值c:\tomcat （CATALINA_HOME的变量值与TOMCAT_HOME的变量值是一样的）</li>
+<li>PATH 在系统变量path后面追加;%CATALINA_HOME%\bin;%CATALINA_HOME%\lib</li>
+</ul>
+<p>4.启动Tomcat服务器<br>cmd命令行下进入到tomcat的安装目录下的bin目录下，输入startup.bat启动tomcat。<br>在浏览器中输入<a href="http://http://localhost:8080" target="_blank" rel="external">http://http://localhost:8080</a> 或 <a href="http://127.0.0.1:8080" target="_blank" rel="external">http://127.0.0.1:8080</a> 验证是否安装成功。</p>
+<blockquote>
+<p>说明：有时候通过localhost以及127.0.0.1不能访问，并不代表没有安装成功，可以试试ipconfig拿到ip，然后访问改ip的8080端口也可以验证。</p>
+</blockquote>
+<h2 id="Ubuntu下的安装"><a href="#Ubuntu下的安装" class="headerlink" title="Ubuntu下的安装"></a>Ubuntu下的安装</h2><p>1.下载jdk和tomcat的安装包，分别解压缩。将jdk解压缩到/usr/java目录下，将tomcat解压缩到/opt/目录下。（也可以是其他目录，根据自己喜好部署）</p>
+<p>2.配置java的环境变量。位置为/etc/enviroment，当然也可以在.bashrc中配置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PATH=<span class="string">"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:<span class="variable">$JAVA_HOME</span>/bin"</span></div><div class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib:<span class="variable">$JAVA_HOME</span>/jre/lib</div><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_60</div></pre></td></tr></table></figure></p>
+<p>.bashrc中配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_60</div><div class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</div><div class="line"><span class="built_in">export</span> CLASSPATH=.</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：配置以后都需要source一下使其生效。（source /etc/enviroment）</p>
+</blockquote>
+<p>3.tomcat的配置：<br> 打开tomcat目录，进入bin目录。使用右击使用gedit打开startup.sh文件，在文件最下边添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/java/jdk1.8.0_60</div><div class="line">JRE_HOME=<span class="variable">$JAVA_HOME</span>/jre</div><div class="line">PATH=/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/<span class="built_in">local</span>/games:/usr/java/jdk1.8.0_60/bin</div><div class="line">TOMCAT_HOME=/opt/apache-tomcat-8.0.28</div></pre></td></tr></table></figure></p>
+<p>4.启动、关闭tomcat<br>在tomcat的bin目录下右击 在终端中打开 ，打开终端后输入下边命令启动服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./startup.sh</div></pre></td></tr></table></figure></p>
+<p>输入下边的命令这是关闭服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./shutdown.sh</div></pre></td></tr></table></figure></p>
+<p>验证是否安装成功同Windows下的验证一样，要是localhost不能访问，有ip访问也是可以的。（ifconfig）</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://jingyan.baidu.com/article/624e7459a7d6e734e9ba5a70.html" target="_blank" rel="external">windows 7系统安装与配置Tomcat服务器环境</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_6386bafd0101dppz.html" target="_blank" rel="external">ubuntu 14.04安装TOMCAT配置环境变量</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/23/tools_tomcat_install/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-database_mysql_cmd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/23/database_mysql_cmd/">MySQL常用命令汇总</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/23/database_mysql_cmd/" class="archive-article-date">
+  	<time datetime="2015-11-23T02:48:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SQL即结构化查询语言(Structured Query Language)，是一门 ANSI 的标准计算机语言，用来访问和操作数据库系统。是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统；同时也是数据库脚本文件的扩展名。SQL语句无论是种类还是数量都是繁多的，很多语句也是经常要用到的，SQL查询语句就是一个典型的例子，无论是高级查询还是低级查询，SQL查询语句的需求是最频繁的。<br>SQL 可与数据库程序协同工作，比如 MS Access、DB2、Informix、MS SQL Server、Oracle、Sybase 以及其他数据库系统。不幸地是，存在着很多不同版本的 SQL 语言，但是为了与 ANSI 标准相兼容，它们必须以相似的方式共同地来支持一些主要的关键词（比如 SELECT、UPDATE、DELETE、INSERT、WHERE 等等）。</p>
+<blockquote>
+<p>注释：除了 SQL 标准之外，大部分 SQL 数据库程序都拥有它们自己的私有扩展！</p>
+</blockquote>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>1.命令行登录mysql<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uusername -ppassword</div></pre></td></tr></table></figure></p>
+<p>2.查看当前所有存在数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show databases;</div></pre></td></tr></table></figure></p>
+<p>3.创建数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create database database-name</div></pre></td></tr></table></figure></p>
+<p>4.删除数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop database dbname</div></pre></td></tr></table></figure></p>
+<p>5.备份数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//创建备份数据的 device</div><div class="line">USE master</div><div class="line">EXEC sp_addumpdevice <span class="string">'disk'</span>, <span class="string">'testBack'</span>, <span class="string">'c:\mssql7backup\MyNwind_1.dat'</span></div><div class="line">//开始备份</div><div class="line">BACKUP DATABASE pubs TO testBack</div></pre></td></tr></table></figure></p>
+<p>6.创建新表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">create table tabname(col1 type1 [not null] [primary key] ,col2 type2 [not null],..)    </div><div class="line">//identity(起始值,递增量) primary key为主键 identity表示递增数量</div></pre></td></tr></table></figure></p>
+<p>7.删除表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop table tabname  //这是将表连同表中信息一起删除但是日志文件中会有记录</div></pre></td></tr></table></figure></p>
+<p>8.删除信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">delete from table_name  //这是将表中信息删除但是会保留这个表</div></pre></td></tr></table></figure></p>
+<p>9.增加列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Alter table table_name add column_name column_type [default 默认值]  //在表中增加一列，[]内的内容为可选项</div></pre></td></tr></table></figure></p>
+<p>10.删除列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Alter table table_name drop column column_name  //从表中删除一列</div></pre></td></tr></table></figure></p>
+<p>11.添加主键和删除主键<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Alter table tabname add primary key(col)</div><div class="line"></div><div class="line">Alter table tabname drop primary key(col)</div></pre></td></tr></table></figure></p>
+<p>12.创建索引和删除索引<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create [unique] index idxname on tabname(col…。)</div><div class="line"></div><div class="line">drop index idxname on tabname</div></pre></td></tr></table></figure></p>
+<p>注：索引是不可更改的，想更改必须删除重新建。</p>
+<p>13.创建视图和删除视图<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create view viewname as select statement</div><div class="line"></div><div class="line">drop view viewname</div></pre></td></tr></table></figure></p>
+<h2 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h2><p>(1) 数据记录筛选：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"select * from 数据表 where字段名=字段值 order by字段名[desc]"</span>（按某个字段值降序排列。默认升序ASC）</div><div class="line">sql=<span class="string">"select * from 数据表 where字段名like '%字段值%' order by 字段名 [desc]"</span></div><div class="line">sql=<span class="string">"select top 10 * from 数据表 where字段名=字段值 order by 字段名 [desc]"</span></div><div class="line">sql=<span class="string">"select top 10 * from 数据表 order by 字段名 [desc]"</span></div><div class="line">sql=<span class="string">"select * from 数据表 where字段名in ('值1','值2','值3')"</span></div><div class="line">sql=<span class="string">"select * from 数据表 where字段名between 值1 and 值2"</span></div></pre></td></tr></table></figure></p>
+<p>(2) 更新数据记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"update 数据表 set字段名=字段值 where 条件表达式"</span></div><div class="line">sql=<span class="string">"update 数据表 set 字段1=值1,字段2=值2 …… 字段n=值n where 条件表达式"</span></div></pre></td></tr></table></figure></p>
+<p>(3) 删除数据记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"delete from 数据表 where 条件表达式"</span></div><div class="line">sql=<span class="string">"delete from 数据表"</span> (将数据表所有记录删除)</div></pre></td></tr></table></figure></p>
+<p>(4) 添加数据记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"insert into 数据表 (字段1,字段2,字段3 …) values (值1,值2,值3 …)"</span></div><div class="line">sql=<span class="string">"insert into 目标数据表 select * from 源数据表"</span> (把源数据表的记录添加到目标数据表)</div></pre></td></tr></table></figure></p>
+<p>(5) 数据记录统计函数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">AVG(字段名) 得出一个表格栏平均值</div><div class="line">COUNT(*;字段名) 对数据行数的统计或对某一栏有值的数据行数统计</div><div class="line">MAX(字段名) 取得一个表格栏最大的值</div><div class="line">MIN(字段名) 取得一个表格栏最小的值</div><div class="line">SUM(字段名) 把数据栏的值相加</div></pre></td></tr></table></figure></p>
+<p>引用以上函数的方法：<br>sql=”select sum(字段名) as 别名 from 数据表 where 条件表达式”<br>set rs=conn.excute(sql)<br>用 rs(“别名”) 获取统计的值，其它函数运用同上。<br>查询去除重复值：select distinct * from table1</p>
+<p>(6) 数据表的建立和删除：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE 数据表名称(字段1 类型1(长度),字段2 类型2(长度) …… )</div></pre></td></tr></table></figure></p>
+<p>(7) 单列求和:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT SUM(字段名) FROM 数据表</div></pre></td></tr></table></figure></p>
+<h2 id="高级查询-待更新"><a href="#高级查询-待更新" class="headerlink" title="高级查询(待更新)"></a>高级查询(待更新)</h2><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="http://www.w3school.com.cn/sql/sql_syntax.asp" target="_blank" rel="external">W3School-SQL语法</a></li>
+<li><a href="http://baike.baidu.com/link?url=YBxrNSbAf_mevEAmaVz8ZaiNmre5M2C_EdjT7Y6daJeyFAd_Kn5xenAocsn39P_tn8QHfusxlPt5HnWuSBSFAq" target="_blank" rel="external">百度百科-SQL语法大全</a></li>
+<li><a href="http://www.cnblogs.com/yubinfeng/archive/2010/11/02/1867386.html" target="_blank" rel="external">经典SQL语句大全</a></li>
+<li><a href="http://www.cnblogs.com/xd502djj/archive/2010/11/23/1885446.html" target="_blank" rel="external">常用SQL语句</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/database/" class="article-tag-list-link color4">database</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/23/database_mysql_cmd/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-android_animation_svg2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1803,208 +2040,6 @@
 
 
   
-    <article id="post-android_studio_problems_solution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/11/android_studio_problems_solution/">AndroidStudio常见问题解决方案</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/11/android_studio_problems_solution/" class="archive-article-date">
-  	<time datetime="2015-11-11T10:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="问题1-Error-1-0-Plugin-with-id-‘com-android-application’-not-found"><a href="#问题1-Error-1-0-Plugin-with-id-‘com-android-application’-not-found" class="headerlink" title="问题1: Error:(1, 0) Plugin with id ‘com.android.application’ not found"></a>问题1: Error:(1, 0) Plugin with id ‘com.android.application’ not found</h2><p>Latest Gradle: 2.8</p>
-<p>Check with: gradle -v</p>
-<p>Download here: <a href="http://services.gradle.org/distributions/gradle-2.8-bin.zip" target="_blank" rel="external">http://services.gradle.org/distributions/gradle-2.8-bin.zip</a></p>
-<p>Latest Android Build Tools: 1.3.1</p>
-<p>If you add the following code snippet to the top of your build.gradle file, gradle will update the build tools.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter() <span class="comment">// or mavenCentral()</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:1.3.1'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Read more here: <a href="http://tools.android.com/tech-docs/new-build-system" target="_blank" rel="external">http://tools.android.com/tech-docs/new-build-system</a></p>
-<h2 id="问题2-Error-Cause-failed-to-find-target-with-hash-string-‘android-xx’-in-C-xxx"><a href="#问题2-Error-Cause-failed-to-find-target-with-hash-string-‘android-xx’-in-C-xxx" class="headerlink" title="问题2: Error:Cause: failed to find target with hash string ‘android-xx’ in: C:\xxx"></a>问题2: Error:Cause: failed to find target with hash string ‘android-xx’ in: C:\xxx</h2><p>Android Studio 在加载OpenCV库时, 会出现报错: “failed to find target android-xx”,修改app文件夹中的build.gradle文件即可. 把SdkVersion改为使用的SDK, 如19.<br>修改步骤：</p>
-<ul>
-<li>Flie — Project structure — Modules — Compile Sdk Version(选中本地可用的SDK版本)</li>
-<li>对应修改build.gradle<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    compileSdkVersion 20</div><div class="line">    buildToolsVersion <span class="string">'20.0.0'</span> //与本地版本相对应</div><div class="line"></div><div class="line">    ... ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="问题3-android-studio在编译的时候提示非法字符。"><a href="#问题3-android-studio在编译的时候提示非法字符。" class="headerlink" title="问题3:android studio在编译的时候提示非法字符。"></a>问题3:android studio在编译的时候提示非法字符。</h2><p>这种问题一边都是文件编码的问题，需要注意的是即使是UTF-8的编码也是分有BOM和无BOM编码的，一般提示非法字符是因为有BOM编码引起的。解决方式是点击选中有问题的文件，ctr+shif+c复制该文件的路径，然后在notepad中ctr+o打开这个文件，在格式中，选择无BOM的UTF-8编码保存，工程刷新即可。</p>
-<h2 id="问题4：Android-studio常量表达式的错误。"><a href="#问题4：Android-studio常量表达式的错误。" class="headerlink" title="问题4：Android studio常量表达式的错误。"></a>问题4：Android studio常量表达式的错误。</h2><p>在switch语句的case中，如果使用 R.id.xxx 则会提示有问题，不允许非常量在case语句中。<br>这个错误在eclipse下并没有，但是AS中会报这个错，是switch case的问题，解决方法是将switch换成if else<br>在AS中我们使用Alt＋Enter（opt+Enter for Mac）快捷键直接将switch转换为if else,如下图所示：<br><img src="http://img.blog.csdn.net/20150619184558008" alt=""></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">androidstudio</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gradle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/11/android_studio_problems_solution/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-android_studio_gradle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/11/android_studio_gradle/">AndroidStudio之Gradle详解(一)</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/11/android_studio_gradle/" class="archive-article-date">
-  	<time datetime="2015-11-11T09:11:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先我们学习几个gradle 的脚本语法，掌握了这几个语法，你就能非常简单的用gradle构建打包android项目了。 首先，我们来看下一个最简单android build.gradle。</p>
-<h2 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line">  //设置脚本的运行环境</div><div class="line">  buildscript &#123;</div><div class="line">       //支持java 依赖库管理（maven/ivy）,用于项目的依赖。</div><div class="line">repositories &#123;</div><div class="line">          mavenCentral()</div><div class="line">      &#125;</div><div class="line">      //依赖包的定义。支持maven/ivy，远程，本地库，也支持单文件</div><div class="line">      dependencies &#123;</div><div class="line">          classpath <span class="string">'com.android.tools.build:gradle:0.4'</span></div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  //声明构建的项目类型，这里当然是android了</div><div class="line">  apply plugin: <span class="string">'android'</span></div><div class="line">  //设置编译android项目的参数</div><div class="line">  android &#123;</div><div class="line">      compileSdkVersion 17</div><div class="line">      buildToolsVersion <span class="string">"17"</span></div><div class="line">  </div><div class="line">      defaultConfig &#123;</div><div class="line">          minSdkVersion 8</div><div class="line">          targetSdkVersion 17</div><div class="line">      &#125;</div><div class="line">      //Android默认配置</div><div class="line">      sourceSets &#123;</div><div class="line">          main &#123;</div><div class="line">              manifest.srcFile <span class="string">'AndroidManifest.xml'</span></div><div class="line">              java.srcDirs = [<span class="string">'src'</span>]</div><div class="line">              resources.srcDirs = [<span class="string">'src'</span>]</div><div class="line">              aidl.srcDirs = [<span class="string">'src'</span>]</div><div class="line">              renderscript.srcDirs = [<span class="string">'src'</span>]</div><div class="line">              res.srcDirs = [<span class="string">'res'</span>]</div><div class="line">              assets.srcDirs = [<span class="string">'assets'</span>]</div><div class="line">          &#125;</div><div class="line">          //测试所在的路径，这里假设是tests文件夹，没有可以不写这一行</div><div class="line">          instrumentTest.setRoot(<span class="string">'tests'</span>)</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      //这个是解决lint报错的代码</div><div class="line">      lintOptions &#123;</div><div class="line">          abortOnError <span class="literal">false</span></div><div class="line">      &#125;</div><div class="line">      /**</div><div class="line">       * 签名设置</div><div class="line">       */</div><div class="line">      signingConfigs &#123;</div><div class="line">          myConfigs &#123;</div><div class="line">              storeFile file(<span class="string">"签名文件地址"</span>)</div><div class="line">              keyAlias <span class="string">"..."</span></div><div class="line">              keyPassword <span class="string">"..."</span></div><div class="line">              storePassword <span class="string">"..."</span></div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      /**</div><div class="line">       * 混淆设置</div><div class="line">       */</div><div class="line">      buildTypes &#123;</div><div class="line">          release &#123;</div><div class="line">              signingConfig signingConfigs.myConfigs</div><div class="line">              runProguard <span class="literal">true</span></div><div class="line">              proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      /**</div><div class="line">       * 渠道打包（不同包名）</div><div class="line">       */</div><div class="line">      productFlavors &#123;</div><div class="line">          qqqq &#123;</div><div class="line">              applicationId = <span class="string">'包名'</span></div><div class="line">          &#125;</div><div class="line">          hhhhh &#123;</div><div class="line">              applicationId=<span class="string">'包名'</span></div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  /**</div><div class="line">   * .so文件的导入</div><div class="line">   */</div><div class="line">  task copyNativeLibs(<span class="built_in">type</span>: Copy) &#123;</div><div class="line">      from fileTree(dir: <span class="string">'libs'</span>, include: <span class="string">'armeabi/*.so'</span>) into <span class="string">'build/lib'</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  tasks.withType(Compile) &#123;</div><div class="line">      options.encoding = <span class="string">"UTF-8"</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  tasks.withType(Compile) &#123;</div><div class="line">      compileTask -&gt; compileTask.dependsOn copyNativeLibs</div><div class="line">  &#125;</div><div class="line">  clean.dependsOn <span class="string">'cleanCopyNativeLibs'</span></div><div class="line">  tasks.withType(com.android.build.gradle.tasks.PackageApplication) &#123; pkgTask -&gt;</div><div class="line">      pkgTask.jniFolders = [new File(buildDir, <span class="string">'lib'</span>)]</div><div class="line">  &#125;</div><div class="line">  //依赖库</div><div class="line">  dependencies &#123;</div><div class="line">  compile fileTree(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<h2 id="本地依赖"><a href="#本地依赖" class="headerlink" title="本地依赖"></a>本地依赖</h2><p>gradle 作为构建工具，能够很方便的使用本地jar包，以下为使用的代码块。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;	</div><div class="line">        //单文件依赖</div><div class="line">	compile files(<span class="string">'libs/android-support-v4.jar'</span>)	</div><div class="line">	//某个文件夹下面全部依赖</div><div class="line">	compile fileTree(dir: <span class="string">'libs'</span>, include: <span class="string">'*.jar'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">android &#123;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="远程依赖"><a href="#远程依赖" class="headerlink" title="远程依赖"></a>远程依赖</h2><p>gradle 同时支持maven，ivy，由于ivy我没用过，所以用maven 作为例子，以下为代码块：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">repositories &#123;	</div><div class="line">        //从中央库里面获取依赖</div><div class="line">	mavenCentral()	</div><div class="line">	//或者使用指定的本地maven 库</div><div class="line">	maven&#123;</div><div class="line">		url <span class="string">"file://F:/githubrepo/releases"</span></div><div class="line">	&#125;	</div><div class="line">	//或者使用指定的远程maven库</div><div class="line">	maven&#123;</div><div class="line">		url <span class="string">"远程库地址"</span></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;	</div><div class="line">        //应用格式: packageName:artifactId:version</div><div class="line">	compile <span class="string">'com.google.android:support-v4:r13'</span>&#125;</div><div class="line"></div><div class="line">android &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="android-library-依赖"><a href="#android-library-依赖" class="headerlink" title="android library 依赖"></a>android library 依赖</h2><p>对于项目依赖 android library的话，就不是依赖一个jar，那么简单了，在这里需要使用gradle mulit project 机制。在过去，android library并没有一个很好的包管理方式，简单来说，在gradle出现以前，官方并没有一种用于管理android library 依赖包的方式，一般我们都是直接下载别人的android library project 源码进行集成，而对于第三方的android-maven-plugin 用的是apklib 格式。</p>
-<p>而现在，官方终于推出一种android library的打包格式，扩展名为<em>.aar。前面提到，目前android gradle插件并不支持本地直接使用</em>.aar文件，不过，支持包管理库的引用方式，下面，我为大家说一下，怎么对android library 发布使用。</p>
-<h2 id="打包android-library"><a href="#打包android-library" class="headerlink" title="打包android library"></a>打包android library</h2><p>对android library 进行打包直接在library项目下面使用gradle build 即可，然后，你就会在 build/libs 目录下看到两个*.aar文件，一个debug包用的，一个是release 下用的，看个人需求使用，这里我们用的是release 版本的 .aar 文件。</p>
-<p>引用脚本跟前面讲的依赖库相似<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile(name: <span class="string">'pulltorefresh'</span>, ext: <span class="string">'aar'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>最后，分享个maven库地址：<a href="http://mvnrepository.com/" target="_blank" rel="external">http://mvnrepository.com/</a></p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="http://tools.android.com/tech-docs/new-build-system/user-guide" target="_blank" rel="external">Gradle官方文档</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">androidstudio</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gradle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/11/android_studio_gradle/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -2102,7 +2137,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
+                <a href="javascript:void(0)" class="js-tag color4">activity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2110,7 +2145,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activity</a>
+                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2130,14 +2165,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">application</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android_studio</a>
               </li>
              
@@ -2146,11 +2173,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+                <a href="javascript:void(0)" class="js-tag color2">application</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">book</a>
+                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2162,11 +2189,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+                <a href="javascript:void(0)" class="js-tag color3">context</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">context</a>
+                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2182,19 +2213,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">otto</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">imageloader</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2210,14 +2241,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">snack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">nd</a>
               </li>
              
@@ -2226,11 +2249,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
+                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">snack</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">notification</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2242,11 +2273,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2254,7 +2281,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">project_build</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2266,11 +2309,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
+                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2282,18 +2325,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">textview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">viewpager</a>
               </li>
              
@@ -2302,11 +2333,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">textview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">webview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">volley</a>
+                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2322,19 +2357,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+                <a href="javascript:void(0)" class="js-tag color2">volley</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2343,6 +2366,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2358,6 +2385,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdown</a>
               </li>
              
@@ -2366,11 +2397,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">socket</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">xpnet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">website</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2382,11 +2425,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">socket</a>
+                <a href="javascript:void(0)" class="js-tag color3">书单</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">书单</a>
+                <a href="javascript:void(0)" class="js-tag color2">speech</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2398,11 +2441,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">website</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">speech</a>
+                <a href="javascript:void(0)" class="js-tag color1">htmleditor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2423,6 +2462,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2495,41 +2542,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-friends" q-show="friends">
   		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
     	</section>
     
 
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">ARESXIONG  程序猿一枚  爱生活，爱CODING  永远年轻！永远热泪盈眶！</div>
   	  	
     	</section>
     

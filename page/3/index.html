@@ -42,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="null" class="js-avatar">
+			<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">ARESXIONG</a></h1>
@@ -76,13 +76,11 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -100,7 +98,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="null" class="js-avatar">
+				<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">ARESXIONG</h1>
@@ -117,13 +115,11 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -150,6 +146,254 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-android_intent" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/22/android_intent/">关于Intent的七大属性</a>
+    </h1>
+  
+
+        
+        <a href="/2015/12/22/android_intent/" class="archive-article-date">
+  	<time datetime="2015-12-22T02:29:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>原谅我愚昧，Intent七大属性这个概念我也是昨天才接触到，看了一下，都是一些常用的东西，就是没有总结过，那么今天就来简单总结一下。</p>
+<p>Intent七大属性是指Intent的ComponentName、Action、Category、Data、Type、Extra以及Flag，七个属性，总体上可以分为3类：</p>
+<ul>
+<li>第一类：启动，有ComponentName（显式）,Action（隐式），Category（隐式）。</li>
+<li>第二类：传值，有Data（隐式），Type（隐式），Extra（隐式、显式）。</li>
+<li>第三类：启动模式，有Flag。</li>
+</ul>
+<p>下面我们逐一来说。</p>
+<h2 id="ComponentName"><a href="#ComponentName" class="headerlink" title="ComponentName"></a>ComponentName</h2><p>Component本身有组件的意思，我们通过设置Component可以启动其他的Activity或者其他应用中的Activity，来看一个简单的实例：</p>
+<p>启动同一个App中另外一个Activity：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">intent =  new Intent(); </div><div class="line">intent.setComponent( new ComponentName( this , SecondActivity. class )); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>这中启动方式等同于以下两种启动方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//第一种</div><div class="line">intent =  new Intent( this ,SecondActivity. class ); </div><div class="line">startActivity(intent); </div><div class="line"></div><div class="line">//第二种</div><div class="line">intent =  new Intent(); </div><div class="line">intent.setClass( this , SecondActivity. class ); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>当然，通过设置ComponentName属性我们也可以启动其他App中的Activity，关于这一块的内容大家可以参考关于ComponentName的使用。下面我们看看隐式启动。</p>
+<h2 id="Action和Category"><a href="#Action和Category" class="headerlink" title="Action和Category"></a>Action和Category</h2><p>因为在实际开发中，Action大多时候都是和Category一起使用的，所以这里我们将这两个放在一起来讲解。Intent中的Action我们在使用广播的时候用的比较多，在Activity中，我们可以通过设置Action来隐式的启动一个Activity，比如我们有一个ThirdActivity，我们在清单文件中做如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt; activity </div><div class="line">  android:name = &quot;.ThirdActivity&quot; </div><div class="line">  android:label = &quot;@string/title_activity_third&quot; &gt; </div><div class="line">  &lt; intent-filter &gt; </div><div class="line">  &lt; category android:name = &quot;android.intent.category.DEFAULT&quot; /&gt; </div><div class="line">  &lt; action android:name = &quot;com.qf.ThirdActivity&quot; /&gt; </div><div class="line">  &lt;/ intent-filter &gt; </div><div class="line">&lt;/ activity &gt;</div></pre></td></tr></table></figure></p>
+<p>当我们在清单文件中做了这样的配置之后，我们的ThirdActivity会就会响应这个动作，怎么那么怎么响应呢？看下面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">intent =  new Intent(); </div><div class="line">intent.setAction( &quot;com.qf.ThirdActivity&quot; ); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>当然，我们也可以写的更简单一些，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">intent =  new Intent( &quot;com.qf.ThirdActivity&quot; ); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>通过这中方式我们也可以启动一个Activity，那么大家可能也注意到了，我们的清单文件中有一个category的节点，那么没有这个节点可以吗？不可以！！当我们使用这种隐式启动的方式来启动一个Activity的时候，必须要action和category都匹配上了，该Activity才会成功启动。如果我们没有定义category，那么可以暂时先使用系统默认的category，总之，category不能没有。这个时候我们可能会有疑问了，如果我有多个Activity都配置了相同的action，那么会启动哪个？看看下面这个熟悉的图片：<br><img src="http://img.blog.csdn.net/20151204193813007?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>当我们有多个Activity配置了相同的action的时候，那么系统会弹出来一个选择框，让我们自己选择要启动那个Activity。</p>
+<p>action我们只能添加一个，但是category却可以添加多个（至少有一个，没有就要设置为DEFAULT），如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt; activity </div><div class="line">  android:name = &quot;.ThirdActivity&quot; </div><div class="line">  android:label = &quot;@string/title_activity_third&quot; &gt; </div><div class="line">  &lt; intent-filter &gt; </div><div class="line">  &lt; category android:name = &quot;android.intent.category.DEFAULT&quot; /&gt; </div><div class="line">  &lt; category android:name = &quot;mycategory&quot; /&gt; </div><div class="line">  &lt; action android:name = &quot;com.qf.ThirdActivity&quot; /&gt; </div><div class="line">  &lt;/ intent-filter &gt; </div><div class="line">&lt;/ activity &gt;</div></pre></td></tr></table></figure></p>
+<p>相应的我们的启动方式也可以修改，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">intent =  new Intent( &quot;com.qf.ThirdActivity&quot; ); </div><div class="line">intent.addCategory( &quot;mycategory&quot; ); </div><div class="line"></div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<h2 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h2><p>通过设置data，我们可以执行打电话，发短信，开发网页等等操作。究竟做哪种操作，要看我们的数据格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 打开网页 </div><div class="line">intent =  new Intent(Intent.ACTION_VIEW); </div><div class="line">intent.setData(Uri.parse( &quot;http://www.baidu.com&quot; )); </div><div class="line">startActivity(intent); </div><div class="line">// 打电话 </div><div class="line">intent =  new Intent(Intent.ACTION_VIEW); </div><div class="line">intent.setData(Uri.parse( &quot;tel:18565554482&quot; )); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure>
+<p>当我们的data是一个http协议的时候，系统会自动去查找可以打开http协议的Activity，这个时候如果手机安装了多个浏览器，那么系统会弹出多个浏览器供我们选择。这是我们通过设置Data来启动一个Activity，同时，我们也可以通过设置一个Data属性来将我们的Activity发布出去供别人调用，怎么发布呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt; activity </div><div class="line">  android:name = &quot;.HttpActivity&quot; </div><div class="line">  android:label = &quot;@string/title_activity_http&quot; &gt; </div><div class="line">  &lt; intent-filter &gt; </div><div class="line">  &lt; action android:name = &quot;android.intent.action.VIEW&quot; /&gt; </div><div class="line">  &lt; category android:name = &quot;android.intent.category.DEFAULT&quot; /&gt; </div><div class="line">  &lt; data </div><div class="line">  android:scheme = &quot;http&quot; /&gt; </div><div class="line">  &lt;/ intent-filter &gt; </div><div class="line">&lt;/ activity &gt;</div></pre></td></tr></table></figure></p>
+<p>在data节点中我们设置我们这个Activity可以打开的协议，我们这里设置为http协议，那么以后要打开一个http请求的时候，系统都会让我们选择是否用这个Activity打开。当然，我们也可以自己定义一个协议（自己定义的协议，由于别人不知道，所以只能由我们自己的程序打开）。比如下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt; activity </div><div class="line">  android:name = &quot;.HttpActivity&quot; </div><div class="line">  android:label = &quot;@string/title_activity_http&quot; &gt; </div><div class="line">  &lt; intent-filter &gt; </div><div class="line">  &lt; action android:name = &quot;android.intent.action.VIEW&quot; /&gt; </div><div class="line">  &lt; category android:name = &quot;android.intent.category.DEFAULT&quot; /&gt; </div><div class="line">  &lt; data </div><div class="line">  android:scheme = &quot;myhttp&quot; /&gt; </div><div class="line">  &lt;/ intent-filter &gt; </div><div class="line">&lt;/ activity &gt;</div></pre></td></tr></table></figure></p>
+<p>那么我们怎么打开自己的Activity呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">intent =  new Intent(); </div><div class="line">intent.setData(Uri.parse( &quot;myhttp://www.baidu.com&quot; )); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>这个例子没有什么实际意义，我只是举一个自定义协议的栗子。</p>
+<p>其实，说到这里，大家应该明白了为什么我们说data是隐式传值，比如我们打开一个网页，http协议后面跟的就是网页地址，我们不用再单独指定要打开哪个网页。</p>
+<h2 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h2><p>type的存在，主要是为了对data的类型做进一步的说明，但是一般情况下，只有data属性为null的时候，type属性才有效，如果data属性不为null，系统会自动根据data中的协议来分析data的数据类型，而不会去管type，我们先来看看下面一段源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">/** </div><div class="line">* Set the data this intent is operating on. This method automatically </div><div class="line">* clears any type that was previously set by &#123;@link #setType&#125; or </div><div class="line">* &#123;@link #setTypeAndNormalize&#125;. </div><div class="line">* </div><div class="line">* &lt;p&gt;&lt;em&gt;Note: scheme matching in the Android framework is </div><div class="line">* case-sensitive, unlike the formal RFC. As a result, </div><div class="line">* you should always write your Uri with a lower case scheme, </div><div class="line">* or use &#123;@link Uri#normalizeScheme&#125; or </div><div class="line">* &#123;@link #setDataAndNormalize&#125; </div><div class="line">* to ensure that the scheme is converted to lower case.&lt;/em&gt; </div><div class="line">* </div><div class="line">* @param data The Uri of the data this intent is now targeting. </div><div class="line">* </div><div class="line">* @return Returns the same Intent object, for chaining multiple calls </div><div class="line">* into a single statement. </div><div class="line">* </div><div class="line">* @see #getData </div><div class="line">* @see #setDataAndNormalize </div><div class="line">* @see android.net.Uri#normalizeScheme() </div><div class="line">*/ </div><div class="line">public Intent setData(Uri data) &#123; </div><div class="line">  mData = data; </div><div class="line">  mType =  null ; </div><div class="line">  return this ; </div><div class="line">&#125; </div><div class="line">/** </div><div class="line">* Set an explicit MIME data type. </div><div class="line">* </div><div class="line">* &lt;p&gt;This is used to create intents that only specify a type and not data, </div><div class="line">* for example to indicate the type of data to return. </div><div class="line">* </div><div class="line">* &lt;p&gt;This method automatically clears any data that was </div><div class="line">* previously set (for example by &#123;@link #setData&#125;). </div><div class="line">* </div><div class="line">* &lt;p&gt;&lt;em&gt;Note: MIME type matching in the Android framework is </div><div class="line">* case-sensitive, unlike formal RFC MIME types. As a result, </div><div class="line">* you should always write your MIME types with lower case letters, </div><div class="line">* or use &#123;@link #normalizeMimeType&#125; or &#123;@link #setTypeAndNormalize&#125; </div><div class="line">* to ensure that it is converted to lower case.&lt;/em&gt; </div><div class="line">* </div><div class="line">* @param type The MIME type of the data being handled by this intent. </div><div class="line">* </div><div class="line">* @return Returns the same Intent object, for chaining multiple calls </div><div class="line">* into a single statement. </div><div class="line">* </div><div class="line">* @see #getType </div><div class="line">* @see #setTypeAndNormalize </div><div class="line">* @see #setDataAndType </div><div class="line">* @see #normalizeMimeType </div><div class="line">*/ </div><div class="line">public Intent setType(String type) &#123; </div><div class="line">  mData =  null ; </div><div class="line">  mType = type; </div><div class="line">  return this ; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当我们设置data的时候，系统会默认将type设置为null，当我们设置type的时候，系统会默认将data设置为null.也就是说，一般情况下，data和type我们只需要设置一个就行了，如果我们既想要设置data又想要设置type，那么可以使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setDataAndType(Uri data, String type)</div></pre></td></tr></table></figure></p>
+<p>这个方法来完成。下面我们来看看通过给Intent设置type来打开一个音乐播放器。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">intent =  new Intent(); </div><div class="line">intent.setAction(Intent.ACTION_VIEW); </div><div class="line">Uri data = Uri.parse( &quot;file:///storage/emulated/0/xiami/audios/被动.mp3&quot; ); </div><div class="line">intent.setDataAndType(data,  &quot;audio/mp3&quot; ); </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>如果我们要打开的是视频文件，那么type就要设置为”video/<em>”，其中</em>表示支持所有的视频文件。</p>
+<h2 id="Extra"><a href="#Extra" class="headerlink" title="Extra"></a>Extra</h2><p>Extra就比较好理解了，我们经常使用它来在Activity之间传递数据，Extra可以传递基本类型，String类型以及实现了Serializable或者Parcelable接口的类，具体用法不多说。</p>
+<h2 id="Flag"><a href="#Flag" class="headerlink" title="Flag"></a>Flag</h2><p>通过设置Flag，我们可以设定一个Activity的启动模式，这个和launchMode基本上是一样的，所以我也不再细说，关于launchMode的使用参见<a href="http://blog.csdn.net/u012702547/article/details/49529825" target="_blank" rel="external">launchMode使用详解</a></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://developer.android.com/reference/android/content/Intent.html" target="_blank" rel="external">Android Developers-Intent</a></li>
+<li><a href="http://blog.csdn.net/u012702547/article/details/50178429" target="_blank" rel="external">关于Intent的七大属性</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">intent</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/12/22/android_intent/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-android_material_design_snack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/21/android_material_design_snack/">Snackbar使用详解</a>
+    </h1>
+  
+
+        
+        <a href="/2015/12/21/android_material_design_snack/" class="archive-article-date">
+  	<time datetime="2015-12-21T06:54:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在谷歌提出 material design 之后，终于推出了 android.support.design 这个官方的material design库，这几天我也简单浏览了下这个库，基本上我们常用的组件都有了，从今天开始，就可以一步步替换掉<br>以前使用的github上的那些开源控件了，毕竟谷歌出品才属精品~~另外分析这个design库的源码我认为是非常有意义的，android上的app 在以前各家都有各家的风格，但是在谷歌出了material design这门新的<br>设计语言以及官方的库以后，相信越来越多的app 会逐步优化自己的ui 来符合官方的标准，学习这个design库的源码可以让我们以后改写自定义控件的时候更加柔韧有余。</p>
+<p>首先，来看一下这个官方的介绍:<a href="http://www.google.com/design/spec/components/snackbars-toasts.html#" target="_blank" rel="external">SnackBars&amp;Toasts</a><br>这个文章系统的阐述了snackbar和toast的区别和正确使用snackbar的方式。</p>
+<p>我简单归纳如下：</p>
+<ul>
+<li>1.比toast更加好，毕竟snackbar 可以响应点击事件。</li>
+<li>2.snackbar 同一时间有且只有一个在显示。</li>
+<li>3.snackbar 上不要有图标。</li>
+<li>4.snackbar上action 只能有一个。</li>
+<li>5.如果有悬浮按钮 floating action button的话，snackbar 在弹出的时候不要覆盖这个button。</li>
+</ul>
+<p>Snackbar 在一定程度上可以替代dialog的某些应用场景。比如以前网络不通的情况下登陆失败，会给一个dialog提示，现在就可以用snackbar 来做这个有action的提示，更加方便快捷。</p>
+<h2 id="使用snackbar"><a href="#使用snackbar" class="headerlink" title="使用snackbar"></a>使用snackbar</h2><p>1.导入support design 库 (这一步在以后的design库的 控件文章里都会舍去)<br>首先找到你app的build gradle文件。然后增加一个compile语句即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.android.support:design:22.2.0&apos;</div></pre></td></tr></table></figure></p>
+<p>2.编写xml文件以及java文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;</div><div class="line">    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;</div><div class="line">    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;</div><div class="line">    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;</div><div class="line">    tools:context=&quot;.MainActivity&quot;</div><div class="line">    android:id=&quot;@+id/layout&quot;&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;!-- 因为snackbar 需要有一个父控件所以 我们暂时就用snackbar 来做他的父控件--&gt;</div><div class="line">    &lt;TextView</div><div class="line">        android:id=&quot;@+id/snackbar&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;30dp&quot;</div><div class="line">        android:layout_centerVertical=&quot;true&quot;</div><div class="line">        android:gravity=&quot;center&quot;</div><div class="line">        android:text=&quot;Bottom layout&quot; /&gt;</div><div class="line"></div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">package com.example.burning.myapplication;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.design.widget.Snackbar;</div><div class="line">import android.support.v7.app.ActionBarActivity;</div><div class="line">import android.view.Menu;</div><div class="line">import android.view.MenuItem;</div><div class="line">import android.view.View;</div><div class="line">import android.widget.TextView;</div><div class="line"></div><div class="line"></div><div class="line">public class MainActivity extends ActionBarActivity &#123;</div><div class="line"></div><div class="line">    private TextView tv;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        tv = (TextView) this.findViewById(R.id.tv);</div><div class="line">        tv.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                //这个地方第一个参数　传进去的是tv　但是实际上你无论传进去什么值 snackbar都一定是从屏幕的最底端出现的　原因在源码</div><div class="line">                //分析那边可以看到</div><div class="line">                Snackbar.make(tv, &quot;connection error&quot;, Snackbar.LENGTH_LONG).setAction(&quot;retry&quot;, new View.OnClickListener() &#123;</div><div class="line">                    @Override</div><div class="line">                    public void onClick(View v) &#123;</div><div class="line">                        tv.setText(&quot;aleady click snackbar&quot;);</div><div class="line">                    &#125;</div><div class="line">                &#125;).show();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onCreateOptionsMenu(Menu menu) &#123;</div><div class="line">        // Inflate the menu; this adds items to the action bar if it is present.</div><div class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onOptionsItemSelected(MenuItem item) &#123;</div><div class="line">        // Handle action bar item clicks here. The action bar will</div><div class="line">        // automatically handle clicks on the Home/Up button, so long</div><div class="line">        // as you specify a parent activity in AndroidManifest.xml.</div><div class="line">        int id = item.getItemId();</div><div class="line"></div><div class="line">        //noinspection SimplifiableIfStatement</div><div class="line">        if (id == R.id.action_settings) &#123;</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return super.onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="http://images0.cnblogs.com/blog2015/365799/201507/201654085514852.gif" alt=""></p>
+<h2 id="FAB遮挡问题"><a href="#FAB遮挡问题" class="headerlink" title="FAB遮挡问题"></a>FAB遮挡问题</h2><p>然后我们来看一下,如果和正常的FAB（悬浮按钮）在一起会有什么效果（注意这里的悬浮按钮我们也使用design库里的并不使用github上开源的）<br>先看一下xml文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;</div><div class="line">    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;</div><div class="line">    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;</div><div class="line">    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;</div><div class="line">    tools:context=&quot;.MainActivity&quot;&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;FrameLayout</div><div class="line">        android:id=&quot;@+id/layout&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">        &lt;android.support.design.widget.FloatingActionButton</div><div class="line">            android:id=&quot;@+id/btnFloatingAction&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_gravity=&quot;bottom|right&quot;</div><div class="line">            android:src=&quot;@drawable/ic_plus&quot;</div><div class="line">            app:borderWidth=&quot;0dp&quot;</div><div class="line">            app:fabSize=&quot;normal&quot; /&gt;</div><div class="line">    &lt;/FrameLayout&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>activity代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">package com.example.burning.myapplication;</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import android.support.design.widget.Snackbar;</div><div class="line">import android.support.v7.app.ActionBarActivity;</div><div class="line">import android.view.Menu;</div><div class="line">import android.view.MenuItem;</div><div class="line">import android.view.View;</div><div class="line">import android.view.ViewGroup;</div><div class="line"></div><div class="line"></div><div class="line">public class MainActivity extends ActionBarActivity &#123;</div><div class="line"></div><div class="line">    private ViewGroup layout;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        layout = (ViewGroup) this.findViewById(R.id.layout);</div><div class="line">        layout.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                Snackbar.make(layout, &quot;connection error&quot;, Snackbar.LENGTH_LONG).setAction(&quot;retry&quot;, new View.OnClickListener() &#123;</div><div class="line">                    @Override</div><div class="line">                    public void onClick(View v) &#123;</div><div class="line">                    &#125;</div><div class="line">                &#125;).show();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onCreateOptionsMenu(Menu menu) &#123;</div><div class="line">        // Inflate the menu; this adds items to the action bar if it is present.</div><div class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onOptionsItemSelected(MenuItem item) &#123;</div><div class="line">        // Handle action bar item clicks here. The action bar will</div><div class="line">        // automatically handle clicks on the Home/Up button, so long</div><div class="line">        // as you specify a parent activity in AndroidManifest.xml.</div><div class="line">        int id = item.getItemId();</div><div class="line"></div><div class="line">        //noinspection SimplifiableIfStatement</div><div class="line">        if (id == R.id.action_settings) &#123;</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return super.onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行效果:<br><img src="http://images0.cnblogs.com/blog2015/365799/201507/211017171765575.gif" alt=""><br>大家可以看到当我们的snackbar在弹出的时候,会覆盖到我们的FAB，那这体验是非常糟糕的，这里也给出一个完美的解决方案,其实也很简单用一下design库里的layout即可,java代码不需要改变,只要稍微改一下布局文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;</div><div class="line">    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;</div><div class="line">    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;</div><div class="line">    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;</div><div class="line">    tools:context=&quot;.MainActivity&quot;&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;android.support.design.widget.CoordinatorLayout</div><div class="line">        android:id=&quot;@+id/layout&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">        &lt;android.support.design.widget.FloatingActionButton</div><div class="line">            android:id=&quot;@+id/btnFloatingAction&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_gravity=&quot;bottom|right&quot;</div><div class="line">            android:src=&quot;@drawable/ic_plus&quot;</div><div class="line">            app:borderWidth=&quot;0dp&quot;</div><div class="line">            app:fabSize=&quot;normal&quot; /&gt;</div><div class="line">    &lt;/android.support.design.widget.CoordinatorLayout&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>运行效果:<br><img src="http://images0.cnblogs.com/blog2015/365799/201507/211025445986455.gif" alt=""></p>
+<p>改变这个snackbar的背景色:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Snackbar sb=Snackbar.make(layout, &quot;connection error&quot;, Snackbar.LENGTH_LONG).setAction(&quot;retry&quot;, new View.OnClickListener() &#123;</div><div class="line">                    @Override</div><div class="line">                    public void onClick(View v) &#123;</div><div class="line">                    &#125;</div><div class="line">                &#125;);</div><div class="line">                //红色</div><div class="line">                sb.getView().setBackgroundColor(0xfff44336);</div><div class="line">                sb.show();</div></pre></td></tr></table></figure></p>
+<h2 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h2><p>基本的用法要点就是这些，我们来看一下这个snackbar的源码，看看谷歌官方是如何编写 material design 风格控件的。<br>这里我无法贴上全部源码，因为太多，只挑重要的流程说 可以从make开始。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">//这个地方就是构造函数</div><div class="line">    Snackbar(ViewGroup parent) &#123;</div><div class="line">        this.mParent = parent;</div><div class="line">        this.mContext = parent.getContext();</div><div class="line">        LayoutInflater inflater = LayoutInflater.from(this.mContext);</div><div class="line">        this.mView = (Snackbar.SnackbarLayout)inflater.inflate(layout.layout_snackbar, this.mParent, false);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //这个地方就是我们调用的make函数 也就是整个类的一个入口 在这里可以看到 我们的代码转入了snackbar的构造函数</div><div class="line">    public static Snackbar make(View view, CharSequence text, int duration) &#123;</div><div class="line">        //注意看这个地方调用了 findsuitableparent这个函数</div><div class="line">        Snackbar snackbar = new Snackbar(findSuitableParent(view));</div><div class="line">        snackbar.setText(text);</div><div class="line">        snackbar.setDuration(duration);</div><div class="line">        return snackbar;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static Snackbar make(View view, int resId, int duration) &#123;</div><div class="line">        return make(view, view.getResources().getText(resId), duration);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //这个函数其实作用就是无论你传进去的是什么view 我最终都会遍历到framlayout为止，因为activity的最外层实际上就是一个framlayout</div><div class="line">    //所以你在调用make函数的时候无论传什么值进去 snackabr都会从最底部弹出来 就是因为这个函数做了这样的工作 但是！！！！</div><div class="line">　　　　//如果在遍历到最顶部的framlayout之前 遇到了一个framelayout 那么就会从这个framlayout的底部弹出，而不会从屏幕的最下方弹出了。</div><div class="line">    //这个地方CoordinatorLayout的优先级比framlayout还要高 所以你如果穿进去的view是CoordinatorLayout的话 这个snackbar 就一定会从</div><div class="line">    //CoordinatorLayout 底部弹出了。如果你CoordinatorLayout的最底部恰好在屏幕中间 那么snackbar 就会从屏幕中间弹出  而不会从底部弹出 这一点一定要注意</div><div class="line">    @Nullable</div><div class="line">    private static ViewGroup findSuitableParent(View view) &#123;</div><div class="line">        ViewGroup fallback = null;</div><div class="line"></div><div class="line">        do &#123;</div><div class="line">            if(view instanceof CoordinatorLayout) &#123;</div><div class="line">                return (ViewGroup)view;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if(view instanceof FrameLayout) &#123;</div><div class="line">                if(view.getId() == 16908290) &#123;</div><div class="line">                    return (ViewGroup)view;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                fallback = (ViewGroup)view;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if(view != null) &#123;</div><div class="line">                ViewParent parent = view.getParent();</div><div class="line">                view = parent instanceof View?(View)parent:null;</div><div class="line">            &#125;</div><div class="line">        &#125; while(view != null);</div><div class="line"></div><div class="line">        return fallback;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>大家可以看一下第六行。实际上这个mView就是一个内部类的对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">private final Snackbar.SnackbarLayout mView;</div></pre></td></tr></table></figure></p>
+<p><img src="http://images0.cnblogs.com/blog2015/365799/201507/211102138161270.png" alt=""></p>
+<p>然后接着看第六行的xml文件（到这里其实我们也能猜到了 真正自定义view的snackbar是由snackbar的内部类snackbarlayout来完成的）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;!--</div><div class="line">  ~ Copyright (C) 2015 The Android Open Source Project</div><div class="line">  ~</div><div class="line">  ~ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</div><div class="line">  ~ you may not use this file except in compliance with the License.</div><div class="line">  ~ You may obtain a copy of the License at</div><div class="line">  ~</div><div class="line">  ~      http://www.apache.org/licenses/LICENSE-2.0</div><div class="line">  ~</div><div class="line">  ~ Unless required by applicable law or agreed to in writing, software</div><div class="line">  ~ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</div><div class="line">  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</div><div class="line">  ~ See the License for the specific language governing permissions and</div><div class="line">  ~ limitations under the License.</div><div class="line">--&gt;</div><div class="line"></div><div class="line">&lt;!--注意看class那边的写法  那个$就是代表内部类的一个符号 这个技巧 以后我们自己自定义控件的时候也可以学习--&gt;</div><div class="line">&lt;view xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">      class=&quot;android.support.design.widget.Snackbar$SnackbarLayout&quot;</div><div class="line">      android:layout_width=&quot;match_parent&quot;</div><div class="line">      android:layout_height=&quot;wrap_content&quot;</div><div class="line">      android:layout_gravity=&quot;bottom&quot;</div><div class="line">      style=&quot;@style/Widget.Design.Snackbar&quot; /&gt;&lt;!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/design/res/layout/layout_snackbar.xml --&gt;</div></pre></td></tr></table></figure></p>
+<p>继续看下内部类<br><img src="http://images0.cnblogs.com/blog2015/365799/201507/211112346918622.png" alt=""><br>找到我们真正的snackbar的布局文件 注意这个地方讨巧的使用了merge标签 这是一个比较好的优化xml的写法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;!--</div><div class="line">  ~ Copyright (C) 2015 The Android Open Source Project</div><div class="line">  ~</div><div class="line">  ~ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</div><div class="line">  ~ you may not use this file except in compliance with the License.</div><div class="line">  ~ You may obtain a copy of the License at</div><div class="line">  ~</div><div class="line">  ~      http://www.apache.org/licenses/LICENSE-2.0</div><div class="line">  ~</div><div class="line">  ~ Unless required by applicable law or agreed to in writing, software</div><div class="line">  ~ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</div><div class="line">  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</div><div class="line">  ~ See the License for the specific language governing permissions and</div><div class="line">  ~ limitations under the License.</div><div class="line">--&gt;</div><div class="line"></div><div class="line">&lt;merge xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">            android:id=&quot;@+id/snackbar_text&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_weight=&quot;1&quot;</div><div class="line">            android:paddingTop=&quot;@dimen/snackbar_padding_vertical&quot;</div><div class="line">            android:paddingBottom=&quot;@dimen/snackbar_padding_vertical&quot;</div><div class="line">            android:paddingLeft=&quot;@dimen/snackbar_padding_horizontal&quot;</div><div class="line">            android:paddingRight=&quot;@dimen/snackbar_padding_horizontal&quot;</div><div class="line">            android:textAppearance=&quot;@style/TextAppearance.Design.Snackbar.Message&quot;</div><div class="line">            android:maxLines=&quot;@integer/snackbar_text_max_lines&quot;</div><div class="line">            android:layout_gravity=&quot;center_vertical|left|start&quot;</div><div class="line">            android:ellipsize=&quot;end&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">            android:id=&quot;@+id/snackbar_action&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_marginLeft=&quot;@dimen/snackbar_extra_spacing_horizontal&quot;</div><div class="line">            android:layout_marginStart=&quot;@dimen/snackbar_extra_spacing_horizontal&quot;</div><div class="line">            android:layout_gravity=&quot;center_vertical|right|end&quot;</div><div class="line">            android:background=&quot;?attr/selectableItemBackground&quot;</div><div class="line">            android:paddingTop=&quot;@dimen/snackbar_padding_vertical&quot;</div><div class="line">            android:paddingBottom=&quot;@dimen/snackbar_padding_vertical&quot;</div><div class="line">            android:paddingLeft=&quot;@dimen/snackbar_padding_horizontal&quot;</div><div class="line">            android:paddingRight=&quot;@dimen/snackbar_padding_horizontal&quot;</div><div class="line">            android:visibility=&quot;gone&quot;</div><div class="line">            android:textAppearance=&quot;@style/TextAppearance.Design.Snackbar.Action&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/merge&gt;&lt;!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/design/res/layout/layout_snackbar_include.xml --&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Snackbar-样式"><a href="#Snackbar-样式" class="headerlink" title="Snackbar 样式"></a>Snackbar 样式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Snackbar sBar = Snackbar.make(vw, &quot;UV&quot;, Snackbar.LENGTH_SHORT);</div><div class="line">Snackbar.SnackbarLayout ve = (Snackbar.SnackbarLayout)sBar.getView();</div></pre></td></tr></table></figure>
+<p>Snackbar 背景色<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ve.setBackgroundColor(0xfff44336);</div></pre></td></tr></table></figure></p>
+<p>Snackbar 透明度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ve.setAlpha(0.5f);</div></pre></td></tr></table></figure></p>
+<p>Snackbar 文字颜色<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">((TextView) ve.findViewById(R.id.snackbar_text)).setTextColor(Color.parseColor(&quot;#FFFFFF&quot;));</div></pre></td></tr></table></figure></p>
+<p>Snackbar 位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ViewGroup.LayoutParams vl = ve.getLayoutParams();</div><div class="line">LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(vl.width,vl.height);</div><div class="line">ll.gravity = Gravity.TOP;</div><div class="line">ve.setLayoutParams(ll);</div></pre></td></tr></table></figure></p>
+<p>Snackbar 位置设置需要配合<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ve.setAnimation();</div></pre></td></tr></table></figure></p>
+<p>渐入渐出动画配合使用，Snackbar 动画设置可以参考 Snackbar 源码进行设置。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://developer.android.com/intl/zh-cn/reference/android/support/design/widget/Snackbar.html#" target="_blank" rel="external">Android Developer-Snackbar</a></li>
+<li><a href="http://www.google.com/design/spec/components/snackbars-toasts.html#" target="_blank" rel="external">SnackBars&amp;Toasts</a></li>
+<li><a href="http://www.cnblogs.com/punkisnotdead/p/4663885.html" target="_blank" rel="external">AndroidSupportDesign库之Snackbar使用及源码分析</a></li>
+<li><a href="http://blog.163.com/china_uv/blog/static/1171372672015856212986/" target="_blank" rel="external">Material Design 的 Snackbar 样式</a></li>
+<li><a href="https://github.com/MrEngineer13/SnackBar" target="_blank" rel="external">DEMO1</a></li>
+<li><a href="https://github.com/nispok/snackbar" target="_blank" rel="external">DEMO2</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">material_design</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">snack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/12/21/android_material_design_snack/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-android_event_bus_otto" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1363,239 +1607,6 @@
 
 
   
-    <article id="post-android_opensource_in_github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/10/android_opensource_in_github/">P1:Open Source Projects In GitHub</a>
-    </h1>
-  
-
-        
-        <a href="/2015/12/10/android_opensource_in_github/" class="archive-article-date">
-  	<time datetime="2015-12-10T11:32:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以下是github上关于android开发比较实用的开源项目第一辑。后续会不断的收集更新。</p>
-<h3 id="1-CircularReveal"><a href="#1-CircularReveal" class="headerlink" title="1.CircularReveal"></a>1.CircularReveal</h3><p>Lollipop ViewAnimationUtils.createCircularReveal for everyone 2.3+<br>depends from Jake Wharton’s NineOldsAndroid, or use my modifed version (included auto cancel)<br>效果图：<br><img src="https://camo.githubusercontent.com/b77f83ee8da9b8d5926597fb7c65a457b4029e98/687474703a2f2f3773626e72702e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f6c6f6c6c69706f70322d43697263756c617252657665616c2e676966" alt=""><br><a href="https://github.com/ozodrukh/CircularReveal" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="2-MaterialRangeBar"><a href="#2-MaterialRangeBar" class="headerlink" title="2.MaterialRangeBar"></a>2.MaterialRangeBar</h3><p>MaterialRangeBar is a fork of <a href="https://github.com/edmodo/range-bar" target="_blank" rel="external">https://github.com/edmodo/range-bar</a> that adds some basic material styling, as well as start and end values, values as floats and some other things. It is aiming to mimic this:</p>
-<p><a href="http://www.google.com/design/spec/components/sliders.html" target="_blank" rel="external">http://www.google.com/design/spec/components/sliders.html</a></p>
-<p>It is similar to an enhanced SeekBar widget, though it doesn’t make use of the SeekBar. It provides for the selection of a range of values as well as for a single value. The selectable range values are discrete values designated by tick marks; the pin (handle) will snap to the nearest tick mark. This is my first library project, apologies for poor coding, etc etc.</p>
-<p>Supported on API Level 12 and above for animations.<br>效果图：<br><img src="https://github.com/oli107/material-range-bar/raw/master/Screenshots/pin%20expand.gif" alt=""><br><a href="https://github.com/oli107/material-range-bar" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="3-Android-Indicators"><a href="#3-Android-Indicators" class="headerlink" title="3.Android Indicators"></a>3.Android Indicators</h3><p>A simple library to add some effect to screen title.<br>效果图：<br><img src="https://raw.githubusercontent.com/MoshDev/AndroidIndicators/master/snapshots/2015-01-12%2019_42_02.gif" alt=""><br><a href="https://github.com/MoshDev/AndroidIndicators" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="4-StikkyHeader"><a href="#4-StikkyHeader" class="headerlink" title="4.StikkyHeader"></a>4.StikkyHeader</h3><p>This is a very simple library for Android that allows you to stick an header to a ListView and easily apply animation to it.<br>效果图：<br><img src="https://raw.githubusercontent.com/carlonzo/StikkyHeader/develop/readme/example1.gif" alt=""> <img src="https://raw.githubusercontent.com/carlonzo/StikkyHeader/develop/readme/example2.gif" alt=""><br><a href="https://github.com/carlonzo/StikkyHeader" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="5-Phoenix-Pull-to-Refresh"><a href="#5-Phoenix-Pull-to-Refresh" class="headerlink" title="5.Phoenix Pull-to-Refresh"></a>5.Phoenix Pull-to-Refresh</h3><p>This project aims to provide a simple and customizable pull to refresh implementation. Made in Yalantis.<br>效果图：<br><img src="https://camo.githubusercontent.com/d406ac5a03a2b1fa5cf41fadc8d2408cb8709bdc/68747470733a2f2f6431337961637572716a676172612e636c6f756466726f6e742e6e65742f75736572732f3132353035362f73637265656e73686f74732f313635303331372f7265616c6573746174652d70756c6c5f312d322d332e676966" alt=""><br><a href="https://github.com/Yalantis/Phoenix" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="6-Android-ObservableScrollView"><a href="#6-Android-ObservableScrollView" class="headerlink" title="6.Android-ObservableScrollView"></a>6.Android-ObservableScrollView</h3><p>Android library to observe scroll events on scrollable views.<br>It’s easy to interact with the Toolbar introduced in Android 5.0 Lollipop and may be helpful to implement look and feel of Material Design apps.<br>效果图：<br><img src="https://raw.githubusercontent.com/ksoichiro/Android-ObservableScrollView/master/samples/images/demo12.gif" alt=""> <img src="https://raw.githubusercontent.com/ksoichiro/Android-ObservableScrollView/master/samples/images/demo10.gif" alt=""><br><a href="https://github.com/ksoichiro/Android-ObservableScrollView" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="7-SuperSLiM"><a href="#7-SuperSLiM" class="headerlink" title="7.SuperSLiM"></a>7.SuperSLiM</h3><p>SuperSLiM is a configurable layout manager for a RecyclerView. It provides a vertical scrolling list of sections. Each section is a grouping of one or more views, arranged by a section layout manager (SLM). Sections may have a header, and each header can have its own unique layout. The SLM can be one of the provided (listed below), or of your own creation.<br>SuperSLiM also has a maintained wiki with guides and documentation to help you out.</p>
-<p>效果图：<br><img src="https://camo.githubusercontent.com/3a55cfd0bbfd28e72aa875f4905cc23cc37a87f4/68747470733a2f2f342e62702e626c6f6773706f742e636f6d2f2d657034364a4b70476138342f564a685831706c575743492f4141414141414141585a592f394131417272563361336b2f73313630302f5375706572534c694d2d44656d6f2d736d616c6c2e676966" alt=""><br><a href="https://github.com/TonicArtos/SuperSLiM" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="8-DiscreteSeekBar"><a href="#8-DiscreteSeekBar" class="headerlink" title="8.DiscreteSeekBar"></a>8.DiscreteSeekBar</h3><p>DiscreteSeekbar is my poor attempt to develop an android implementation of the Discrete Slider component from the Google Material Design Guidelines.<br>效果图：<br><img src="https://camo.githubusercontent.com/e717e2597779d1ddc980ace6f3943f62483d8a8c/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f2d376e62565058785568596b2f56472d724f3634704d57492f414141414141414148734d2f614d52676c7432567a726b2f773633392d683438302f616e696d6174696f6e2e676966" alt=""><br><a href="https://github.com/AnderWeb/discreteSeekBar" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="9-Parallax-Everywhere"><a href="#9-Parallax-Everywhere" class="headerlink" title="9.Parallax Everywhere"></a>9.Parallax Everywhere</h3><p>Parallax everywhere (PEW) is a library with alternative android views using parallax effects.<br>效果图：<br><img src="https://raw.githubusercontent.com/Narfss/ParallaxEverywhere/master/parallax-everywhere-animation-optimize.gif" alt=""><br><a href="https://github.com/Narfss/ParallaxEverywhere" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="10-ExpandableTextView"><a href="#10-ExpandableTextView" class="headerlink" title="10.ExpandableTextView"></a>10.ExpandableTextView</h3><p>ExpandableTextView is an Android library that allows developers to easily create an TextView which can expand/collapse just like the Google Play’s app description. Feel free to use it all you want in your Android apps provided that you cite this project.<br>API Level 8 (Froyo) and above.<br>效果图：<br><img src="https://camo.githubusercontent.com/8bf46083b3bd152c2051ae4c234649dbbb975376/68747470733a2f2f7261772e6769746875622e636f6d2f4d616e6162752d47542f457870616e6461626c6554657874566965772f6d61737465722f6172742f726561646d655f64656d6f2e676966" alt=""><br><a href="https://github.com/Manabu-GT/ExpandableTextView" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="11-TransformableDrawableButton"><a href="#11-TransformableDrawableButton" class="headerlink" title="11.TransformableDrawableButton"></a>11.TransformableDrawableButton</h3><p>This library is a extension of the android’s buttons. Using this extension you can add a switchable buttons with a common draws defined, and cool animations when you switch between them.<br>Do you need more explanation?<br>Round buttons Example.<br>效果图：<br><img src="https://raw.githubusercontent.com/Narfss/TransformableDrawableButton/master/draw_round_buttons_example.gif" alt=""><br><img src="https://raw.githubusercontent.com/Narfss/TransformableDrawableButton/master/draw_sides_buttons_example.gif" alt=""><br><a href="https://github.com/Narfss/TransformableDrawableButton" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="12-Android-MatchView"><a href="#12-Android-MatchView" class="headerlink" title="12.Android MatchView"></a>12.Android MatchView</h3><p>This project is learn from (<a href="https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh" target="_blank" rel="external">https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh</a>) .<br>Thanks for liaohuqiu..<br>I like the animation in that project…so i studied his codes and make this..<br>效果图：<br><img src="https://camo.githubusercontent.com/a71e9d26a7f90ea70270b3681d99785a29f83be5/687474703a2f2f7777312e73696e61696d672e636e2f6d773639302f6136393561636465677731656d79746e6b347334356732306567306d6b3439302e676966" alt=""><br><a href="https://github.com/Rogero0o/MatchView" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="13-Artiste"><a href="#13-Artiste" class="headerlink" title="13.Artiste"></a>13.Artiste</h3><p>Artiste is a collection of static methods for creating Path objects initialized with different shapes.<br>效果图：<br><img src="https://raw.githubusercontent.com/mattlogan/Artiste/master/github_assets/artiste_shapes.png" alt=""><br><a href="https://github.com/mattlogan/Artiste" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="14-Android-Ripple-Background"><a href="#14-Android-Ripple-Background" class="headerlink" title="14.Android Ripple Background"></a>14.Android Ripple Background</h3><p>A beautiful ripple animation for your app. You can easily change its color, speed of wave, one ripple or multiple ripples. See demo below.<br>效果图：<br><img src="https://github.com/skyfishjy/android-ripple-background/raw/master/previews/rippleSimple.gif" alt=""><br><img src="https://github.com/skyfishjy/android-ripple-background/raw/master/previews/rippleFoundDevice.gif" alt=""><br><a href="https://github.com/skyfishjy/android-ripple-background" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="15-Material-ish-Progress"><a href="#15-Material-ish-Progress" class="headerlink" title="15.Material-ish Progress"></a>15.Material-ish Progress</h3><p>A material style progress wheel compatible with 2.3<br>Try the demo app on Google Play:<a href="https://play.google.com/store/apps/details?id=com.pnikosis.materialishprogress.sample" target="_blank" rel="external">DEMO</a><br>I needed to keep a consistent (or as close as possible) look in an app across all Android Versions. The progress wheel is quite cool in Lollipop, and pretty horrible on Gingerbread.<br>So I created this. This view uses Progress Wheel as a base, but has been almost completely rewritten (the original view uses handlers for updating the wheel).<br>This implementation tries to follow as close as possible the guidelines for the circular progress as described here.<br>This is how it looks in indeterminate mode (the spinSpeed here is 0.64 which is the default, look below how to change it):<br>效果图：<br><img src="https://github.com/pnikosis/materialish-progress/raw/master/spinningwheel.gif" alt=""><br><img src="https://github.com/pnikosis/materialish-progress/raw/master/spinningwheel_progress.gif" alt=""><br><a href="https://github.com/pnikosis/materialish-progress" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="16-Android-PullLayout"><a href="#16-Android-PullLayout" class="headerlink" title="16.Android-PullLayout"></a>16.Android-PullLayout</h3><p>仿UC天气下拉和微信下拉眼睛<br>效果图：<br><img src="https://raw.githubusercontent.com/BlueMor/Android-PullLayout/master/screenshoot/123.gif" alt=""><br><a href="https://github.com/BlueMor/Android-PullLayout" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="17-CircleProgress"><a href="#17-CircleProgress" class="headerlink" title="17.CircleProgress"></a>17.CircleProgress</h3><p>inspired from <a href="https://github.com/daimajia/NumberProgressBar" target="_blank" rel="external">https://github.com/daimajia/NumberProgressBar</a><br>and CleanMaster<br>3 kinds of progress view are provided, DonutProgress, CircleProgress, ArcProgress.<br>效果图：<br><img src="https://raw.githubusercontent.com/lzyzsd/CircleProgress/master/demos/circle_progress.gif" alt=""><br><a href="https://github.com/lzyzsd/CircleProgress" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="18-CRefreshLayout"><a href="#18-CRefreshLayout" class="headerlink" title="18.CRefreshLayout"></a>18.CRefreshLayout</h3><p>A stunning android pull refresh layout inspired by CBStoreHouseRefreshControl.<br>You can define the refresh view by yourself, like this one at the following:<br>效果图：<br><img src="https://camo.githubusercontent.com/be1ea3e298aa539cbb77e66e1720256fbd8102b0/687474703a2f2f63726566726573686c61796f75742e71696e6975646e2e636f6d2f43526566726573684c61796f75742e676966" alt=""><br><a href="https://github.com/cloay/CRefreshLayout" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="19-ShowTipsView"><a href="#19-ShowTipsView" class="headerlink" title="19.ShowTipsView"></a>19.ShowTipsView</h3><p>ShowTipsView let you highligth specific points of interest of your app.<br>效果图：<br><img src="https://github.com/fredericojssilva/ShowTipsView/raw/master/sample.png" alt=""><br><a href="https://github.com/fredericojssilva/ShowTipsView" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="20-FreeFlow"><a href="#20-FreeFlow" class="headerlink" title="20.FreeFlow"></a>20.FreeFlow</h3><p>A layout engine for Android that decouples layouts from the View containers that manage scrolling and view recycling. FreeFlow makes it really easy to create custom layouts and beautiful transition animations as layouts are changed.</p>
-<p>FreeFlow is a composition based approach to Android Layouts. As opposed to default Android Layouts, FreeFlow Layouts are swappable at runtime which allows views to their new states smoothly. The fundamental difference here is that FreeFlow prefers <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance" target="_blank" rel="external">Composition over Inheritance</a> which makes the system a lot more adaptable.</p>
-<p>Freeflow may be considered in “alpha”. You can help in many ways, by reviewing and making suggestions on api’s to actually finding bugs and submitting patches via pull requests.<br>FreeFlow is inspired by UI frameworks like <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionView_class/Reference/Reference.html" target="_blank" rel="external">UICollectionViews on iOS</a> and the <a href="http://www.adobe.com/devnet/flex/articles/flex4_sparkintro.html" target="_blank" rel="external">Spark Architecture in Flex</a>.<br>效果图：<br><img src="https://camo.githubusercontent.com/2f5b51768a25a694304a3594117a93cb43124c55/68747470733a2f2f7261772e6769746875622e636f6d2f436f6d636173742f46726565466c6f772f6d61737465722f6578616d706c65732f417274626f6f6b2f73637265656e73686f74732f66726565666c6f772e706e67" alt=""><br><a href="https://www.youtube.com/watch?v=xDd-bcGqLkw" target="_blank" rel="external">VIDEO LINK</a><br><a href="https://github.com/Comcast/FreeFlow" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="21-NumberSeekBar"><a href="#21-NumberSeekBar" class="headerlink" title="21.NumberSeekBar"></a>21.NumberSeekBar</h3><p>NumBerSeekBar,非常漂亮的，带有数字进度的SeekBar.<br>效果图：<br><img src="https://camo.githubusercontent.com/e717e2597779d1ddc980ace6f3943f62483d8a8c/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f2d376e62565058785568596b2f56472d724f3634704d57492f414141414141414148734d2f614d52676c7432567a726b2f773633392d683438302f616e696d6174696f6e2e676966" alt=""><br><a href="https://github.com/soyoungboy/NumberSeekBar" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="22-CircularProgressDrawable"><a href="#22-CircularProgressDrawable" class="headerlink" title="22.CircularProgressDrawable"></a>22.CircularProgressDrawable</h3><p>A drawable with capabilities to indicate progress.<br>If you want to achieve interesting effects and animations on Android, a surprisingly easy and fast way to achieve it is subclassing a Drawable instead of subclassing a Button or an ImageView.<br>In order to implement advanced behavior over the Drawable, you can still implement your own animations by using Android animations framework or by the use of listeners on the views you are using.<br>效果图：<br><img src="https://github.com/Sefford/CircularProgressDrawable/raw/master/overshoot.gif" alt=""><br><a href="https://github.com/Sefford/CircularProgressDrawable" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="23-Crouton"><a href="#23-Crouton" class="headerlink" title="23.Crouton"></a>23.Crouton</h3><p>Context sensitive notifications for Android.<br>This library has passed it’s prime and is now considered deprecated.</p>
-<p>With the <a href="http://android-developers.blogspot.co.uk/2015/05/android-design-support-library.html" target="_blank" rel="external">Android Design Support Library</a> introducing <a href="https://developer.android.com/reference/android/support/design/widget/Snackbar.html" target="_blank" rel="external">Snackbar</a> developers get a well crafted pattern to use for context aware notification of users.</p>
-<p>I won’t do any active development for Crouton any more. But I still do accept pull requests that fix bugs.<br>So long, and thanks for all the forks.<br>Crouton is a class that can be used by Android developers that feel the need for an alternative to the Context insensitive Toast.<br>效果图：<br><a href="http://play.google.com/store/apps/details?id=de.keyboardsurfer.app.demo.crouton" target="_blank" rel="external">DEMO IN GOOGLEPLAY</a><br><a href="https://github.com/keyboardsurfer/Crouton" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="24-PagingGridView"><a href="#24-PagingGridView" class="headerlink" title="24.PagingGridView"></a>24.PagingGridView</h3><p>PagingGridView has the ability to add more items on it like PagingListView does. Basically is a GridView with the ability to add more items on it when reaches the end of the list.<br>效果图：<br><img src="http://7xo1gw.com1.z0.glb.clouddn.com/android_opensource_in_github24.jpg" alt=""><br><a href="https://github.com/nicolasjafelle/PagingGridView" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="25-ViewPagerTransforms"><a href="#25-ViewPagerTransforms" class="headerlink" title="25.ViewPagerTransforms"></a>25.ViewPagerTransforms</h3><p>Library containing common animations needed for transforming ViewPager scrolling on Android v13+. This library is a rewrite of the <a href="https://github.com/jfeinstein10/JazzyViewPager" target="_blank" rel="external">JazzyViewPager</a> library and owes credit of the animation concepts directly to its source. The purpose of this rewrite is to provide an easier to use and extend implementation of ViewPager animations.<br>效果图：<br><img src="https://camo.githubusercontent.com/8dabc7f764609bd8fbe9a7c594251e0e5d20ebdc/687474703a2f2f692e696d6775722e636f6d2f72766845326e732e676966" alt=""><br><a href="https://github.com/ToxicBakery/ViewPagerTransforms" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="26-ListviewFilter"><a href="#26-ListviewFilter" class="headerlink" title="26.ListviewFilter"></a>26.ListviewFilter</h3><p>Awesome Listview filter functionality in Android.<br>效果图：<br><img src="https://raw.githubusercontent.com/bhavyahmehta/ListviewFilter/master/screen_shot.png" alt=""><br><a href="https://github.com/bhavyahmehta/ListviewFilter" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="27-SizeAdjustingTextView"><a href="#27-SizeAdjustingTextView" class="headerlink" title="27.SizeAdjustingTextView"></a>27.SizeAdjustingTextView</h3><p>This is based on an open source autosizing textview for Android I found a few weeks ago. The initial approach didn’t resize multiple lines and wasn’t maintained to keep up with changes in Android. I decided to go ahead and create this as a place to preserve the auto sizing text view as well as giving it a platform for some change and to possibly add some features and functionality.<br>效果图：<br><img src="http://7xo1gw.com1.z0.glb.clouddn.com/android_opensource_projects_in_github27.jpg" alt=""><br><a href="https://github.com/erchenger/SizeAdjustingTextView" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="28-FButton"><a href="#28-FButton" class="headerlink" title="28.FButton"></a>28.FButton</h3><p>FButton is a custom Button of Android with “Flat UI” concept. FButton’s design get inspiration from designmono. This library is very small and highly customizable.</p>
-<p>Demo application on playstore: <a href="https://play.google.com/store/apps/details?id=info.hoang8f.fbutton.demo" target="_blank" rel="external">DEMO</a><br>效果图：<br><img src="https://raw.githubusercontent.com/hoang8f/android-flat-button/master/screenshot/screenshot.gif" alt=""><br><a href="https://github.com/hoang8f/android-flat-button" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="29-ALLforYOU-android-UI-design"><a href="#29-ALLforYOU-android-UI-design" class="headerlink" title="29.ALLforYOU android UI design"></a>29.ALLforYOU android UI design</h3><p>实现了滑动Viewpager的时候，背景动态变化的效果. IDE :Android Studio.可以作为APP首次进入的引导页面.<br>效果图：<br><img src="https://raw.githubusercontent.com/TaurusXi/GuideBackgroundColorAnimation/master/art/sample.gif" alt=""><br><a href="https://github.com/TaurusXi/GuideBackgroundColorAnimation" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="30-Android-Color-Thief"><a href="#30-Android-Color-Thief" class="headerlink" title="30.Android Color Thief"></a>30.Android Color Thief</h3><p>A port to Android of Simon Oualid’s “Java Color Thief”.<br>(可以列出来图片中主要的颜色分布情况)<br>效果图：<br><img src="https://raw.githubusercontent.com/HenriqueRocha/android-colorthief/master/sample/android-colorthief.png" alt=""><br><a href="https://github.com/HenriqueRocha/android-colorthief" target="_blank" rel="external">GITHUB地址</a>  <a href="">备用地址</a></p>
-<h3 id="系列文章列表"><a href="#系列文章列表" class="headerlink" title="系列文章列表"></a>系列文章列表</h3><ul>
-<li><a href="http://aresxiong.com/2015/12/10/android_opensource_in_github/" target="_blank" rel="external">P1:Open Source Projects In GitHub </a></li>
-<li><a href="http://aresxiong.com/2015/12/10/android_opensource_in_github2/" target="_blank" rel="external">P2:Open Source Projects In GitHub </a></li>
-</ul>
-<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a href="http://www.github.com" target="_blank" rel="external">GitHub Website</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">opensource</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/12/10/android_opensource_in_github/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-android_screen_record" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/10/android_screen_record/">Android手机如何录制屏幕及转GIF</a>
-    </h1>
-  
-
-        
-        <a href="/2015/12/10/android_screen_record/" class="archive-article-date">
-  	<time datetime="2015-12-10T11:30:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有时候我们需要录制Android手机的屏幕，比如写了一个Demo应用，需要发布到博客和微博上。</p>
-<p>如下是我录制转GIF的效果图<br><img src="http://img2.tuicool.com/iyARveQ.gif" alt=""></p>
-<p>对于Android4.4的上的手机，系统自带了一个命令screenrecord，我们可以很方便的使用。</p>
-<h2 id="录制命令"><a href="#录制命令" class="headerlink" title="录制命令"></a>录制命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell screenrecord /sdcard/test.mp4</div></pre></td></tr></table></figure>
-<p>视频保存目录可以自己指定，如上面的/sdcard/test.mp4，命令执行后会一直录制180s，按下ctrl+c可以提前结束录制<br>设定视频分辨率</p>
-<p>对于高分辨率的手机，录制的视频很大，我们分享又不需要这么大的</p>
-<p>我们可以设置录制的视频分辨率<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell screenrecord --size 848*480 /sdcard/test.mp4</div></pre></td></tr></table></figure></p>
-<h2 id="设定视频比特率"><a href="#设定视频比特率" class="headerlink" title="设定视频比特率"></a>设定视频比特率</h2><p>默认比特率是4M/s，为了分享方便，我们可以调低比特率为2M<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell screenrecord --bit-rate 2000000 /sdcard/test.mp4</div></pre></td></tr></table></figure></p>
-<h2 id="获取视频文件"><a href="#获取视频文件" class="headerlink" title="获取视频文件"></a>获取视频文件</h2><p>使用adb pull 即可把手机SD卡中视频获取到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb pull /sdcard/test.mp4 .</div></pre></td></tr></table></figure></p>
-<h2 id="转GIF文件"><a href="#转GIF文件" class="headerlink" title="转GIF文件"></a>转GIF文件</h2><p>在Windows下有个不错的软件 <a href="http://pan.baidu.com/s/1eRw3npS" target="_blank" rel="external">Free Video to GIF Converter</a> 可以把mp4转换成GIF。</p>
-<p>转换时还可以删除不需要的帧，这点真得很不错。</p>
-<p>Mac上可以使用 <a href="http://www.gifrocket.com/" target="_blank" rel="external">gifrocket</a> 进行转换。</p>
-<p>还有一些在线的 <a href="http://ezgif.com/video-to-gif" target="_blank" rel="external">转换工具</a> 可以使用，但是都会打上水印。</p>
-<h2 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h2><ul>
-<li><a href="http://www.aswifter.com/2015/07/10/android-record-video-to-gif/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">Android手机如何录制屏幕及转GIF</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">screen-record</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/12/10/android_screen_record/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1693,7 +1704,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
+                <a href="javascript:void(0)" class="js-tag color4">activity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1701,7 +1712,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activity</a>
+                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1721,14 +1732,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">application</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android_studio</a>
               </li>
              
@@ -1737,11 +1740,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+                <a href="javascript:void(0)" class="js-tag color2">application</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">book</a>
+                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1753,11 +1756,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+                <a href="javascript:void(0)" class="js-tag color3">context</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">context</a>
+                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1773,19 +1780,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">otto</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">imageloader</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1801,14 +1808,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">snack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">nd</a>
               </li>
              
@@ -1817,11 +1816,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
+                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">snack</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">notification</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1833,11 +1840,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1845,7 +1848,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">project_build</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1857,11 +1876,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
+                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1873,18 +1892,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">textview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">viewpager</a>
               </li>
              
@@ -1893,11 +1900,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">textview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">webview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">volley</a>
+                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1913,19 +1924,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+                <a href="javascript:void(0)" class="js-tag color2">volley</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1934,6 +1933,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1949,6 +1952,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdown</a>
               </li>
              
@@ -1957,11 +1964,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">socket</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">xpnet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">website</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1973,11 +1992,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">socket</a>
+                <a href="javascript:void(0)" class="js-tag color3">书单</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">书单</a>
+                <a href="javascript:void(0)" class="js-tag color2">speech</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1989,11 +2008,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">website</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">speech</a>
+                <a href="javascript:void(0)" class="js-tag color1">htmleditor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2014,6 +2029,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2086,41 +2109,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-friends" q-show="friends">
   		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
     	</section>
     
 
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">ARESXIONG  程序猿一枚  爱生活，爱CODING  永远年轻！永远热泪盈眶！</div>
   	  	
     	</section>
     

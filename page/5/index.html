@@ -42,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="null" class="js-avatar">
+			<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">ARESXIONG</a></h1>
@@ -76,13 +76,11 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -100,7 +98,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="null" class="js-avatar">
+				<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">ARESXIONG</h1>
@@ -117,13 +115,11 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -150,6 +146,224 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-tools_ubuntu_svn_server" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/05/tools_ubuntu_svn_server/">Ubuntu Server端部署SVN</a>
+    </h1>
+  
+
+        
+        <a href="/2015/12/05/tools_ubuntu_svn_server/" class="archive-article-date">
+  	<time datetime="2015-12-05T08:42:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Apache Subversion（简称SVN，svn），是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>首先，从镜像下载安装svn服务器端：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install subversion</div></pre></td></tr></table></figure></p>
+<p>进入目录，准备创建svn目录:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</div></pre></td></tr></table></figure></p>
+<p>创建一个svn目录:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir svn</div></pre></td></tr></table></figure></p>
+<p>修改目录权限为777:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod -R 777 svn</div></pre></td></tr></table></figure></p>
+<p>创建一个svn版本仓库sunny(sunny可以随便起名字)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svnadmin create /usr/<span class="built_in">local</span>/svn/sunny</div></pre></td></tr></table></figure></p>
+<p>进入sunny版本仓库下的配置文件目录:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> sunny/conf</div></pre></td></tr></table></figure></p>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p>1.下面要修改这个目录下的三个配置文件<br>(1)vi svnserve.conf    //配置版本库信息和用户文件和用户密码文件的路径、版本库路径<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># anon-access = read</span></div><div class="line"><span class="comment"># auth-access = write</span></div><div class="line"><span class="comment"># password-db = passwd</span></div></pre></td></tr></table></figure></p>
+<p>//把这四行，前面的#号和空格去掉，变成<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">anon-access = none      //改成none</div><div class="line">auth-access = write</div><div class="line">password-db = passwd</div><div class="line">realm = sunny           //改成自己的版本库</div></pre></td></tr></table></figure></p>
+<p>保存</p>
+<p>(2)vi authz     //文件,创建svn组和组用户的权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[group]</div><div class="line">sunny = gep,wce //创建一个sunny的组，并制定两个用户gep和wce</div><div class="line"> </div><div class="line">[/]             //制定根目录下的权限</div><div class="line">@sunny = rw     //sunny组用户权限为读写</div><div class="line">* = r           //其他用户只有读权限</div></pre></td></tr></table></figure></p>
+<p>保存退出</p>
+<p>(3) vi passwd   //创建或修改用户密码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[users]</div><div class="line">gep = 123456    //用户名为gep的用户的密码为123456</div><div class="line">wce = 123456    //。。。</div></pre></td></tr></table></figure></p>
+<p>保存退出</p>
+<p>2.然后要设置自启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/rc.local</div></pre></td></tr></table></figure></p>
+<p>文件内容如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh  </span></div><div class="line"><span class="comment">#  </span></div><div class="line"><span class="comment"># This script will be executed *after* all the other init scripts.  </span></div><div class="line"><span class="comment"># You can put your own initialization stuff in here if you don't  </span></div><div class="line"><span class="comment"># want to do the full Sys V style init stuff.  </span></div><div class="line">  </div><div class="line">touch /var/lock/subsys/<span class="built_in">local</span>  </div><div class="line">/usr/<span class="built_in">local</span>/webserver/mysql/3306/mysql start  </div><div class="line"><span class="built_in">ulimit</span> -SHn 51200  </div><div class="line">/usr/<span class="built_in">local</span>/webserver/php/sbin/php-fpm start  </div><div class="line">/usr/<span class="built_in">local</span>/webserver/nginx/sbin/nginx  </div><div class="line">svnserve -d -r /usr/<span class="built_in">local</span>/svn/sunny  </div><div class="line"><span class="comment">#/usr/local/webserver/mysql/bin/mysql -u root -p -S /tmp/mysql.sock</span></div></pre></td></tr></table></figure></p>
+<p>3.停止Subversion服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">killall svnserve</div></pre></td></tr></table></figure></p>
+<p>4.启动Subversion服务器 对于单个代码仓库,启动命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svnserve -d -r /var/svn --listen-host 10.19.3.103</div></pre></td></tr></table></figure></p>
+<p>其中-d表示在后台运行，-r指定服务器的根目录，这样访问服务器时就可以直接 用svn://服务器ip来访问了。</p>
+<p>5.说明<br>如果服务器有多ip的话–listen-host来指定监听的ip地址。我们可以在Subversion客户端中通过svn://10.19.3.103来访问Subversion服务器，对于多个代码仓库,我们在启动时也可以用-r选项来指定服务器根目录,但访问时 需要写上每个仓库相对于svn根目录的相对路径. 比如,我们有两个代码仓库/var/vss/repo1 和/var/vss/repo2,我们用如下命令启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">svnserve -d -r /var/vss --listen-host 10.19.3.103</div><div class="line">svnserve -d -r /usr/<span class="built_in">local</span>/svn/dream --listen-host 114.215.94.193</div></pre></td></tr></table></figure></p>
+<p> 在客户端访问时用svn://10.19.3.103/repo1和svn: //10.19.3.103/repo2来分别访问两个项目。</p>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>在SVN中有三个项目：ALL,CRM,OA<br>有三个用户：all,crm,oa<br>步骤：<br>1、打开svnserve.conf，去掉下面四行中的 # 符号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># anon-access = read         #不用账号登录，只有读属性</div><div class="line"># auth-access = write         #账号登录，有读写属性</div><div class="line"># password-db = passwd   #指定用户密码文件</div><div class="line"># authz-db = authz             #指定用户分组和指定各组对各个项目的填写属性</div></pre></td></tr></table></figure></p>
+<p>2、打开passwd，新建三个用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">all = all</div><div class="line">crm = crm</div><div class="line">oa = oa</div></pre></td></tr></table></figure>
+<p>3、打开authz，新建三个gruop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">group_all = all,crm,oa</div><div class="line">group_crm = all,crm</div><div class="line">group_oa = all,oa</div></pre></td></tr></table></figure></p>
+<p>4、在authz中设置权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># 对ALL项目，三个人都有读写权限</div><div class="line">[/ALL]</div><div class="line">@group_all = rw</div><div class="line">* =</div><div class="line"># 对CRM项目，all,crm两个人才有读写权限</div><div class="line">[/CRM]</div><div class="line">@group_crm = rw</div><div class="line">* =</div><div class="line"># 对OA项目，all,oa两个人才有读写权限</div><div class="line">[/OA]</div><div class="line">group_oa = rw</div><div class="line">* =</div></pre></td></tr></table></figure></p>
+<h2 id="常用svn命令"><a href="#常用svn命令" class="headerlink" title="常用svn命令"></a>常用svn命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">lsof -i :3690                        //查看svn是否启动  </div><div class="line">ps aux |grep &apos;svn&apos;                   //查找所有svn启动的进程  </div><div class="line">kill -9 2505                         //杀死2505这个查找到的svn进程  </div><div class="line">svnserve -d -r /usr/local/svn/sunny  //启动svn</div><div class="line">//启动svn(可以把这个放到/etc/local/rc.local文件中，实现开机自启动)  </div><div class="line">  </div><div class="line">svn up                         //更新文件  </div><div class="line">svn commit -m &quot;注释&quot; xxx.php   //提交文件  </div><div class="line">svn ci -m&apos;aaa&apos; test.php        //提交文件  </div><div class="line">  </div><div class="line">svn add file                 //新建文件并添加到svn  </div><div class="line">svn add *.php                //(添加当前目录下所有的php文件)  </div><div class="line">svn delete test.php          //删除test.php  </div><div class="line">svn log test.php             //查看test文件的log信息  </div><div class="line">svn co svn://x.x.x.x ./      //检出一份版本库文件到当前目录  </div><div class="line">  </div><div class="line">svn switch --relocate svn://x.x.x.x  svn://x.x.x.x      //重新定位SVN版本库地址</div></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://subversion.apache.org/" target="_blank" rel="external">Subversion官网</a></li>
+<li><a href="http://www.2cto.com/os/201305/208491.html" target="_blank" rel="external">Ubuntu安装SVN服务器端</a> </li>
+<li><a href="http://www.cnblogs.com/wangkangluo1/archive/2012/09/08/2677115.html" target="_blank" rel="external">Ubuntu下SVN服务器的安装和配置</a></li>
+<li><a href="http://jameswsz.iteye.com/blog/787283" target="_blank" rel="external">SVN 权限配置详细说明</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">svn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/12/05/tools_ubuntu_svn_server/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-android_activity_stack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/03/android_activity_stack/">Intent Flag之FLAG_ACTIVITY_CLEAR_TOP</a>
+    </h1>
+  
+
+        
+        <a href="/2015/12/03/android_activity_stack/" class="archive-article-date">
+  	<time datetime="2015-12-03T06:54:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-12-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Intent如果设置FLAG_ACTIVITY_CLEAR_TOP，并且要启动的activity已经在当前的任务中，那么在该activity之上的activity都会关闭，并且intent会传递给老的activity（现在在栈顶）<br>例如，假设一个任务包含四个activity:A，B,C,D,假设D中启动B并且带有这个标志，则 C和D都会结束，并且B会收到intent，现在的栈变成了A,B。<br>官方解释：</p>
+<blockquote>
+<p>If set, and the activity being launched is already running in the current task, then instead of launching a new instance of that activity, all of the other activities on top of it will be closed and this Intent will be delivered to the (now on top) old activity as a new Intent. </p>
+</blockquote>
+<p>在上面的例子中，当前运行的B要么在他的onNewIntent方法中接受这个Intent，或者结束掉已经存在的实例并且重启一个，这依赖于B的启动模式，如果是”multiple(即standard)”模式,那么就会结束掉当前Activity实例并重启一个，其他启动模式下将会直接调用他的onNewIntent。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>问题：多activity中退出整个程序，例如从A-&gt;B-&gt;C-&gt;D，这时我需要从D直接退出程序。<br>finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行。<br>解决方式：<br>我们知道Android的窗口类提供了历史栈，我们可以通过stack的原理来巧妙的实现，这里我们在D窗口打开A窗口时在Intent中直接加入标志Intent.FLAG_ACTIVITY_CLEAR_TOP，再次开启A时将会清除该进程空间的所有Activity。</p>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>在D中使用下面的代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Intent intent = <span class="keyword">new</span> Intent();   </div><div class="line">intent.setClass(D.<span class="keyword">this</span>, A.class);  </div><div class="line">intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  <span class="comment">//注意本行的FLAG设置  </span></div><div class="line">startActivity(intent);  </div><div class="line">finish();<span class="comment">//关掉自己</span></div></pre></td></tr></table></figure></p>
+<p>在A中加入代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Override  </span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;  </div><div class="line"><span class="comment">// TODO Auto-generated method stub  </span></div><div class="line"><span class="keyword">super</span>.onNewIntent(intent);  </div><div class="line"><span class="comment">//退出  </span></div><div class="line">        <span class="keyword">if</span> ((Intent.FLAG_ACTIVITY_CLEAR_TOP &amp; intent.getFlags()) != <span class="number">0</span>) &#123;  </div><div class="line">               finish();  </div><div class="line">        &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>A的Manifest.xml配置成android:launchMode=”singleTop”</p>
+<p><strong> 原理总结</strong><br>一般A是程序的入口点，从D起一个A的activity，加入标识Intent.FLAG_ACTIVITY_CLEAR_TOP这个过程中会把栈中B，C，都清理掉。因为A是android:launchMode=”singleTop”<br>不会调用oncreate(),而是响应onNewIntent（）这时候判断Intent.FLAG_ACTIVITY_CLEAR_TOP，然后把A finish（）掉。<br>栈中A,B,C,D全部被清理。所以整个程序退出了。</p>
+<p><strong> 补充说明</strong><br>1.可以把A设置成不可见的Acitivity（方法见下面），然后在它的onCreate方法里跳转到“真正”的载入界面就可以实现在D中点退出程序按钮时看上去立即退出程序的效果。<br>2.A必须是程序启动的第一个Activity才能起到这种立即退出的效果，因为Intent.FLAG_ACTIVITY_CLEAR_TOP只会把目标Activity的“上面”的Activity清理掉，而如果目标Activity的“下面”还有Activity（换句话说，目标Activity不在栈底），则finish后只会到他下面的那个Activity，而不是立即退出的效果了。<br>3.不可见Activity<br>在项目的AndroidManifest.xml文件中相应的Activity标签中添加这样一行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:theme=”@android:style/Theme.NoDisplay”</div></pre></td></tr></table></figure></p>
+<p>这样一来，当这个Activity启动的时候，就不会显示出界面了。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://www.xuebuyuan.com/1551789.html" target="_blank" rel="external">FLAG_ACTIVITY_CLEAR_TOP</a></li>
+<li><a href="http://gundumw100.iteye.com/blog/1075281" target="_blank" rel="external">采用FLAG_ACTIVITY_CLEAR_TOP退出整个程序</a></li>
+<li><a href="http://developer.android.com/intl/zh-cn/reference/android/content/Intent.html" target="_blank" rel="external">官网Intent-Flags</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">intentflag</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/12/03/android_activity_stack/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-article_we_have_no_choice_but_to_work_hard" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1244,247 +1458,6 @@
 
 
   
-    <article id="post-tools_tomcat_install" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/23/tools_tomcat_install/">Tomcat安装详细教程[windows+linux]</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/23/tools_tomcat_install/" class="archive-article-date">
-  	<time datetime="2015-11-23T07:04:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下面分别介绍Windows和Linux环境下tomcat安装的教程，其实tomcat的安装主要就是一系列的变量的配置，变量配置OK，安装也就算是顺利完成。</p>
-<h2 id="安装版本"><a href="#安装版本" class="headerlink" title="安装版本"></a>安装版本</h2><ul>
-<li>Windows: jdk1.8.0_51 apache-tomcat-8.0.28-windows-i64</li>
-<li>Linux(Ubuntu): jdk-8u60-linux-i586 apache-tomcat-8.0.28<br>说明：安装包根据自己系统的情况在官网下载即可。</li>
-</ul>
-<h2 id="Windows下的步骤"><a href="#Windows下的步骤" class="headerlink" title="Windows下的步骤"></a>Windows下的步骤</h2><p>1、先安装JDK，跟你平时安装软件一样，非常傻瓜地进行着，在此略过。</p>
-<p>2、配置JDK环境变量<br>简单地说，就是相当给你安装的JDK路径取个别名，方便以后在CMD命令行操作编译。<br> 1）打开控制面板主页。<br> 2）进入系统 — 高级系统设置 — 环境变量（win10）。<br> 3）在系统变量中需要新建3个变量。</p>
-<ul>
-<li>变量名为JAVA_HOME，变量值为：C:\JDK（具体请根据你安装的JDK路径而定，如果是默认应该是这个形式C:\Program Files\Java\jdk1.7）</li>
-<li>变量名为CLASSPATH，变量值为.;%JAVA_HOME%\lib;</li>
-<li>变量名为PATH，变量值为%JAVA_HOME%\bin</li>
-</ul>
-<p>说明：至此完成了JDK的环境配置，请在cmd命令行界面下输入java -version测试是否安装成功。下面进行Tomcat服务器的安装与配置。</p>
-<p>3.Tomcat的安装与配置<br>解压下载文件包，打开系统环境变量请参考JDK配置的操作。<br>在系统变量中添加以下变量</p>
-<ul>
-<li>变量名TOMCAT_HOME 变量值c:\tomcat（安装目录）</li>
-<li>变量名CATALINA_HOME 变量值c:\tomcat （CATALINA_HOME的变量值与TOMCAT_HOME的变量值是一样的）</li>
-<li>PATH 在系统变量path后面追加;%CATALINA_HOME%\bin;%CATALINA_HOME%\lib</li>
-</ul>
-<p>4.启动Tomcat服务器<br>cmd命令行下进入到tomcat的安装目录下的bin目录下，输入startup.bat启动tomcat。<br>在浏览器中输入<a href="http://http://localhost:8080" target="_blank" rel="external">http://http://localhost:8080</a> 或 <a href="http://127.0.0.1:8080" target="_blank" rel="external">http://127.0.0.1:8080</a> 验证是否安装成功。</p>
-<blockquote>
-<p>说明：有时候通过localhost以及127.0.0.1不能访问，并不代表没有安装成功，可以试试ipconfig拿到ip，然后访问改ip的8080端口也可以验证。</p>
-</blockquote>
-<h2 id="Ubuntu下的安装"><a href="#Ubuntu下的安装" class="headerlink" title="Ubuntu下的安装"></a>Ubuntu下的安装</h2><p>1.下载jdk和tomcat的安装包，分别解压缩。将jdk解压缩到/usr/java目录下，将tomcat解压缩到/opt/目录下。（也可以是其他目录，根据自己喜好部署）</p>
-<p>2.配置java的环境变量。位置为/etc/enviroment，当然也可以在.bashrc中配置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PATH=<span class="string">"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:<span class="variable">$JAVA_HOME</span>/bin"</span></div><div class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib:<span class="variable">$JAVA_HOME</span>/jre/lib</div><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_60</div></pre></td></tr></table></figure></p>
-<p>.bashrc中配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_60</div><div class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</div><div class="line"><span class="built_in">export</span> CLASSPATH=.</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意：配置以后都需要source一下使其生效。（source /etc/enviroment）</p>
-</blockquote>
-<p>3.tomcat的配置：<br> 打开tomcat目录，进入bin目录。使用右击使用gedit打开startup.sh文件，在文件最下边添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/java/jdk1.8.0_60</div><div class="line">JRE_HOME=<span class="variable">$JAVA_HOME</span>/jre</div><div class="line">PATH=/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/<span class="built_in">local</span>/games:/usr/java/jdk1.8.0_60/bin</div><div class="line">TOMCAT_HOME=/opt/apache-tomcat-8.0.28</div></pre></td></tr></table></figure></p>
-<p>4.启动、关闭tomcat<br>在tomcat的bin目录下右击 在终端中打开 ，打开终端后输入下边命令启动服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./startup.sh</div></pre></td></tr></table></figure></p>
-<p>输入下边的命令这是关闭服务器：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./shutdown.sh</div></pre></td></tr></table></figure></p>
-<p>验证是否安装成功同Windows下的验证一样，要是localhost不能访问，有ip访问也是可以的。（ifconfig）</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
-<li><a href="http://jingyan.baidu.com/article/624e7459a7d6e734e9ba5a70.html" target="_blank" rel="external">windows 7系统安装与配置Tomcat服务器环境</a></li>
-<li><a href="http://blog.sina.com.cn/s/blog_6386bafd0101dppz.html" target="_blank" rel="external">ubuntu 14.04安装TOMCAT配置环境变量</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/23/tools_tomcat_install/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-database_mysql_cmd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/23/database_mysql_cmd/">MySQL常用命令汇总</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/23/database_mysql_cmd/" class="archive-article-date">
-  	<time datetime="2015-11-23T02:48:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SQL即结构化查询语言(Structured Query Language)，是一门 ANSI 的标准计算机语言，用来访问和操作数据库系统。是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统；同时也是数据库脚本文件的扩展名。SQL语句无论是种类还是数量都是繁多的，很多语句也是经常要用到的，SQL查询语句就是一个典型的例子，无论是高级查询还是低级查询，SQL查询语句的需求是最频繁的。<br>SQL 可与数据库程序协同工作，比如 MS Access、DB2、Informix、MS SQL Server、Oracle、Sybase 以及其他数据库系统。不幸地是，存在着很多不同版本的 SQL 语言，但是为了与 ANSI 标准相兼容，它们必须以相似的方式共同地来支持一些主要的关键词（比如 SELECT、UPDATE、DELETE、INSERT、WHERE 等等）。</p>
-<blockquote>
-<p>注释：除了 SQL 标准之外，大部分 SQL 数据库程序都拥有它们自己的私有扩展！</p>
-</blockquote>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>1.命令行登录mysql<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uusername -ppassword</div></pre></td></tr></table></figure></p>
-<p>2.查看当前所有存在数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show databases;</div></pre></td></tr></table></figure></p>
-<p>3.创建数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create database database-name</div></pre></td></tr></table></figure></p>
-<p>4.删除数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop database dbname</div></pre></td></tr></table></figure></p>
-<p>5.备份数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//创建备份数据的 device</div><div class="line">USE master</div><div class="line">EXEC sp_addumpdevice <span class="string">'disk'</span>, <span class="string">'testBack'</span>, <span class="string">'c:\mssql7backup\MyNwind_1.dat'</span></div><div class="line">//开始备份</div><div class="line">BACKUP DATABASE pubs TO testBack</div></pre></td></tr></table></figure></p>
-<p>6.创建新表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">create table tabname(col1 type1 [not null] [primary key] ,col2 type2 [not null],..)    </div><div class="line">//identity(起始值,递增量) primary key为主键 identity表示递增数量</div></pre></td></tr></table></figure></p>
-<p>7.删除表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop table tabname  //这是将表连同表中信息一起删除但是日志文件中会有记录</div></pre></td></tr></table></figure></p>
-<p>8.删除信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">delete from table_name  //这是将表中信息删除但是会保留这个表</div></pre></td></tr></table></figure></p>
-<p>9.增加列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Alter table table_name add column_name column_type [default 默认值]  //在表中增加一列，[]内的内容为可选项</div></pre></td></tr></table></figure></p>
-<p>10.删除列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Alter table table_name drop column column_name  //从表中删除一列</div></pre></td></tr></table></figure></p>
-<p>11.添加主键和删除主键<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Alter table tabname add primary key(col)</div><div class="line"></div><div class="line">Alter table tabname drop primary key(col)</div></pre></td></tr></table></figure></p>
-<p>12.创建索引和删除索引<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create [unique] index idxname on tabname(col…。)</div><div class="line"></div><div class="line">drop index idxname on tabname</div></pre></td></tr></table></figure></p>
-<p>注：索引是不可更改的，想更改必须删除重新建。</p>
-<p>13.创建视图和删除视图<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create view viewname as select statement</div><div class="line"></div><div class="line">drop view viewname</div></pre></td></tr></table></figure></p>
-<h2 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h2><p>(1) 数据记录筛选：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"select * from 数据表 where字段名=字段值 order by字段名[desc]"</span>（按某个字段值降序排列。默认升序ASC）</div><div class="line">sql=<span class="string">"select * from 数据表 where字段名like '%字段值%' order by 字段名 [desc]"</span></div><div class="line">sql=<span class="string">"select top 10 * from 数据表 where字段名=字段值 order by 字段名 [desc]"</span></div><div class="line">sql=<span class="string">"select top 10 * from 数据表 order by 字段名 [desc]"</span></div><div class="line">sql=<span class="string">"select * from 数据表 where字段名in ('值1','值2','值3')"</span></div><div class="line">sql=<span class="string">"select * from 数据表 where字段名between 值1 and 值2"</span></div></pre></td></tr></table></figure></p>
-<p>(2) 更新数据记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"update 数据表 set字段名=字段值 where 条件表达式"</span></div><div class="line">sql=<span class="string">"update 数据表 set 字段1=值1,字段2=值2 …… 字段n=值n where 条件表达式"</span></div></pre></td></tr></table></figure></p>
-<p>(3) 删除数据记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"delete from 数据表 where 条件表达式"</span></div><div class="line">sql=<span class="string">"delete from 数据表"</span> (将数据表所有记录删除)</div></pre></td></tr></table></figure></p>
-<p>(4) 添加数据记录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql=<span class="string">"insert into 数据表 (字段1,字段2,字段3 …) values (值1,值2,值3 …)"</span></div><div class="line">sql=<span class="string">"insert into 目标数据表 select * from 源数据表"</span> (把源数据表的记录添加到目标数据表)</div></pre></td></tr></table></figure></p>
-<p>(5) 数据记录统计函数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">AVG(字段名) 得出一个表格栏平均值</div><div class="line">COUNT(*;字段名) 对数据行数的统计或对某一栏有值的数据行数统计</div><div class="line">MAX(字段名) 取得一个表格栏最大的值</div><div class="line">MIN(字段名) 取得一个表格栏最小的值</div><div class="line">SUM(字段名) 把数据栏的值相加</div></pre></td></tr></table></figure></p>
-<p>引用以上函数的方法：<br>sql=”select sum(字段名) as 别名 from 数据表 where 条件表达式”<br>set rs=conn.excute(sql)<br>用 rs(“别名”) 获取统计的值，其它函数运用同上。<br>查询去除重复值：select distinct * from table1</p>
-<p>(6) 数据表的建立和删除：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE 数据表名称(字段1 类型1(长度),字段2 类型2(长度) …… )</div></pre></td></tr></table></figure></p>
-<p>(7) 单列求和:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT SUM(字段名) FROM 数据表</div></pre></td></tr></table></figure></p>
-<h2 id="高级查询-待更新"><a href="#高级查询-待更新" class="headerlink" title="高级查询(待更新)"></a>高级查询(待更新)</h2><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
-<li><a href="http://www.w3school.com.cn/sql/sql_syntax.asp" target="_blank" rel="external">W3School-SQL语法</a></li>
-<li><a href="http://baike.baidu.com/link?url=YBxrNSbAf_mevEAmaVz8ZaiNmre5M2C_EdjT7Y6daJeyFAd_Kn5xenAocsn39P_tn8QHfusxlPt5HnWuSBSFAq" target="_blank" rel="external">百度百科-SQL语法大全</a></li>
-<li><a href="http://www.cnblogs.com/yubinfeng/archive/2010/11/02/1867386.html" target="_blank" rel="external">经典SQL语句大全</a></li>
-<li><a href="http://www.cnblogs.com/xd502djj/archive/2010/11/23/1885446.html" target="_blank" rel="external">常用SQL语句</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database/" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/23/database_mysql_cmd/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -1582,7 +1555,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
+                <a href="javascript:void(0)" class="js-tag color4">activity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1590,7 +1563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activity</a>
+                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1610,14 +1583,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">application</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android_studio</a>
               </li>
              
@@ -1626,11 +1591,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+                <a href="javascript:void(0)" class="js-tag color2">application</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">book</a>
+                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1642,11 +1607,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+                <a href="javascript:void(0)" class="js-tag color3">context</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">context</a>
+                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1662,19 +1631,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">otto</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">imageloader</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1690,14 +1659,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">snack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">nd</a>
               </li>
              
@@ -1706,11 +1667,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
+                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">snack</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">notification</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1722,11 +1691,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1734,7 +1699,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">project_build</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1746,11 +1727,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
+                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1762,18 +1743,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">textview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">viewpager</a>
               </li>
              
@@ -1782,11 +1751,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">textview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">webview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">volley</a>
+                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1802,19 +1775,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+                <a href="javascript:void(0)" class="js-tag color2">volley</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1823,6 +1784,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1838,6 +1803,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdown</a>
               </li>
              
@@ -1846,11 +1815,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">socket</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">xpnet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">website</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1862,11 +1843,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">socket</a>
+                <a href="javascript:void(0)" class="js-tag color3">书单</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">书单</a>
+                <a href="javascript:void(0)" class="js-tag color2">speech</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1878,11 +1859,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">website</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">speech</a>
+                <a href="javascript:void(0)" class="js-tag color1">htmleditor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1903,6 +1880,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1975,41 +1960,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-friends" q-show="friends">
   		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
     	</section>
     
 
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">ARESXIONG  程序猿一枚  爱生活，爱CODING  永远年轻！永远热泪盈眶！</div>
   	  	
     	</section>
     

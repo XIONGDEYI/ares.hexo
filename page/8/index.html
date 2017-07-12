@@ -42,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="null" class="js-avatar">
+			<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">ARESXIONG</a></h1>
@@ -76,13 +76,11 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -100,7 +98,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="null" class="js-avatar">
+				<img src="http://7xo1gw.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">ARESXIONG</h1>
@@ -117,13 +115,11 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/XIONGDEYI" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/2659311503" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/jiuduxueshe" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -150,6 +146,258 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-android_pay_alipay" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/09/android_pay_alipay/">Android移动支付之支付宝支付</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/09/android_pay_alipay/" class="archive-article-date">
+  	<time datetime="2015-11-09T02:48:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>项目需要，需要在客户端集成支付宝接口。就研究了一下：因为使用支付宝接口，就需要到<a href="https://openhome.alipay.com/platform/home.htm" target="_blank" rel="external">支付宝开发平台</a>：注册帐号，到管理中心创建应用，申请审核通过后进入应用详情，配置相关参数。下面讲的是申请好之后的操作。登录成功之后，在开发平台的文档中心找到移动支付，点击DEMO下载，下载Android版资源。然后解压出来之后一般会得到三个文件夹。</p>
+<p>这个时候要打开文件名为：  支付宝钱包支付接口开发包2.0标准版的文件。打开之后有一个Demo 文件。打开Demo文件。里面会有三个文件夹：第一个 openssl; 第二个 服务端 Demo,第三个 客户端demo. 这个时候，我们需要关心的是  openssl 文件与 客户端Demo 的文件。</p>
+<p>Android 版的Demo宰你部署运行的时候，会发现不能支付成功。在项目主文件里面这样一段代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line"><span class="comment">//商户PID</span></div><div class="line"> </div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String PARTNER = <span class="string">""</span>;</div><div class="line"> </div><div class="line"><span class="comment">//商户收款账号</span></div><div class="line"> </div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SELLER = <span class="string">""</span>;</div><div class="line"> </div><div class="line"><span class="comment">//商户私钥，pkcs8格式</span></div><div class="line"> </div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String RSA_PRIVATE = <span class="string">""</span>;</div><div class="line"> </div><div class="line"><span class="comment">//支付宝公钥</span></div><div class="line"> </div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String RSA_PUBLIC = <span class="string">""</span>;</div></pre></td></tr></table></figure></p>
+<p>因为这些，都是需要根据商户注册的信息来填写的。所以就算下下载了Demo，没有正确配置，还是不能调起支付的。下面讲的就是如何获取支付所需的私钥与支付宝公钥。</p>
+<h2 id="私钥公钥生成"><a href="#私钥公钥生成" class="headerlink" title="私钥公钥生成"></a>私钥公钥生成</h2><p>刚刚我们解压之后的openssl文件，获取私钥与公钥的方法就在里面：</p>
+<p>首先打开openssl文件：以下是文件打开顺序： openssl–&gt;bin –&gt; 双击 openssl.exe文件。这个时候会出现一个命令框：(首先要说明的是这个文件是在Windows系统下打开的)要是苹果系统好像不行.接着继续往下说：</p>
+<p>打开命令框后:输入第一行命令 ，生成私钥，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">genrsa -out rsa_private_key.pem 1024</div></pre></td></tr></table></figure></p>
+<p>按回车键，接着输入第二行命令，生成公钥：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rsa -<span class="keyword">in</span> rsa_private_key.pem -pubout -out rsa_public_key.pem</div></pre></td></tr></table></figure></p>
+<p>按回车键，接着输入第三行命令，将RSA私钥转换成PKCS8格式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pkcs8 -topk8 -inform PEM -<span class="keyword">in</span> rsa_private_key.pem -outform PEM -nocrypt</div></pre></td></tr></table></figure></p>
+<p>执行完这三行命令后，就生成了两个以：.pem 结尾的文件。这就是我们生成的公钥与私钥.文件位置就在： bin  目录下。当然我们打不开这两个文件。但是我们可以复制一份到桌面，改成Txt文件打开即可。因为我们需要的只是里面的字符串，记住当我们引用这两个长的字符串的时候，需要注意的是：字符串，不能包括，换行，空格，以及其他误加的字符。所以复制的时候一定要小心。</p>
+<p>当然私钥就是我们需要的私钥了，如何获得支付宝公钥呢：回到支付宝开发平台，首先登录,</p>
+<p>一:  点击“查看PID|KEY”，在新打开的<a href="https://b.alipay.com/order/pidAndKey.htm" target="_blank" rel="external">页面</a>，可查看到签约支付宝账号、合作者身份ID(PID)。</p>
+<p>二：输入支付密码，查询key、支付宝公钥。</p>
+<p>三：上传RSA公钥，在“合作伙伴密钥管理”下，点击“RSA加密”后的“添加密钥”，把自己的公钥复制进去。注意不能有空格，换行之类的。<br><img src="http://blog.it985.com/wp-content/uploads/2015/06/zhifub.png" alt=""></p>
+<p>四：点击确认上传，若是提示上传成功。则就是成功。</p>
+<p>这个时候就可查看支付宝公钥了。如图：<br><img src="http://blog.it985.com/wp-content/uploads/2015/06/zhifua.png" alt=""></p>
+<p>至此，将对应的私钥与公钥填到我们的Demo的相应配置类中。按DEMO默认的本地订单信息和签名基本就可以运行了。</p>
+<h2 id="支付流程"><a href="#支付流程" class="headerlink" title="支付流程"></a>支付流程</h2><p><strong> 首先我们看一下整个支付的流程图：</strong><br><img src="https://t.alipayobjects.com/images/rmsweb/T1TkxgXcBjXXXXXXXX.png" alt=""></p>
+<p>流程说明（以Android平台为例）：</p>
+<ul>
+<li>①第2步：调用支付接口：此消息就是本接口所描述的开发包提供的支付对象PayTask，将商户订单信息传进pay方法唤起支付宝收银台。</li>
+<li>②第3步：手机支付宝支付开发包将会按照商户App提供的参数发送支付请求。</li>
+<li>③第5步：异步发送支付通知：手机支付宝支付服务器端发送异步通知消息给商户服务器端。</li>
+<li>④第7步：接口返回支付结果：商户应用客户端通过当前调用支付的Activity的Handler对象，通过它的回调函数获取支付结果。</li>
+</ul>
+<p><strong> 数据交互</strong><br><img src="https://t.alipayobjects.com/images/rmsweb/T1RBNgXblXXXXXXXXX.png" alt=""></p>
+<ul>
+<li>①构造订单数据并签名<br>  商户客户端根据手机支付宝支付开发包的接口规则，通过程序生成得到签名结果及要传输给手机支付宝支付开发包的数据集合。签名相关的公私钥生成及配置规则，详情见官网PID和密钥管理。</li>
+<li>②发送请求数据<br>  把构造完成的数据集合传递给手机支付宝支付开发包。</li>
+<li>③手机支付宝支付开发包对请求数据进行处理<br>  手机支付宝支付开发包将请求数据根据业务规则包装后传递给支付宝服务端，服务端得到这些集合后，会先进行安全校验等验证，一系列验证通过后便会处理完成这次发送过来的数据请求。</li>
+<li>④返回处理的结果数据<br>  对于处理完成的交易，支付宝会以两种方式把数据分别反馈给商户应用和商户服务器。<br>  1.在手机客户端上，开发包客户端直接把处理的数据结果反馈给商户客户端。<br>  2.支付宝服务器主动发起通知，调用商户在请求时设定好的支付回调页面路径（参数notify_url，如果商户没设定，则不会进行该操作）。</li>
+<li>⑤对获取的返回结果数据进行处理<br>  商户在客户端同步通知接收模块或服务端异步通知接收模块获取支付宝返回的结果数据后，可以结合商户自身业务逻辑进行数据处理（如：订单更新、自动充值到会员账号中等）。同步通知结果仅用于结果展示，入库数据需以异步通知为准。</li>
+</ul>
+<h2 id="附加说明"><a href="#附加说明" class="headerlink" title="附加说明"></a>附加说明</h2><p>支付过程中所需的订单信息和签名最好放在server端完成（这也是支付宝官方的建议），客户端通过请求server端数据，自己拼接orderInfo信息。这里要特别说明的是，orderInfo中的字段很多，一定要和server端的字段保持一致，不然客户端拿server端返回的签名调起支付的时候会报“服务器忙”，“订单信息错误”等信息，从而支付失败。<br>开发平台官网上创建的移动支付也需要填写应用的包名还有32位的MD5应用签名。不过我自己在开发的过程中验证发现，这个配置在实际支付中好像并没有用到，不像微信支付，你如果配置有误一定会导致支付失败。初步结论是支付宝并没有把这个信息纳入支付校验，不过出于严谨性考虑，建议开发的过程中准确配置各项参数。</p>
+<p>最后强调一点，在实际开发中如果遇到问题，首先一定要去官网查找开发规范，不要首先想着去论坛获得帮助。官方文档肯定是最权威而且全面的，这样会少走很多弯路。</p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="http://blog.it985.com/12276.html" target="_blank" rel="external">支付宝集成获取私钥与公钥</a></li>
+<li><a href="http://doc.open.alipay.com/doc2/detail?spm=0.0.0.0.58qLhQ&amp;treeId=59&amp;articleId=103658&amp;docType=1" target="_blank" rel="external">官网移动支付交互流程</a></li>
+<li><a href="http://doc.open.alipay.com/doc2/detail?spm=0.0.0.0.mpQtjx&amp;treeId=59&amp;articleId=103663&amp;docType=1" target="_blank" rel="external">官网移动支付请求参数说明</a></li>
+<li><a href="http://download.alipay.com/public/api/base/WS_MOBILE_PAY_SDK_BASE.zip" target="_blank" rel="external">官网DEMO下载地址</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pay</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">AliPay</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/09/android_pay_alipay/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-android_pay_weixinpay" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/09/android_pay_weixinpay/">Android移动支付之微信支付</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/09/android_pay_weixinpay/" class="archive-article-date">
+  	<time datetime="2015-11-09T02:47:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在移动应用的开发中，需要支付的场景很多，这篇文章主要介绍android上微信支付的相关细节，首先建议有这方面需求的人直接上官网下载demo，查询接口文档，不要首先想着去第三方论坛找demo或者解答，这样会少走很多弯路。本文不再赘述在微信开放平台申请app_id,app_key（默认你已经会了，并且有了）。</p>
+<ul>
+<li><a href="https://open.weixin.qq.com/cgi-bin/index?t=home/index&amp;lang=zh_CN" target="_blank" rel="external">微信开发平台</a></li>
+<li><a href="https://pay.weixin.qq.com/index.php/home/login?return_url=%2Findex.php%2Faccount" target="_blank" rel="external">微信商户平台</a><br>客户端的开发主要用到微信开发平台，参数配置也是在开发平台。登录账号后：管理中心 - - - 创建移动应用 - - - 填写基本信息提交审核（一周左右时间审核通过） - - - 点应用查看 - - -开发信息（修改）。IOS应用添加Bundle ID即可，Android开发添加应用包名和应用签名，这些在官方开发文档里写的非常清楚了，请参考官方文档。需要特别说明的是，签名一定要用你自己应用的正式keystore签名（这样当然有一点比较麻烦就是，你每次开发debug时要用签名导出安装才能正常支付，不能直接在手机上run Application）。签名是32位的MD5码，官网也有提供签名工具(文章结尾有下载地址)。</li>
+</ul>
+<h2 id="支付流程"><a href="#支付流程" class="headerlink" title="支付流程"></a>支付流程</h2><p>下面我就来说一说微信支付开发时需要注意的地方：</p>
+<p><strong> 1 首先来看一下，微信支付的架构和流程图</strong><br><img src="http://img.blog.csdn.net/20150321155907863" alt=""></p>
+<p><img src="https://pay.weixin.qq.com/wiki/doc/api/img/chapter8_3_1.png" alt=""></p>
+<p><strong> 2 再来看一下成功调起微信支付的界面</strong><br><img src="http://img.blog.csdn.net/20150321160654957" alt=""></p>
+<h2 id="配置工程"><a href="#配置工程" class="headerlink" title="配置工程"></a>配置工程</h2><p><strong> 1 wxapi.WXPayEntryActivity</strong></p>
+<p>这里必须要有wxapi这个包名，同时必须有WXPayEntryActivity这个类名，否则无法调起微信支付，（开发文档和官方的demo都有提到这点，但是描述没有很详细，容易被坑）。WXPayEntryActivity是请求支付的回调类，再次要特别说明的是，wxapi的包名，WXPayEntryActivity的类名都是固定的，不要自己更改，否则回调失败，尤其需要注意的是wxapi要放到你的应用包路径的第一层目录下，比如你的包路径是com.xx.xxx(这个包路径以你的AndroidManifest中的为准。)，那么wxapi就一定要是com.xx.xxx.wxapi。要是你自己建了一个com.xx.xxx.pay.wxapi的路径，回调也是有问题的。<br><img src="http://img.blog.csdn.net/20150321162930990" alt=""></p>
+<p><strong> 2 支付成功通知</strong></p>
+<p>在WXPayEntryActivity的OnResp中处理，不能以微信返回的通知界面为准（我遇到的情况，网络不稳定的时候，微信返回界面提示支付失败，但是收到微信通知其实已经支付成功了），必须要去自己的服务器查询支付状态，这里微信建议用轮循机制去查询。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResp</span><span class="params">(BaseResp resp)</span> </span>&#123;</div><div class="line">    Log.d(TAG, <span class="string">"onPayFinish, errCode = "</span> + resp.errCode);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) &#123;</div><div class="line">        AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>);</div><div class="line">        builder.setTitle(R.string.app_tip);</div><div class="line">        builder.setMessage(getString(R.string.pay_result_callback_msg, resp.errStr +<span class="string">";code="</span> + String.valueOf(resp.errCode)));</div><div class="line">        builder.show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面是官方的代码，建议你修改成如下的样式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResp</span><span class="params">(BaseResp resp)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) &#123;</div><div class="line"><span class="comment">//          AlertDialog.Builder builder = new AlertDialog.Builder(this);</span></div><div class="line"><span class="comment">//          builder.setTitle(R.string.wxpay_tip);</span></div><div class="line"><span class="comment">//          builder.setMessage(getString(R.string.pay_result_callback_msg, resp.errStr +";code=" + String.valueOf(resp.errCode)));</span></div><div class="line"><span class="comment">//          builder.show();</span></div><div class="line">            <span class="keyword">switch</span> (resp.errCode) &#123;</div><div class="line">                <span class="keyword">case</span> BaseResp.ErrCode.ERR_OK: <span class="comment">//成功</span></div><div class="line">                    T.showShort(<span class="keyword">this</span>, R.string.wxpay_result_success);</div><div class="line">                    IntentUtil.gotoActivityToTop(WXPayEntryActivity.<span class="keyword">this</span>, Mine_gentuan_order_ok.class);</div><div class="line">                    <span class="keyword">this</span>.finish();</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> BaseResp.ErrCode.ERR_USER_CANCEL: <span class="comment">//用户取消</span></div><div class="line">                    T.showShort(<span class="keyword">this</span>, R.string.wxpay_result_cancel);</div><div class="line">                    <span class="keyword">this</span>.finish();</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> BaseResp.ErrCode.ERR_COMM:     <span class="comment">//错误</span></div><div class="line">                    T.showShort(<span class="keyword">this</span>, R.string.wxpay_result_error);</div><div class="line">                    <span class="keyword">this</span>.finish();</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>说明：T是我自己写的一个Toast工具类。回调后返回errCode值的说明：</p>
+<ul>
+<li>0   成功  展示成功页面</li>
+<li>-1  错误  可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。</li>
+<li>-2  用户取消    无需处理。发生场景：用户不支付了，点击取消，返回APP。</li>
+</ul>
+<p><strong> 3 生成prepay_id,在服务器完成，由服务器去跟微信服务器交互，客户端不需要参与。</strong></p>
+<p>这和支付宝支付的主要区别之一，支付宝支付需要客户端拼接订单信息，然后调起支付接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 获取预支付订单号:</div><div class="line">   * prepay_id（服务器完成）！！！</div><div class="line">   * 注意：如果服务端开发文档跟客户端demo里的参数不一样，以demo里的参数为准，</div><div class="line">   * 否则服务器传过来的参数无法调起微信支付！！！</div><div class="line">   * */</div><div class="line">   <span class="function"><span class="keyword">private</span> String <span class="title">genProductArgs</span><span class="params">()</span> </span>&#123;</div><div class="line">       StringBuffer xml = <span class="keyword">new</span> StringBuffer();</div><div class="line"></div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           String  nonceStr = genNonceStr();</div><div class="line"></div><div class="line"></div><div class="line">           xml.append(<span class="string">"&lt;/xml&gt;"</span>);</div><div class="line">          List&lt;NameValuePair&gt; packageParams = <span class="keyword">new</span> LinkedList&lt;NameValuePair&gt;();</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"appid"</span>, Constants.APP_ID));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"body"</span>, <span class="string">"APP pay test"</span>));</div><div class="line">           <span class="comment">/**这里用的是mach_id,跟sign签名时参数名不同，一定要注意*/</span></div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"mch_id"</span>, Constants.MCH_ID));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"nonce_str"</span>, nonceStr));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"notify_url"</span>, <span class="string">"http://121.40.35.3/test"</span>));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"out_trade_no"</span>,genOutTradNo()));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"spbill_create_ip"</span>,<span class="string">"127.0.0.1"</span>));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"total_fee"</span>, <span class="string">"1"</span>));</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"trade_type"</span>, <span class="string">"APP"</span>));</div><div class="line"></div><div class="line"></div><div class="line">           String sign = genPackageSign(packageParams);</div><div class="line">           packageParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"sign"</span>, sign));</div><div class="line"></div><div class="line"></div><div class="line">          String xmlstring =toXml(packageParams);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> xmlstring;</div><div class="line"></div><div class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">           Log.e(TAG, <span class="string">"genProductArgs fail, ex = "</span> + e.getMessage());</div><div class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p><strong> 4 获取二次签名sign</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">genPayReq</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        req.appId = Constants.APP_ID;</div><div class="line">        req.partnerId = Constants.MCH_ID;</div><div class="line">        req.prepayId = resultunifiedorder.get(<span class="string">"prepay_id"</span>);</div><div class="line"><span class="comment">//      req.packageValue = "prepay_id="+resultunifiedorder.get("prepay_id");</span></div><div class="line">        req.packageValue = <span class="string">"Sign=WXPay"</span>;</div><div class="line">        req.nonceStr = genNonceStr();</div><div class="line">        req.timeStamp = String.valueOf(genTimeStamp());</div><div class="line"></div><div class="line"></div><div class="line">        List&lt;NameValuePair&gt; signParams = <span class="keyword">new</span> LinkedList&lt;NameValuePair&gt;();</div><div class="line">        signParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"appid"</span>, req.appId));</div><div class="line">        signParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"noncestr"</span>, req.nonceStr));</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 这里的package参数值必须是Sign=WXPay,否则IOS端调不起微信支付，</div><div class="line">         * (参数值是"prepay_id="+resultunifiedorder.get("prepay_id")的时候Android可以，IOS不可以)</div><div class="line">         */</div><div class="line">        signParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"package"</span>, req.packageValue));</div><div class="line">        <span class="comment">/**注意二次签名这里不再是mch_id,变成了prepayid;*/</span></div><div class="line">        signParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"partnerid"</span>, req.partnerId));</div><div class="line">        signParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"prepayid"</span>, req.prepayId));</div><div class="line">        signParams.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"timestamp"</span>, req.timeStamp));</div><div class="line"></div><div class="line">        req.sign = genAppSign(signParams);</div><div class="line"></div><div class="line">        sb.append(<span class="string">"sign\n"</span>+req.sign+<span class="string">"\n\n"</span>);</div><div class="line"></div><div class="line">        show.setText(sb.toString());</div><div class="line"></div><div class="line">        Log.e(<span class="string">"orion"</span>, signParams.toString());</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong> 5 起调微信支付</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendPayReq</span><span class="params">()</span> </span>&#123;</div><div class="line">    msgApi.registerApp(Constants.APP_ID);</div><div class="line">    msgApi.sendReq(req);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong> 6 配置Manifest.xml，权限什么的按照文档的配置就行了</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">activity</span></span></div><div class="line">           <span class="attr">android:name</span>=<span class="string">".PayActivity"</span></div><div class="line">           <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></div><div class="line">           <span class="attr">android:exported</span>=<span class="string">"true"</span></div><div class="line">           <span class="attr">android:launchMode</span>=<span class="string">"singleTop"</span>&gt;</div><div class="line">           <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></div><div class="line">           <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">           <span class="comment">&lt;!--这个intent-filter不要忘了--&gt;</span></div><div class="line">           <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span>/&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"wxd930ea5d5a258f4f"</span>/&gt;</span></div><div class="line">           <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>5，支付通知接口和退款接口按照开发文档即可，这里不再赘述。</p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=8_3" target="_blank" rel="external">官网微信支付业务流程</a></li>
+<li><a href="https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=8_5" target="_blank" rel="external">官网APP端开发步骤</a></li>
+<li><a href="https://open.weixin.qq.com/zh_CN/htmledition/res/dev/download/sdk/Gen_Signature_Android.apk" target="_blank" rel="external">应用签名工具</a></li>
+<li><a href="http://blog.csdn.net/baidu_17508977/article/details/44517283" target="_blank" rel="external">微信支付（不得不吐槽腾讯这个坑货）</a></li>
+<li><a href="http://download.csdn.net/detail/baidu_17508977/8997405" target="_blank" rel="external">DEMO下载地址</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WXPay</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pay</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/android/" class="article-tag-list-link color3">android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/09/android_pay_weixinpay/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-android_image_process" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1162,208 +1410,6 @@
 
 
   
-    <article id="post-tools_sublime_text3_shortkey" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/05/tools_sublime_text3_shortkey/">sublime实用功能和常用快捷键[Windows]</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/05/tools_sublime_text3_shortkey/" class="archive-article-date">
-  	<time datetime="2015-11-05T09:25:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>下面是sublime Text3的一些实用功能和常用快捷键介绍。ST3在Mac OX与Windows不同平台下的快捷键差别很大。注意下面是针对windows平台的解说。</p>
-<h2 id="1-可以直接打开图片"><a href="#1-可以直接打开图片" class="headerlink" title="1. 可以直接打开图片"></a>1. 可以直接打开图片</h2><p>版本3有个很好的特性（对于前端来说）：可以直接在ST3中打开图片。</p>
-<h2 id="2-Goto-Anything功能-—-快速查找（ctrl-P）"><a href="#2-Goto-Anything功能-—-快速查找（ctrl-P）" class="headerlink" title="2. Goto Anything功能 — 快速查找（ctrl + P）"></a>2. Goto Anything功能 — 快速查找（ctrl + P）</h2><ul>
-<li>输入@+函数名可以快速找到函数。</li>
-<li>输入#+文本可以快速进行文件内文本匹配。<h2 id="3-多行游标功能（ctrl-D，非常实用）"><a href="#3-多行游标功能（ctrl-D，非常实用）" class="headerlink" title="3. 多行游标功能（ctrl + D，非常实用）"></a>3. 多行游标功能（ctrl + D，非常实用）</h2>如何将文件中的某个单词更改为另一个？<br>方法一：利用查找替换功能：ctrl + H（类似于很多编辑器，如NotePad++）<br>方法二：多行游标功能，选中一个后，按ctrl+D可以同时选中另一个，同时多了另一个光标。<br>但多行游标能完成查找替换功能不能完成的工作。<br>比如在某些符合条件的语句后面添加新行，同时加入一些新的文本，如何快速的达到这一目的？</li>
-<li>可以选中某一个模式，然后ctrl+D选中另一个，如果有某些不想添加新行的模式则按ctrl+K，ctrl+D跳过这个进入下一个符合条件的模式行。</li>
-<li>还可以按Alt + F3快捷键全选所有符合条件的单词，产生多个光标，而不用一个个ctrl+D选中。</li>
-<li>如果要在每行都加入光标，可以先ctrl+A然后ctrl+shift+L即可。</li>
-<li>如果想在某个字符的多行后面加上光标，可以将光标放在这个字符后面，按住shift键，然后右键可以向下拖动产生多个光标。<h2 id="4-命令模式（推荐）"><a href="#4-命令模式（推荐）" class="headerlink" title="4. 命令模式（推荐）"></a>4. 命令模式（推荐）</h2>比如用ctrl+N新建一个文件后，默认是plain text，没有语法高亮功能，如何设置语法模式？</li>
-<li>可以通过右下角的语法选择区选择希望设置的语法模式。</li>
-<li>还有另一种更好的办法，即使用ctrl + shift + P打开命令模式，然后输入set syntax [language]设置为某种语言的语法模式，比如set syntax java则设置为java语法高亮。</li>
-<li>st3支持模糊匹配，你也可以直接输入syntax java或ssjava。</li>
-<li>若当前已经是某种语言的语法模式，则可以直接输入其它语言进行切换（而不用输入set syntax或syntax了），比如当然为java语法模式，那么直接输入js就可以马上切换为javascript语法模式。<br>还可以输入minimap隐藏或显示右边的minimap缩影<h2 id="5-快速跳转到某一行"><a href="#5-快速跳转到某一行" class="headerlink" title="5. 快速跳转到某一行"></a>5. 快速跳转到某一行</h2>按下Ctrl + G，输入行号，可以快速跳转到该行。（NotePad也是一样）<h2 id="6-快速添加新行"><a href="#6-快速添加新行" class="headerlink" title="6. 快速添加新行"></a>6. 快速添加新行</h2></li>
-<li>Ctrl + Enter可以在当前行下新建一行。</li>
-<li>Ctrl + Shift + Enter可以在当前行上面添加一行。<h2 id="7-多行缩进"><a href="#7-多行缩进" class="headerlink" title="7. 多行缩进"></a>7. 多行缩进</h2>选中多行后按Ctrl + ]可以增加缩进，按Ctrl + [可以减少缩进。<br>PS：发现用Tab和Shift + Tab也是可以的。<h2 id="8-完整拷贝，避免格式错乱"><a href="#8-完整拷贝，避免格式错乱" class="headerlink" title="8. 完整拷贝，避免格式错乱"></a>8. 完整拷贝，避免格式错乱</h2>我们发现，在从别的文件中拷贝一段代码过来的时候，多半只是第一行缩进，后面都乱了，这时可以使用Ctrl + Shift + V进行粘贴，可以在粘贴的过程中保持缩进，这时格式都是正确的。<h2 id="9-重新打开关闭的标签"><a href="#9-重新打开关闭的标签" class="headerlink" title="9. 重新打开关闭的标签"></a>9. 重新打开关闭的标签</h2>在Chrome里面，如果你不小心关闭了某个标签页并想恢复它，你可以按下Shift + Ctrl + T重新打开它。<br>在ST3中也一样，如果你不小心关闭了某个文件，可以按下Shift + Ctrl + T快速恢复。连续重复该按键，ST将会按照关闭的先后顺序重新打开标签页。<h2 id="10-按住shift-ctrl然后按←或→可快速选中一行中的某一部分，连续按扩大选择范围。"><a href="#10-按住shift-ctrl然后按←或→可快速选中一行中的某一部分，连续按扩大选择范围。" class="headerlink" title="10. 按住shift + ctrl然后按←或→可快速选中一行中的某一部分，连续按扩大选择范围。"></a>10. 按住shift + ctrl然后按←或→可快速选中一行中的某一部分，连续按扩大选择范围。</h2>比如你需要将某一部分进行注释(ctrl+/)或删除，使用这个功能就很方便。<h2 id="11-上下移动行"><a href="#11-上下移动行" class="headerlink" title="11. 上下移动行"></a>11. 上下移动行</h2>定位光标或选中某块区域，然后按shift+ctrl+↑↓可以上下移动该行。<h2 id="12-shift-ctrl-d可快速复制光标所在的一整行，并复制到该行之前。"><a href="#12-shift-ctrl-d可快速复制光标所在的一整行，并复制到该行之前。" class="headerlink" title="12. shift + ctrl + d可快速复制光标所在的一整行，并复制到该行之前。"></a>12. shift + ctrl + d可快速复制光标所在的一整行，并复制到该行之前。</h2><h2 id="13-Ctrl-Shift-M：选中花括号里面的全部内容不包括-。"><a href="#13-Ctrl-Shift-M：选中花括号里面的全部内容不包括-。" class="headerlink" title="13. Ctrl+Shift+M：选中花括号里面的全部内容不包括{}。"></a>13. Ctrl+Shift+M：选中花括号里面的全部内容不包括{}。</h2><h2 id="14-Ctrl-Shift-K：删除整行。"><a href="#14-Ctrl-Shift-K：删除整行。" class="headerlink" title="14. Ctrl+Shift+K：删除整行。"></a>14. Ctrl+Shift+K：删除整行。</h2><h2 id="15-快速关闭HTML里的标签"><a href="#15-快速关闭HTML里的标签" class="headerlink" title="15. 快速关闭HTML里的标签"></a>15. 快速关闭HTML里的标签</h2>写html文件时利用快捷键Alt + .可以快速关闭某个标签，如写<html>后按Alt+.可以快速得到</html>。<br>但这样还是挺繁琐，可以使用前端插件Emmet插件，直接在新建的html文件里（首先得设置语法模式为html）直接输入!（代表html5格式的html文档）然后按下ctrl+E即可。</li>
-</ul>
-<h3 id="附：如何安装package-control"><a href="#附：如何安装package-control" class="headerlink" title="附：如何安装package control"></a>附：如何安装package control</h3><p>通过快捷键ctrl+` 或者View &gt; Show Console 菜单打开控制台，输入下面Python执行代码（适用于Python3.x解释器）：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib.request,os; pf=<span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(ipp) <span class="keyword">else</span> <span class="keyword">None</span>; urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler( ))); open( os.path.join( ipp, pf), <span class="string">'wb'</span> ).write( urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> +pf.replace( <span class="string">' '</span>,<span class="string">'%20'</span> )).read()); print( <span class="string">'Please restart Sublime Text to finish installation'</span>)</div></pre></td></tr></table></figure></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="http://www.cnblogs.com/lanxuezaipiao/p/4151095.html" target="_blank" rel="external">原文链接</a></li>
-<li><a href="http://www.imooc.com/view/40?utm_source=jobboleblog" target="_blank" rel="external">前端开发工具技巧介绍—Sublime篇</a></li>
-<li><a href="http://www.cnblogs.com/lhb25/p/10-essential-sublime-text-plugins.html" target="_blank" rel="external">全栈开发必备的10款 Sublime Text 插件</a></li>
-<li><a href="http://www.cnblogs.com/liun1994/p/3692488.html" target="_blank" rel="external">Sublime Text shift+ctrl妙用</a></li>
-<li><a href="http://www.cnblogs.com/wayou/p/highlight_code_with_sublimetext_style.html" target="_blank" rel="external">如何在博客中使用SublimeText风格的代码高亮样式</a></li>
-<li><a href="http://www.jianshu.com/p/378338f10263" target="_blank" rel="external">sublime text 2 下的Markdown写作</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sublime</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/05/tools_sublime_text3_shortkey/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-music_folk_playlist" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/05/music_folk_playlist/">我喜欢的民谣歌曲</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/05/music_folk_playlist/" class="archive-article-date">
-  	<time datetime="2015-11-05T07:23:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>现在才知道markdown支持网易外链，直接将iframe代码放进markdown文件就可以了，宽度和高度可以自由设置。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="400" src="http://music.163.com/outchain/player?type=0&id=67001575&auto=0&height=430"></iframe>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">music</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdown</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">iframe</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/music/" class="article-tag-list-link color1">music</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/05/music_folk_playlist/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -1461,7 +1507,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
+                <a href="javascript:void(0)" class="js-tag color4">activity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1469,7 +1515,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activity</a>
+                <a href="javascript:void(0)" class="js-tag color1">intentflag</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1489,14 +1535,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">application</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android_studio</a>
               </li>
              
@@ -1505,11 +1543,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+                <a href="javascript:void(0)" class="js-tag color2">application</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">book</a>
+                <a href="javascript:void(0)" class="js-tag color2">obfuscation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1521,11 +1559,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+                <a href="javascript:void(0)" class="js-tag color3">context</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">context</a>
+                <a href="javascript:void(0)" class="js-tag color1">android_ui</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1541,19 +1583,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">code_collection</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">otto</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">imageloader</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">handler</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1569,14 +1611,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">snack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">nd</a>
               </li>
              
@@ -1585,11 +1619,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
+                <a href="javascript:void(0)" class="js-tag color1">material_design</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">snack</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">notification</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1601,11 +1643,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1613,7 +1651,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">project_build</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">AliPay</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">eventbus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1625,11 +1679,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">pulltorefreshlistview</a>
+                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">screen-record</a>
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1641,18 +1695,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">androidstudio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">textview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">viewpager</a>
               </li>
              
@@ -1661,11 +1703,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">textview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">webview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">volley</a>
+                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1681,19 +1727,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Einstein</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+                <a href="javascript:void(0)" class="js-tag color2">volley</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1702,6 +1736,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">感悟</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1717,6 +1755,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdown</a>
               </li>
              
@@ -1725,11 +1767,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saxophone</a>
+                <a href="javascript:void(0)" class="js-tag color3">ORMLite</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GreenDao</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">socket</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">xpnet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">website</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1741,11 +1795,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">socket</a>
+                <a href="javascript:void(0)" class="js-tag color3">书单</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">书单</a>
+                <a href="javascript:void(0)" class="js-tag color2">speech</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1757,11 +1811,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">website</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">speech</a>
+                <a href="javascript:void(0)" class="js-tag color1">htmleditor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1782,6 +1832,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1854,41 +1912,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-friends" q-show="friends">
   		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
     	</section>
     
 
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">ARESXIONG  程序猿一枚  爱生活，爱CODING  永远年轻！永远热泪盈眶！</div>
   	  	
     	</section>
     
